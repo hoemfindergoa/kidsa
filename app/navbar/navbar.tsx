@@ -1,7 +1,8 @@
-"use client";
+"use client"; 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
+import { StarFilledIcon } from "@radix-ui/react-icons";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,16 +16,16 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-br from-primary/10 via-accent/20 to-secondary/10 backdrop-blur-md shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-2xl font-bold text-white">K</span>
+            <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center shadow-lg">
+              <StarFilledIcon className="w-6 h-6 fill-accent text-accent" />
             </div>
             <div>
-              <div className="text-xl font-bold text-foreground">Kidsa</div>
+              <div className="text-xl font-bold text-foreground">Happy Kidsa</div>
               <div className="text-xs text-muted-foreground">Kindergarten</div>
             </div>
           </div>
@@ -35,7 +36,7 @@ const Navbar = () => {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-foreground hover:text-blue-500 transition-colors font-medium"
+                className="text-foreground hover:text-primary transition-colors font-medium"
               >
                 {link.label}
               </a>
@@ -44,11 +45,11 @@ const Navbar = () => {
           
           {/* CTA Buttons */}
           <div className="flex items-center gap-4">
-            <div className="hidden lg:flex items-center gap-2 text-blue-500">
+            <div className="hidden lg:flex items-center gap-2 text-primary">
               <Phone className="w-4 h-4" />
               <span className="font-semibold">(123) 456-7890</span>
             </div>
-            <Button size="sm" className="hidden sm:inline-flex bg-blue-500 hover:bg-blue-600">
+            <Button size="sm" className="hidden sm:inline-flex">
               Enroll Now
             </Button>
             <Button
@@ -74,17 +75,17 @@ const Navbar = () => {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-foreground hover:text-blue-500 transition-colors font-medium py-2"
+                  className="text-foreground hover:text-primary transition-colors font-medium py-2"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
                 </a>
               ))}
-              <div className="flex items-center gap-2 text-blue-500 py-2">
+              <div className="flex items-center gap-2 text-primary py-2">
                 <Phone className="w-4 h-4" />
                 <span className="font-semibold">(123) 456-7890</span>
               </div>
-              <Button className="w-full bg-blue-500 hover:bg-blue-600">
+              <Button className="w-full">
                 Enroll Now
               </Button>
             </div>
@@ -92,8 +93,26 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Cloud-like bottom border */}
-    
+      {/* Cloud-like bottom border - matching Hero component */}
+      {/* <div className="relative h-8 overflow-hidden bg-transparent">
+        <svg
+          className="absolute bottom-0 w-full h-full"
+          viewBox="0 0 1200 50"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0,30 Q50,10 100,30 T200,30 T300,30 T400,30 T500,30 T600,30 T700,30 T800,30 T900,30 T1000,30 T1100,30 T1200,30 L1200,0 L0,0 Z"
+            fill="currentColor"
+            className="text-orange-200 dark:text-orange-300"
+          />
+          <path
+            d="M0,40 Q60,25 120,40 T240,40 T360,40 T480,40 T600,40 T720,40 T840,40 T960,40 T1080,40 T1200,40 L1200,0 L0,0 Z"
+            fill="currentColor"
+            className="text-orange-200 dark:text-orange-300 opacity-60"
+          />
+        </svg>
+      </div> */}
     </nav>
   );
 };

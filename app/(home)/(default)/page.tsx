@@ -9,9 +9,9 @@ export default function Page() {
     <div className="w-full overflow-x-hidden relative">
       <NimaayaNavbar />
       <HeroCarousel />
-      <DiagnosticService />
+      {/* <DiagnosticService />
       <Radiologyservices />
-      <IntervantionalRadiology />
+      <IntervantionalRadiology /> */}
     </div>
   );
 }

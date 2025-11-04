@@ -40,16 +40,16 @@ const Hero = () => {
       <div className="absolute top-1/2 right-10 w-24 h-24 bg-pink/30 rounded-full blur-2xl animate-bounce-slow" />
       
       {/* Floating Animals and Birds */}
-      <div className="absolute top-32 left-20 w-32 h-32 animate-float opacity-80">
+      <div className="absolute md:top-42 md:left-20 left-[520px] w-32 h-32 animate-float opacity-80">
         <Image src={butterflyImage} alt="Butterfly" className="w-full h-full" />
       </div>
-      <div className="absolute top-48 right-32 w-32 h-32 animate-bounce-slow opacity-80" style={{ animationDelay: '0.5s' }}>
+      <div className="absolute md:top-[600px] m:right-32 md:left-[1000px]  left-[250px] w-32 h-32 animate-bounce-slow opacity-80" style={{ animationDelay: '0.5s' }}>
         <Image src={birdImage} alt="Bird" className="w-full h-full" />
       </div>
       <div className="absolute bottom-40 left-32 w-32 h-32 animate-float opacity-70" style={{ animationDelay: '1.5s' }}>
         <Image src={cloudImage} alt="Cloud" className="w-full h-full" />
       </div>
-      <div className="absolute top-[400px] right-32 w-32 h-32 animate-bounce-slow opacity-80" style={{ animationDelay: '0.5s' }}>
+      <div className="absolute md:top-[400px] top-[600px] md:right-32 w-32 h-32 animate-bounce-slow opacity-80" style={{ animationDelay: '0.5s' }}>
         <Image src={butterflyImage} alt="Butterfly" className="w-full h-full" />
       </div>
       
