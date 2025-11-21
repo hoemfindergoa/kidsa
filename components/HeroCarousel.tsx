@@ -1,130 +1,194 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { ArrowRightIcon , StarFilledIcon } from "@radix-ui/react-icons";
-import heroImage from "../public/hero-kids.jpg"
+import { Card, CardContent } from "@/components/ui/card";
+import { ArrowRightIcon, StarFilledIcon } from "@radix-ui/react-icons";
+import Image from "next/image";
+import heroImage from "../public/hero-kids.jpg";
 import butterflyImage from "../public/butterfly.png";
 import birdImage from "../public/bird.png";
 import cloudImage from "../public/cloud.png";
-import Image from "next/image";
 
 const Hero = () => {
+  const stats = [
+    {
+      value: "15+",
+      label: "Years Experience",
+      color: "text-[#FF8A80]",
+      bgColor: "bg-[#FF8A80]/10",
+    },
+    {
+      value: "500+",
+      label: "Happy Students",
+      color: "text-[#B8F3D1]",
+      textColor: "text-emerald-400",
+      bgColor: "bg-[#B8F3D1]/20",
+    },
+    {
+      value: "30+",
+      label: "Expert Teachers",
+      color: "text-[#A7D8FF]",
+      bgColor: "bg-[#A7D8FF]/10",
+    },
+  ];
+
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-accent/20 to-secondary/10 pt-20 pb-32">
-        <div className="relative h-12 overflow-hidden  bg-transparent">
-        <svg
-          className="absolute bottom-0 w-full h-full"
-          viewBox="0 0 1200 50"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0,30 Q50,10 100,30 T200,30 T300,30 T400,30 T500,30 T600,30 T700,30 T800,30 T900,30 T1000,30 T1100,30 T1200,30 L1200,0 L0,0 Z"
-            fill="currentColor"
-            className="text-orange-200 dark:text-orange-300"
-          />
-          <path
-            d="M0,40 Q60,25 120,40 T240,40 T360,40 T480,40 T600,40 T720,40 T840,40 T960,40 T1080,40 T1200,40 L1200,0 L0,0 Z"
-            fill="currentColor"
-            className="text-orange-200 dark:text-orange-300 opacity-60"
-          />
-          {/* <path
-            d="M0,50 Q75,35 150,50 T300,50 T450,50 T600,50 T750,50 T900,50 T1050,50 T1200,50 L1200,0 L0,0 Z"
-            fill="currentColor"
-            className="text-white dark:text-gray-950 opacity-40"
-          /> */}
-        </svg>
+    <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#FFF9F0] to-white pt-32 pb-24">
+      {/* Floating Background Elements */}
+      <div className="absolute top-32 left-20 w-28 h-28 animate-float opacity-80 z-10">
+        <Image
+          src={butterflyImage}
+          alt="Butterfly"
+          className="w-full h-full object-contain drop-shadow-lg"
+        />
       </div>
-      {/* Decorative Elements */}
-      <div className="absolute top-10 left-10 w-32 h-32 bg-accent/30 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-20 right-20 w-40 h-40 bg-secondary/30 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
-      <div className="absolute top-1/2 right-10 w-24 h-24 bg-pink/30 rounded-full blur-2xl animate-bounce-slow" />
-      
-      {/* Floating Animals and Birds */}
-      <div className="absolute md:top-42 md:left-20 left-[520px] w-32 h-32 animate-float opacity-80">
-        <Image src={butterflyImage} alt="Butterfly" className="w-full h-full" />
+      <div
+        className="absolute top-40 right-32 w-28 h-28 animate-bounce-slow opacity-80 z-10"
+        style={{ animationDelay: "0.5s" }}
+      >
+        <Image
+          src={birdImage}
+          alt="Bird"
+          className="w-full h-full object-contain drop-shadow-lg"
+        />
       </div>
-      <div className="absolute md:top-[600px] m:right-32 md:left-[1000px]  left-[250px] w-32 h-32 animate-bounce-slow opacity-80" style={{ animationDelay: '0.5s' }}>
-        <Image src={birdImage} alt="Bird" className="w-full h-full" />
+      <div
+        className="absolute bottom-32 left-10 w-32 h-32 animate-float opacity-70 z-10"
+        style={{ animationDelay: "1.5s" }}
+      >
+        <Image
+          src={cloudImage}
+          alt="Cloud"
+          className="w-full h-full object-contain drop-shadow-lg"
+        />
       </div>
-      <div className="absolute bottom-40 left-32 w-32 h-32 animate-float opacity-70" style={{ animationDelay: '1.5s' }}>
-        <Image src={cloudImage} alt="Cloud" className="w-full h-full" />
+      <div
+        className="absolute bottom-40 right-20 w-24 h-24 animate-bounce-slow opacity-80 z-10"
+        style={{ animationDelay: "1s" }}
+      >
+        <Image
+          src={butterflyImage}
+          alt="Butterfly"
+          className="w-full h-full object-contain drop-shadow-lg"
+        />
       </div>
-      <div className="absolute md:top-[400px] top-[600px] md:right-32 w-32 h-32 animate-bounce-slow opacity-80" style={{ animationDelay: '0.5s' }}>
-        <Image src={butterflyImage} alt="Butterfly" className="w-full h-full" />
-      </div>
-      
-      <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+
+      {/* Decorative Blobs */}
+      <div className="absolute top-1/4 right-0 w-64 h-64 bg-[#A7D8FF]/20 rounded-full blur-3xl -z-0" />
+      <div className="absolute bottom-1/4 left-0 w-72 h-72 bg-[#FFE99B]/20 rounded-full blur-3xl -z-0" />
+      <div className="absolute top-1/2 left-1/3 w-48 h-48 bg-[#FF8A80]/10 rounded-full blur-3xl -z-0" />
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
-          <div className="space-y-8 animate-fade-in">
-            <div className="inline-flex items-center gap-2 bg-accent/50 px-4 py-2 rounded-full">
-              <StarFilledIcon className="w-4 h-4 fill-primary text-primary" />
-              <span className="text-sm font-semibold text-foreground">Welcome to Happy Kidsa</span>
-              <StarFilledIcon className="w-4 h-4 fill-primary text-primary" />
+          <div className="space-y-8 text-center lg:text-left">
+            <div className="inline-block px-4 py-1.5 bg-[#FFE99B]/20 rounded-full border border-[#FFE99B]/30">
+              <div className="flex items-center gap-2">
+                <StarFilledIcon className="w-4 h-4 text-[#FF8A80]" />
+                <span className="text-sm font-bold text-amber-600 tracking-wide uppercase">
+                  Welcome to Happy Kids
+                </span>
+                <StarFilledIcon className="w-4 h-4 text-[#FF8A80]" />
+              </div>
             </div>
-            
-            <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-foreground">
-              Where Little
-              <span className="text-primary"> Minds </span>
-              Grow Big
-            </h1>
-            
-            <p className="text-lg text-muted-foreground max-w-xl">
-              A nurturing and joyful learning environment where children develop essential skills through play, creativity, and exploration.
-            </p>
-            
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="group">
+
+            <div className="space-y-4">
+              <h1 className="text-4xl lg:text-5xl xl:text-7xl font-fedorikanew  text-gray-800">
+                Where Little
+                <span className="relative inline-block mx-2 text-[#FF8A80]">
+                  Minds
+                  <svg
+                    className="absolute w-full h-3 -bottom-1 left-0 text-[#FFE99B] -z-10"
+                    viewBox="0 0 100 10"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0 5 Q 50 10 100 5"
+                      stroke="currentColor"
+                      strokeWidth="8"
+                      fill="none"
+                    />
+                  </svg>
+                </span>
+                <br className="hidden lg:block" />
+                <span className="text-[#A7D8FF]">Grow</span> Big
+              </h1>
+
+              <p className="text-lg font-fedorika   text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                A nurturing and joyful learning environment where children
+                develop essential skills through play, creativity, and
+                exploration.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+              <Button
+                size="lg"
+                className="group bg-[#FF8A80] hover:bg-[#ff6b5e] text-white shadow-lg shadow-[#FF8A80]/30 rounded-full px-8 py-6 text-base font-semibold transition-all duration-300 hover:shadow-xl hover:shadow-[#FF8A80]/40 hover:-translate-y-0.5"
+              >
                 Enroll Now
-                <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button size="lg" variant="outline">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-2 border-[#A7D8FF]/30 bg-white/50 backdrop-blur-sm text-gray-700 hover:bg-[#A7D8FF]/10 hover:border-[#A7D8FF]/50 rounded-full px-8 py-6 text-base font-semibold transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
+              >
                 Take a Tour
               </Button>
             </div>
-            
-            {/* Stats */}
-            <div className="flex flex-wrap gap-8 pt-8 border-t border-border">
-              <div>
-                <div className="text-3xl font-bold text-primary">15+</div>
-                <div className="text-sm text-muted-foreground">Years Experience</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-secondary">500+</div>
-                <div className="text-sm text-muted-foreground">Happy Students</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-accent">30+</div>
-                <div className="text-sm text-muted-foreground">Expert Teachers</div>
-              </div>
+
+            {/* Stats Cards */}
+            <div className="grid grid-cols-3 gap-4 pt-8">
+              {stats.map((stat, index) => (
+                <Card
+                  key={index}
+                  className="border-2 border-transparent hover:border-gray-200/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-white/50 backdrop-blur-sm rounded-2xl overflow-hidden"
+                >
+                  <CardContent className="p-4 text-center space-y-1">
+                    <div
+                      className={`inline-flex items-center justify-center w-12 h-12 ${stat.bgColor} rounded-xl mb-2`}
+                    >
+                      <div
+                        className={`text-2xl font-extrabold ${
+                          stat.textColor || stat.color
+                        }`}
+                      >
+                        {/* {stat.value.split("+")[0].slice(0, 2)} */}
+                      </div>
+                    </div>
+                    <div className={`text-2xl font-extrabold ${stat.color}`}>
+                      {stat.value}
+                    </div>
+                    <div className="text-xs text-gray-500 font-medium leading-tight">
+                      {stat.label}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
-          
+
           {/* Right Image */}
-          <div className="relative animate-scale-in">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-              <Image
-                src={heroImage}
-                alt="Happy children learning together"
-                className="w-full h-auto object-cover"
-              />
-              {/* Floating Card */}
-              <div className="absolute bottom-8 left-8 bg-card p-4 rounded-2xl shadow-xl animate-float">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-success rounded-full flex items-center justify-center">
-                    <StarFilledIcon className="w-6 h-6 fill-success-foreground text-success-foreground" />
-                  </div>
-                  <div>
-                    <div className="font-bold text-card-foreground">4.9/5.0</div>
-                    <div className="text-xs text-muted-foreground">Parent Rating</div>
-                  </div>
+          <div className="relative order-first lg:order-last">
+            <div className="relative w-full max-w-lg mx-auto">
+              {/* Main image with enhanced styling */}
+              <div className="relative group">
+                <div className="absolute inset-0 bg-[#A7D8FF] rounded-[3rem] rotate-6 scale-105 opacity-20 group-hover:rotate-3 transition-transform duration-500" />
+                <div className="relative overflow-hidden rounded-[3rem] shadow-2xl border-4 border-white transform transition-transform duration-500 hover:scale-[1.02]">
+                  <Image
+                    src={heroImage}
+                    alt="Happy children learning together"
+                    className="w-full h-auto object-cover"
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+                  />
                 </div>
               </div>
+
+              {/* Decorative shapes */}
+              <div className="absolute -top-6 -right-6 w-24 h-24 bg-[#FFCEB8] rounded-full opacity-60 animate-bounce-slow blur-xl" />
+              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-[#FFE99B] rounded-full opacity-40 animate-float blur-xl" />
             </div>
-            
-            {/* Decorative shapes */}
-            <div className="absolute -top-6 -right-6 w-24 h-24 bg-primary rounded-full opacity-20 animate-bounce-slow" />
-            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-secondary rounded-full opacity-20 animate-float" />
           </div>
         </div>
       </div>

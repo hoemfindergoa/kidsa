@@ -1,11 +1,20 @@
-"use client"; 
-import { useState } from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { href: "#home", label: "Home" },
@@ -16,103 +25,135 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-br from-primary/10 via-accent/20 to-secondary/10 backdrop-blur-md shadow-lg">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/95 backdrop-blur-md shadow-lg shadow-gray-200/50 py-3"
+          : "bg-white/80 backdrop-blur-sm py-4"
+      }`}
+    >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
-            <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center shadow-lg">
-              <StarFilledIcon className="w-6 h-6 fill-accent text-accent" />
+        <div className="flex items-center justify-between">
+          {/* Logo Section */}
+          <a href="#home" className="flex items-center gap-3 group cursor-pointer">
+            <div className="relative w-12 h-12 flex items-center justify-center">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#FFE99B] to-[#FF8A80] rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform duration-300 shadow-md" />
+              <StarFilledIcon className="relative w-7 h-7 text-white drop-shadow-lg z-10" />
             </div>
             <div>
-              <div className="text-xl font-bold text-foreground">Happy Kidsa</div>
-              <div className="text-xs text-muted-foreground">Kindergarten</div>
+              <div className="text-xl font-fedorikanew text-gray-800 leading-none tracking-tight flex items-center">
+                Happy<span className="text-[#FF8A80]">Kids</span>
+              </div>
+              <div className="text-[10px] font-fedorikanew  text-[#A7D8FF] tracking-widest uppercase">
+                Kindergarten
+              </div>
             </div>
-          </div>
-          
+          </a>
+
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-foreground hover:text-primary transition-colors font-medium"
+                className="relative px-5  py-2.5 text-gray-600 hover:text-[#FF8A80] font-fedorikanew text-xl transition-all duration-300 rounded-full hover:bg-[#FF8A80]/10 group"
               >
                 {link.label}
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-[#FF8A80] group-hover:w-8 transition-all duration-300 rounded-full" />
               </a>
             ))}
           </div>
-          
+
           {/* CTA Buttons */}
-          <div className="flex items-center gap-4">
-            <div className="hidden lg:flex items-center gap-2 text-primary">
-              <Phone className="w-4 h-4" />
-              <span className="font-semibold">(123) 456-7890</span>
-            </div>
-            <Button size="sm" className="hidden sm:inline-flex">
+          <div className="flex items-center gap-3">
+            {/* Phone Number */}
+            <a
+              href="tel:1234567890"
+              className="hidden lg:flex items-center gap-2 bg-[#B8F3D1]/20 hover:bg-[#B8F3D1]/30 px-4 py-2.5 rounded-full border-2 border-[#B8F3D1]/30 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 group"
+            >
+              <div className="w-8 h-8 bg-gradient-to-br from-[#B8F3D1] to-emerald-400 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
+                <Phone className="w-4 h-4 text-white" />
+              </div>
+              <span className="text-sm font-bold text-emerald-700">
+                (123) 456-7890
+              </span>
+            </a>
+
+            {/* Enroll Button */}
+            <Button
+              size="sm"
+              className="hidden sm:inline-flex bg-[#FF8A80] hover:bg-[#ff6b5e] text-white rounded-full font-fedorikanew shadow-lg shadow-[#FF8A80]/30 px-6 py-5 transition-all duration-300 hover:shadow-xl hover:shadow-[#FF8A80]/40 hover:-translate-y-0.5"
+            >
               Enroll Now
             </Button>
+
+            {/* Mobile Menu Button */}
             <Button
               size="icon"
               variant="ghost"
-              className="md:hidden"
+              className="md:hidden text-gray-600 hover:bg-[#A7D8FF]/10 hover:text-[#FF8A80] rounded-full transition-all duration-300"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
-                <X className="w-5 h-5" />
+                <X className="w-6 h-6" />
               ) : (
-                <Menu className="w-5 h-5" />
+                <Menu className="w-6 h-6" />
               )}
             </Button>
           </div>
         </div>
+      </div>
 
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden pb-4 animate-in slide-in-from-top">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="absolute top-full left-0 w-full bg-white/98 backdrop-blur-xl border-t border-gray-100 shadow-2xl md:hidden animate-in slide-in-from-top-5 duration-300">
+          <div className="container mx-auto px-4 py-6">
+            <div className="flex flex-col gap-2">
+              {navLinks.map((link, index) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-foreground hover:text-primary transition-colors font-medium py-2"
+                  className="group relative text-base font-semibold text-gray-600 hover:text-[#FF8A80] transition-all duration-300 p-4 rounded-2xl hover:bg-gradient-to-r hover:from-[#FF8A80]/5 hover:to-[#A7D8FF]/5 flex items-center justify-between overflow-hidden"
                   onClick={() => setMobileMenuOpen(false)}
+                  style={{ animationDelay: `${index * 50}ms` }}
                 >
-                  {link.label}
+                  <span className="relative z-10 flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-[#A7D8FF] group-hover:bg-[#FF8A80] transition-colors duration-300" />
+                    {link.label}
+                  </span>
+                  <div className="w-6 h-6 rounded-full bg-[#FFE99B]/20 group-hover:bg-[#FFE99B]/40 flex items-center justify-center transition-all duration-300 group-hover:translate-x-1">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#FF8A80]" />
+                  </div>
                 </a>
               ))}
-              <div className="flex items-center gap-2 text-primary py-2">
-                <Phone className="w-4 h-4" />
-                <span className="font-semibold">(123) 456-7890</span>
-              </div>
-              <Button className="w-full">
+            </div>
+
+            {/* Mobile Menu Footer */}
+            <div className="mt-6 pt-6 border-t border-gray-100 space-y-4">
+              <a
+                href="tel:1234567890"
+                className="flex items-center gap-3 bg-[#B8F3D1]/20 hover:bg-[#B8F3D1]/30 px-4 py-3 rounded-2xl border-2 border-[#B8F3D1]/30 transition-all duration-300"
+              >
+                <div className="w-10 h-10 bg-gradient-to-br from-[#B8F3D1] to-emerald-400 rounded-full flex items-center justify-center shadow-sm">
+                  <Phone className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-emerald-600">
+                    Call Us Now
+                  </div>
+                  <div className="text-sm font-bold text-emerald-700">
+                    (123) 456-7890
+                  </div>
+                </div>
+              </a>
+
+              <Button className="w-full bg-[#FF8A80] hover:bg-[#ff6b5e] text-white font-bold rounded-2xl shadow-lg shadow-[#FF8A80]/30 py-6 text-base transition-all duration-300 hover:shadow-xl hover:shadow-[#FF8A80]/40">
                 Enroll Now
               </Button>
             </div>
           </div>
-        )}
-      </div>
-
-      {/* Cloud-like bottom border - matching Hero component */}
-      {/* <div className="relative h-8 overflow-hidden bg-transparent">
-        <svg
-          className="absolute bottom-0 w-full h-full"
-          viewBox="0 0 1200 50"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0,30 Q50,10 100,30 T200,30 T300,30 T400,30 T500,30 T600,30 T700,30 T800,30 T900,30 T1000,30 T1100,30 T1200,30 L1200,0 L0,0 Z"
-            fill="currentColor"
-            className="text-orange-200 dark:text-orange-300"
-          />
-          <path
-            d="M0,40 Q60,25 120,40 T240,40 T360,40 T480,40 T600,40 T720,40 T840,40 T960,40 T1080,40 T1200,40 L1200,0 L0,0 Z"
-            fill="currentColor"
-            className="text-orange-200 dark:text-orange-300 opacity-60"
-          />
-        </svg>
-      </div> */}
+        </div>
+      )}
     </nav>
   );
 };

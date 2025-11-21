@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config} */ 
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -17,14 +17,9 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        gilroy: ['Gilroy', 'sans-serif'],
-        gilroy_bold: ['GilroyBold', 'sans-serif'],
-        gilroy_medium: ['GilroyMedium', 'sans-serif'],
-        gilroy_light: ['GilroyLight', 'sans-serif'],	
-        charter_regular:['CharterSerif',  ],
-        KievitSerif:['KievitSerif'],
-        hevelticneu:['hevelticneu', 'sans-serif',],
-        arial:['arial', 'san-serif'],
+        fedorikanew: ['fedorikaregular'],
+        fedorikamedium: ['Fedorikamedium'],
+
         },
       colors: {
         border: "hsl(var(--border))",
