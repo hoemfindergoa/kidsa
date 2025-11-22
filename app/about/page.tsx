@@ -4,7 +4,6 @@ import { Heart, Sparkles, Users, Award } from "lucide-react";
 import Image from "next/image";
 import animalsImage from "../../public/animals-circle.jpg"; // Ensure this path matches your folder
 import beeImage from "../../public/cloud.png";
-import elephantImage from "../../public/elephant.png";
 
 const About = () => {
   const features = [
@@ -56,16 +55,6 @@ const About = () => {
         <Image
           src={beeImage}
           alt="Bee"
-          className="w-full h-full object-contain drop-shadow-lg"
-        />
-      </div>
-      <div
-        className="absolute bottom-32 left-0 w-32 h-32 animate-float opacity-80 z-10"
-        style={{ animationDelay: "1.5s" }}
-      >
-        <Image
-          src={elephantImage}
-          alt="Elephant"
           className="w-full h-full object-contain drop-shadow-lg"
         />
       </div>

@@ -1,14 +1,17 @@
-import HeroCarousel from '@/components/HeroCarousel';
 import NimaayaNavbar from '@/app/navbar/navbar';
 import About from '@/app/about/page';
 import Programs from '@/components/Programs';
+import Gallery from '@/components/Gallery';
+import Hero from '@/components/Hero';
+import ContactPage from '@/components/Contact';
 export default function Page() {
   return (
     <div className="w-full overflow-x-hidden relative">
-      <NimaayaNavbar />
-      <HeroCarousel />
+      <Hero/>
       <About/>
       <Programs/>
+      <Gallery/>
+      <ContactPage/>
  
     </div>
   );

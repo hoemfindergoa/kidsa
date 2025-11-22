@@ -34,7 +34,7 @@ const Hero = () => {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#FFF9F0] to-white pt-32 pb-24">
       {/* Floating Background Elements */}
-      <div className="absolute top-32 left-20 w-28 h-28 animate-float opacity-80 z-10">
+      <div className="absolute top-32  left-20 w-28 h-28 animate-float opacity-80 ">
         <Image
           src={butterflyImage}
           alt="Butterfly"
@@ -84,8 +84,8 @@ const Hero = () => {
             <div className="inline-block px-4 py-1.5 bg-[#FFE99B]/20 rounded-full border border-[#FFE99B]/30">
               <div className="flex items-center gap-2">
                 <StarFilledIcon className="w-4 h-4 text-[#FF8A80]" />
-                <span className="text-sm font-bold text-amber-600 tracking-wide uppercase">
-                  Welcome to Happy Kids
+                <span className="text-sm font-fedorikamedium text-amber-600 tracking-wide uppercase">
+                  Welcome to Little Dreamers
                 </span>
                 <StarFilledIcon className="w-4 h-4 text-[#FF8A80]" />
               </div>

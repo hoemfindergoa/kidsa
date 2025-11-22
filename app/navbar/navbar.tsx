@@ -2,7 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
-import { StarFilledIcon } from "@radix-ui/react-icons";
+import logo from "../../public/logo.png"
+import Image from "next/image";
+import Link from "next/link";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -17,11 +19,12 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { href: "#home", label: "Home" },
+    { href: "/", label: "Home" },
     { href: "#about", label: "About" },
     { href: "#programs", label: "Programs" },
     { href: "#gallery", label: "Gallery" },
     { href: "#contact", label: "Contact" },
+    { href: "#franchise", label: "Franchise" },
   ];
 
   return (
@@ -35,20 +38,23 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo Section */}
-          <a href="#home" className="flex items-center gap-3 group cursor-pointer">
-            <div className="relative w-12 h-12 flex items-center justify-center">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#FFE99B] to-[#FF8A80] rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform duration-300 shadow-md" />
-              <StarFilledIcon className="relative w-7 h-7 text-white drop-shadow-lg z-10" />
+          <Link href="/" className="flex items-center gap-3 group cursor-pointer">
+            <div className="relative w-20 h-20 flex items-center justify-center">
+             <Image
+                src={logo}
+                alt="Logo"
+                className="absolute inset-0 rounded-2xl transform rotate-4 group-hover:rotate-12 transition-transform duration-300 "
+              />
             </div>
             <div>
               <div className="text-xl font-fedorikanew text-gray-800 leading-none tracking-tight flex items-center">
-                Happy<span className="text-[#FF8A80]">Kids</span>
+                Little<span className="text-[#FF8A80]">Dreamers</span>
               </div>
               <div className="text-[10px] font-fedorikanew  text-[#A7D8FF] tracking-widest uppercase">
-                Kindergarten
+                AtCambridge
               </div>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-2">
@@ -67,7 +73,7 @@ const Navbar = () => {
           {/* CTA Buttons */}
           <div className="flex items-center gap-3">
             {/* Phone Number */}
-            <a
+            {/* <a
               href="tel:1234567890"
               className="hidden lg:flex items-center gap-2 bg-[#B8F3D1]/20 hover:bg-[#B8F3D1]/30 px-4 py-2.5 rounded-full border-2 border-[#B8F3D1]/30 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 group"
             >
@@ -75,18 +81,20 @@ const Navbar = () => {
                 <Phone className="w-4 h-4 text-white" />
               </div>
               <span className="text-sm font-bold text-emerald-700">
-                (123) 456-7890
-              </span>
-            </a>
+ 
+               </span>
+            </a> */}
 
             {/* Enroll Button */}
+            <Link href="/enroll">
             <Button
               size="sm"
               className="hidden sm:inline-flex bg-[#FF8A80] hover:bg-[#ff6b5e] text-white rounded-full font-fedorikanew shadow-lg shadow-[#FF8A80]/30 px-6 py-5 transition-all duration-300 hover:shadow-xl hover:shadow-[#FF8A80]/40 hover:-translate-y-0.5"
-            >
+              >
               Enroll Now
             </Button>
 
+              </Link>
             {/* Mobile Menu Button */}
             <Button
               size="icon"
@@ -129,28 +137,14 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu Footer */}
+              <Link href="/enroll">
             <div className="mt-6 pt-6 border-t border-gray-100 space-y-4">
-              <a
-                href="tel:1234567890"
-                className="flex items-center gap-3 bg-[#B8F3D1]/20 hover:bg-[#B8F3D1]/30 px-4 py-3 rounded-2xl border-2 border-[#B8F3D1]/30 transition-all duration-300"
-              >
-                <div className="w-10 h-10 bg-gradient-to-br from-[#B8F3D1] to-emerald-400 rounded-full flex items-center justify-center shadow-sm">
-                  <Phone className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <div className="text-xs font-semibold text-emerald-600">
-                    Call Us Now
-                  </div>
-                  <div className="text-sm font-bold text-emerald-700">
-                    (123) 456-7890
-                  </div>
-                </div>
-              </a>
 
               <Button className="w-full bg-[#FF8A80] hover:bg-[#ff6b5e] text-white font-bold rounded-2xl shadow-lg shadow-[#FF8A80]/30 py-6 text-base transition-all duration-300 hover:shadow-xl hover:shadow-[#FF8A80]/40">
                 Enroll Now
               </Button>
             </div>
+              </Link>
           </div>
         </div>
       )}
