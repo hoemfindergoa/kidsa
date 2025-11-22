@@ -36,7 +36,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#FDFBF7] via-[#FFF9F0] to-white relative overflow-hidden pt-24 pb-20">
+    <div className=" bg-gradient-to-b from-[#FDFBF7] via-[#FFF9F0] to-white relative overflow-hidden pt-24 pb-20">
       
       {/* --- Background Elements --- */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
@@ -81,8 +81,8 @@ const ContactPage = () => {
           <div className="lg:col-span-4 space-y-5">
             
             {/* Address Card (Blue Theme) */}
-            <motion.div variants={itemVariants} className="h-full">
-              <Card className="h-full border-none shadow-sm hover:shadow-xl bg-gradient-to-br from-[#F0F9FF] to-[#E0F2FE] overflow-hidden group transition-all duration-300 hover:-translate-y-1 ring-1 ring-[#A7D8FF]/30">
+            <motion.div variants={itemVariants} className="">
+              <Card className=" border-none shadow-sm hover:shadow-xl bg-gradient-to-br from-[#F0F9FF] to-[#E0F2FE]  group transition-all duration-300 hover:-translate-y-1 ring-1 ring-[#A7D8FF]/30">
                 <CardContent className="p-6 relative">
                   {/* Decorative blob */}
                   <div className="absolute -right-6 -top-6 w-24 h-24 bg-[#BAE6FD] rounded-full opacity-50 blur-xl group-hover:scale-150 transition-transform duration-500" />
@@ -111,8 +111,8 @@ const ContactPage = () => {
             </motion.div>
 
             {/* Contact Card (Coral Theme) */}
-            <motion.div variants={itemVariants} className="h-full">
-              <Card className="h-full border-none shadow-sm hover:shadow-xl bg-gradient-to-br from-[#FFF1F2] to-[#FFE4E6] overflow-hidden group transition-all duration-300 hover:-translate-y-1 ring-1 ring-[#FF8A80]/30">
+            <motion.div variants={itemVariants} className="">
+              <Card className=" border-none shadow-sm hover:shadow-xl bg-gradient-to-br from-[#FFF1F2] to-[#FFE4E6] overflow-hidden group transition-all duration-300 hover:-translate-y-1 ring-1 ring-[#FF8A80]/30">
                 <CardContent className="p-6 relative">
                   <div className="absolute -right-6 -top-6 w-24 h-24 bg-[#FECDD3] rounded-full opacity-50 blur-xl group-hover:scale-150 transition-transform duration-500" />
                   
@@ -139,8 +139,8 @@ const ContactPage = () => {
             </motion.div>
 
             {/* Hours Card (Yellow Theme) */}
-            <motion.div variants={itemVariants} className="h-full">
-              <Card className="h-full border-none shadow-sm hover:shadow-xl bg-gradient-to-br from-[#FFFBEB] to-[#FEF3C7] overflow-hidden group transition-all duration-300 hover:-translate-y-1 ring-1 ring-[#FFE99B]/30">
+            <motion.div variants={itemVariants} className="">
+              <Card className=" border-none shadow-sm hover:shadow-xl bg-gradient-to-br from-[#FFFBEB] to-[#FEF3C7] overflow-hidden group transition-all duration-300 hover:-translate-y-1 ring-1 ring-[#FFE99B]/30">
                 <CardContent className="p-6 relative">
                   <div className="absolute -right-6 -top-6 w-24 h-24 bg-[#FDE68A] rounded-full opacity-50 blur-xl group-hover:scale-150 transition-transform duration-500" />
                   
@@ -203,7 +203,7 @@ const ContactPage = () => {
               {/* Map Container */}
               <div className="relative h-full w-full bg-white rounded-[2.5rem] overflow-hidden shadow-2xl shadow-gray-200/60 border-[8px] border-white transform transition-transform duration-500">
                 <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.7152203584424!2d-118.40035632362666!3d34.05117161782369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2bb0c4206f279%3A0x51724c6801f2517!2sBeverly%20Hills%2C%20CA%2090210!5e0!3m2!1sen!2sus!4v1708654321456!5m2!1sen!2sus" 
+                  src="https://www.google.com/maps?q=New+Delhi,+India&z=13&output=embed" 
                   width="100%" 
                   height="100%" 
                   style={{ border: 0, minHeight: '500px' }} 

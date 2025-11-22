@@ -7,9 +7,6 @@ import { motion, type Variants } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Link from "next/link";
-
-
-// Carousel Images - Replace these placeholders with your real images
 const carouselImages = [
   { src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&q=80", alt: "Kids jumping" },
   { src: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800&q=80", alt: "Kids on playground" },
@@ -84,8 +81,47 @@ const Hero = () => {
       <div className="absolute bottom-1/4 left-0 w-72 h-72 bg-[#FFE99B]/20 rounded-full blur-3xl -z-0" />
       <div className="absolute top-1/2 left-1/3 w-48 h-48 bg-[#FF8A80]/10 rounded-full blur-3xl -z-0" />
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-2 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
+     {/* Right Image Area - NOW A CAROUSEL */}
+          <div className="relative order-last lg:order-first">
+            <div className="relative w-full max-w-lg  z-20">
+              {/* The Fun Framed Container */}
+              <div className="relative group">
+                 {/* The rotated background shape */}
+                <div className="absolute inset-0 bg-[#A7D8FF] rounded-[3rem] rotate-6 scale-120 opacity-20 group-hover:rotate-3 transition-transform duration-500" />
+                
+                {/* The main image container frame */}
+                <div className="relative overflow-hidden rounded-[3rem] shadow-2xl border-[6px] border-white transform transition-transform duration-500 hover:scale-[1.01] bg-white aspect-[4/5]">
+                  
+                  {/* --- EMBLA CAROUSEL IMPLEMENTATION --- */}
+                  <div className="h-full w-full" ref={emblaRef}>
+                    <div className="flex h-full check">
+                      {carouselImages.map((img, index) => (
+                        <div className="relative flex-[0_0_100%] h-full min-w-0" key={index}>
+                           <Image
+                            src={img.src}
+                            alt={img.alt}
+                            fill
+                            className="object-cover"
+                            priority={index === 0} // Load first image ASAP
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  {/* ------------------------------------ */}
+
+                </div>
+              </div>
+
+              {/* Decorative shapes near image */}
+              <div className="absolute -top-6 -right-6 w-24 h-24 bg-[#FFCEB8] rounded-full opacity-60 animate-bounce-slow blur-xl -z-10" />
+              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-[#FFE99B] rounded-full opacity-40 animate-float blur-xl -z-10" />
+            </div>
+          </div>
+
+
           {/* Left Content - Now Animated */}
           <motion.div 
             variants={containerVariants}
@@ -95,7 +131,7 @@ const Hero = () => {
           >
             <motion.div variants={itemVariants} className="inline-block px-4 py-1.5 bg-[#FFE99B]/20 rounded-full border border-[#FFE99B]/30">
               <div className="flex items-center gap-2">
-                <span className="text-sm font-bold text-amber-600 tracking-wide uppercase">
+                <span className="text-sm font-fedorikanew text-amber-600 tracking-wide uppercase">
                   Welcome to Little Dreamers
                 </span>
               </div>
@@ -154,43 +190,7 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Image Area - NOW A CAROUSEL */}
-          <div className="relative order-first lg:order-last">
-            <div className="relative w-full max-w-lg mx-auto z-20">
-              {/* The Fun Framed Container */}
-              <div className="relative group">
-                 {/* The rotated background shape */}
-                <div className="absolute inset-0 bg-[#A7D8FF] rounded-[3rem] rotate-6 scale-105 opacity-20 group-hover:rotate-3 transition-transform duration-500" />
-                
-                {/* The main image container frame */}
-                <div className="relative overflow-hidden rounded-[3rem] shadow-2xl border-[6px] border-white transform transition-transform duration-500 hover:scale-[1.01] bg-white aspect-[4/5]">
-                  
-                  {/* --- EMBLA CAROUSEL IMPLEMENTATION --- */}
-                  <div className="h-full w-full" ref={emblaRef}>
-                    <div className="flex h-full check">
-                      {carouselImages.map((img, index) => (
-                        <div className="relative flex-[0_0_100%] h-full min-w-0" key={index}>
-                           <Image
-                            src={img.src}
-                            alt={img.alt}
-                            fill
-                            className="object-cover"
-                            priority={index === 0} // Load first image ASAP
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  {/* ------------------------------------ */}
-
-                </div>
-              </div>
-
-              {/* Decorative shapes near image */}
-              <div className="absolute -top-6 -right-6 w-24 h-24 bg-[#FFCEB8] rounded-full opacity-60 animate-bounce-slow blur-xl -z-10" />
-              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-[#FFE99B] rounded-full opacity-40 animate-float blur-xl -z-10" />
-            </div>
-          </div>
+     
         </div>
       </div>
     </section>
