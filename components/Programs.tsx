@@ -1,11 +1,48 @@
-"use client";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Clock, Users, BookOpen, Palette, Music, Baby, ArrowRight } from "lucide-react";
-import Image from "next/image";
-import butterflyImage from "../public/butterfly.png";
+import React from "react";
+import { 
+  Clock, 
+  Users, 
+  BookOpen, 
+  Palette, 
+  Music, 
+  Baby, 
+  ArrowRight 
+} from "lucide-react";
+
+// --- Simple UI Components (Inlined for portability) ---
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  children?: React.ReactNode;
+  className?: string;
+  variant?: 'default' | 'outline' | 'ghost' | string;
+  size?: 'default' | 'sm' | 'lg' | string;
+};
+
+const Button: React.FC<ButtonProps> = ({ children, className, variant = "default", size = "default", ...props }) => {
+  const baseStyles = "inline-flex items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50";
+  return (
+    <button className={`${baseStyles} ${className}`} {...props}>
+      {children}
+    </button>
+  );
+};
+
+type DivProps = React.HTMLAttributes<HTMLDivElement>;
+
+const Card: React.FC<DivProps> = ({ className = "", children, ...props }) => (
+  <div className={`rounded-3xl border bg-card text-card-foreground shadow-sm ${className}`} {...props}>
+    {children}
+  </div>
+);
+
+const CardContent: React.FC<DivProps> = ({ className = "", children, ...props }) => (
+  <div className={`p-6 ${className}`} {...props}>
+    {children}
+  </div>
+);
 
 const Programs = () => {
+  const butterflyUrl = "https://cdn-icons-png.flaticon.com/512/3066/3066531.png";
+
   const programs = [
     {
       icon: Baby,
@@ -13,6 +50,8 @@ const Programs = () => {
       age: "18-36 months",
       time: "8:00 AM - 12:00 PM",
       students: "8-10 children",
+      // Added Image
+      image: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800&q=80", 
       color: "bg-[#FF8A80]/10",
       iconColor: "text-[#FF8A80]",
       iconBg: "bg-[#FF8A80]",
@@ -26,6 +65,8 @@ const Programs = () => {
       age: "3-4 years",
       time: "8:00 AM - 3:00 PM",
       students: "12-15 children",
+      // Added Image
+      image: "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=800&q=80",
       color: "bg-[#A7D8FF]/10",
       iconColor: "text-[#A7D8FF]",
       iconBg: "bg-[#A7D8FF]",
@@ -39,6 +80,8 @@ const Programs = () => {
       age: "4-5 years",
       time: "8:00 AM - 3:00 PM",
       students: "15-18 children",
+      // Added Image
+      image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&q=80",
       color: "bg-[#B8F3D1]/20",
       iconColor: "text-emerald-400",
       iconBg: "bg-[#B8F3D1]",
@@ -57,8 +100,8 @@ const Programs = () => {
         className="absolute bottom-32 right-20 w-20 h-20 animate-bounce-slow opacity-80 z-10"
         style={{ animationDelay: "0.8s" }}
       >
-        <Image
-          src={butterflyImage}
+        <img
+          src={butterflyUrl}
           alt="Butterfly"
           className="w-full h-full object-contain drop-shadow-lg"
         />
@@ -76,7 +119,7 @@ const Programs = () => {
               Our Programs
             </span>
           </div>
-          <h2 className="text-4xl lg:text-6xl font-fedorikamedium text-gray-800 leading-tight">
+          <h2 className="text-4xl lg:text-6xl font-fedorikanew text-gray-800 leading-tight">
             Age-Appropriate
             <span className="relative inline-block mx-2 text-[#FF8A80]">
               Learning
@@ -106,8 +149,18 @@ const Programs = () => {
           {programs.map((program, index) => (
             <Card
               key={index}
-              className={`group border-2 ${program.borderColor} hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-white/50 backdrop-blur-sm rounded-3xl overflow-hidden`}
+              className={`group border-2 ${program.borderColor} hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-white/50 backdrop-blur-sm rounded-3xl overflow-hidden flex flex-col`}
             >
+              {/* --- NEW: Image Section Added Here --- */}
+              <div className="relative h-48 w-full overflow-hidden">
+                <img 
+                  src={program.image} 
+                  alt={program.title} 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className={`absolute inset-0 ${program.color} opacity-20 mix-blend-multiply`} />
+              </div>
+
               {/* Colored Header */}
               <div className={`${program.color} p-6 space-y-4`}>
                 <div
@@ -127,7 +180,7 @@ const Programs = () => {
                 </div>
               </div>
 
-              <CardContent className="p-6 space-y-4">
+              <CardContent className="p-6 space-y-4 flex-grow flex flex-col">
                 <p className="text-gray-600 leading-relaxed">
                   {program.description}
                 </p>
@@ -167,13 +220,15 @@ const Programs = () => {
                   </div>
                 </div>
 
-                <Button
-                  variant="outline"
-                  className={`w-full mt-4 rounded-full border-2 ${program.borderColor} hover:${program.color} ${program.iconColor} hover:border-transparent font-semibold transition-all duration-300 hover:shadow-lg group/btn`}
-                >
-                  Learn More
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                </Button>
+                <div className="mt-auto pt-4">
+                    <Button
+                    variant="outline"
+                    className={`w-full rounded-full border-2 ${program.borderColor} hover:${program.color} ${program.iconColor} hover:border-transparent font-semibold transition-all duration-300 hover:shadow-lg group/btn h-12`}
+                    >
+                    Learn More
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                    </Button>
+                </div>
               </CardContent>
             </Card>
           ))}
@@ -186,7 +241,7 @@ const Programs = () => {
               size="lg"
               className="group bg-gradient-to-r from-[#FF8A80] to-[#FFE99B] hover:from-[#ff6b5e] hover:to-[#ffd770] text-white shadow-xl shadow-[#FF8A80]/30 rounded-full px-10 py-7 text-lg font-bold transition-all duration-300 hover:shadow-2xl hover:shadow-[#FF8A80]/40 hover:-translate-y-1 hover:scale-105"
             >
-              <Music className="w-6 h-6 mr-2 animate-bounce" />
+              <Music className="w-6 h-6 mr-2 " />
               Schedule a Visit Today!
               <ArrowRight className="w-6 h-6 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>

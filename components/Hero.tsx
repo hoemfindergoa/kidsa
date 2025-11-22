@@ -62,9 +62,29 @@ const Hero = () => {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#FFF9F0] to-white pt-32 pb-24 min-h-[90vh] flex items-center">
       {/* --- NEW: Subtle Background Pattern Texture --- */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}
-      />
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}
+        />
+
+            <div className="absolute inset-0 pointer-events-none z-0 overflow-visible">
+        <svg className="absolute w-full h-full opacity-30 text-teal-300" viewBox="0  800 1200" preserveAspectRatio="none">
+          <path 
+            d="M-50,100 C150,50 300,200 450,150 C600,100 700,50 900,100 C1100,150 1100,400 900,500 C700,600 600,750 400,700 C200,650 100,400 -50,450" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="5" 
+            strokeDasharray="20 20"
+            className="animate-pulse-slow" 
+          />
+        </svg>
+      </div>
+
+            {/* --- 2. THE BOTTOM WAVE (Sand color) --- */}
+      <div className="absolute bottom-0 left-0 w-full leading-none z-10">
+        <svg className="block w-full h-16 md:h-24 lg:h-32 text-[#FFF9F0]" viewBox="0 0 1440 320" preserveAspectRatio="none">
+          <path fill="currentColor" fillOpacity="1" d="M0,224L48,213.3C96,203,192,181,288,192C384,203,480,245,576,245.3C672,245,768,203,864,186.7C960,171,1056,181,1152,192C1248,203,1344,213,1392,218.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+      </div>
 
       {/* Floating Background Elements (Keep exisitng ones if they load, using divs as placeholders if not) */}
       <div className="absolute top-32 left-20 w-28 h-28 animate-float opacity-80 z-10 pointer-events-none">
@@ -88,31 +108,38 @@ const Hero = () => {
             <div className="relative w-full max-w-lg  z-20">
               {/* The Fun Framed Container */}
               <div className="relative group">
-                 {/* The rotated background shape */}
-                <div className="absolute inset-0 bg-[#A7D8FF] rounded-[3rem] rotate-6 scale-120 opacity-20 group-hover:rotate-3 transition-transform duration-500" />
-                
-                {/* The main image container frame */}
-                <div className="relative overflow-hidden rounded-[3rem] shadow-2xl border-[6px] border-white transform transition-transform duration-500 hover:scale-[1.01] bg-white aspect-[4/5]">
-                  
-                  {/* --- EMBLA CAROUSEL IMPLEMENTATION --- */}
-                  <div className="h-full w-full" ref={emblaRef}>
-                    <div className="flex h-full check">
-                      {carouselImages.map((img, index) => (
-                        <div className="relative flex-[0_0_100%] h-full min-w-0" key={index}>
-                           <Image
-                            src={img.src}
-                            alt={img.alt}
-                            fill
-                            className="object-cover"
-                            priority={index === 0} // Load first image ASAP
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  {/* ------------------------------------ */}
-
-                </div>
+                         <div className="relative overflow-hidden">
+                        <div 
+                className="relative h-full w-full overflow-hidden shadow-2xl z-10 bg-white"
+                style={{
+                   borderRadius: "45% 55% 52% 48% / 54% 43% 57% 46%",
+                   transform: "rotate(-2deg)"
+                }}
+              >
+                 {/* Carousel Inside the Blob */}
+                 <div
+                   ref={emblaRef}
+                   className="h-[420px] md:h-[520px] lg:h-[600px] w-full rounded-[inherit] overflow-hidden relative shadow-2xl z-20"
+                 >
+                   <div className="flex h-full w-full">
+                   {carouselImages.map((img, index) => (
+                     <div
+                     key={index}
+                     className="relative flex-[0_0_100%] h-full w-full min-w-0"
+                     >
+                     <img
+                       src={img.src}
+                       alt={img.alt}
+                       className="w-full h-full object-cover transform scale-105 transition-transform duration-700"
+                     />
+                     {/* subtle overlay for contrast */}
+                     <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/10 pointer-events-none" />
+                     </div>
+                   ))}
+                   </div>
+                 </div>
+              </div>
+                </div>      
               </div>
 
               {/* Decorative shapes near image */}
@@ -169,8 +196,9 @@ const Hero = () => {
               </Button>
             </motion.div>
 
-            {/* Stats Cards - Animated Entrance */}
-            <motion.div variants={itemVariants} className="grid grid-cols-3 gap-4 pt-8 max-w-md mx-auto lg:mx-0">
+
+            <div  className="hidden md:block">
+                     <motion.div variants={itemVariants} className="grid grid-cols-3 gap-4    pt-8 max-w-md mx-auto lg:mx-0">
               {stats.map((stat, index) => (
                 <Card key={index} className="border-2 border-transparent hover:border-gray-200/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-white/60 backdrop-blur-sm rounded-2xl overflow-hidden">
                   <CardContent className="p-4 text-center space-y-1">
@@ -188,6 +216,11 @@ const Hero = () => {
                 </Card>
               ))}
             </motion.div>
+
+            </div>
+
+            {/* Stats Cards - Animated Entrance */}
+     
           </motion.div>
 
      

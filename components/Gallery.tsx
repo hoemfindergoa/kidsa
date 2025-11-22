@@ -13,7 +13,7 @@ const galleryItems = [
     alt: "Kids playing together outdoors",
     category: "Outdoor Fun",
     // Tailwind classes for spanning rows/cols
-    className: "md:col-span-2 md:row-span-2 h-[400px] md:h-full",
+    className: "col-span-1 row-span-1 h-[180px] md:col-span-2 md:row-span-2 md:h-full",
     accentColor: "#FF8A80", // Coral
   },
   {
@@ -21,7 +21,7 @@ const galleryItems = [
     src: "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&q=80&w=500",
     alt: "Child painting",
     category: "Creative Arts",
-    className: "md:col-span-1 md:row-span-1 h-[200px] md:h-full",
+    className: "col-span-1 row-span-1 h-[180px] md:col-span-1 md:row-span-1 md:h-full",
     accentColor: "#A7D8FF", // Blue
   },
   {
@@ -29,7 +29,7 @@ const galleryItems = [
     src: "https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?auto=format&fit=crop&q=80&w=500",
     alt: "Learning with blocks",
     category: "Early Learning",
-    className: "md:col-span-1 md:row-span-2 h-[400px] md:h-full",
+    className: "col-span-1 row-span-1 h-[180px] md:col-span-1 md:row-span-2 md:h-full",
     accentColor: "#FFE99B", // Yellow
   },
   {
@@ -45,7 +45,7 @@ const galleryItems = [
     src: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&q=80&w=1000",
     alt: "Playground adventures",
     category: "Adventures",
-    className: "md:col-span-2 md:row-span-1 h-[200px] md:h-full",
+    className: "col-span-1 row-span-1 h-[180px] md:col-span-2 md:row-span-1 md:h-full",
     accentColor: "#FF8A80",
   },
   {
@@ -129,7 +129,7 @@ const Gallery = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           // We use auto-rows to define base height for the bento cells
-          className="grid grid-cols-1 md:grid-cols-4 auto-rows-[240px] gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 auto-rows-[180px] md:auto-rows-[240px] gap-4 md:gap-6"
         >
           {galleryItems.map((item) => (
             <motion.div
