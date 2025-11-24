@@ -13,10 +13,11 @@ export default function Page() {
       <HeroNEW/>
       <About/>
       <ProgramsSection/>
+        <Gallery/>
       {/* <Hero/>
       
       <Programs/>
-      <Gallery/>
+    
       <ContactPage/> */}
  
     </div>

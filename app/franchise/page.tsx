@@ -1,333 +1,527 @@
 "use client";
-
 import React, { useState } from "react";
-import { motion, Variants } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion } from "framer-motion";
 import { 
   TrendingUp, 
   Users, 
   BookOpen, 
   ShieldCheck, 
   Briefcase, 
-  Lightbulb,
   CheckCircle2,
   Building2,
   Wallet,
   ArrowRight,
-  Star
+  Star,
+  Trophy,
+  Heart,
+  Target,
+  Sparkles,
+  Globe,
+  DollarSign,
+  Award,
+  Zap
 } from "lucide-react";
+
+type TileProps = {
+  children?: React.ReactNode;
+  className?: string;
+  delay?: number;
+};
+
+const Tile: React.FC<TileProps> = ({ children, className, delay = 0 }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.95 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay }}
+    className={`relative p-8 md:p-10 overflow-hidden ${className}`}
+  >
+    {children}
+  </motion.div>
+);
 
 const FranchisePage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    mobile: '',
+    city: '',
+    state: '',
+    property: '',
+    budget: '',
+    message: ''
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = () => {
+    if (!formData.firstName || !formData.email || !formData.mobile) {
+      alert('Please fill in required fields');
+      return;
+    }
+    
     setIsSubmitting(true);
-    // Simulate submission delay
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSuccess(true);
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        mobile: '',
+        city: '',
+        state: '',
+        property: '',
+        budget: '',
+        message: ''
+      });
     }, 1500);
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { type: "spring" as const, stiffness: 100 },
-    },
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-b pt-[160px] from-white via-[#FFF9F0] to-white relative overflow-hidden  pb-20">
+    <section className="bg-white font-sans" id="franchise">
       
-      {/* --- Background Elements --- */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}
-      />
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#B8F3D1]/20 rounded-full blur-3xl -z-10 opacity-70" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#A7D8FF]/20 rounded-full blur-3xl -z-10 opacity-70" />
+      {/* FONTS & STYLES */}
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap');
+        .font-calligraphy { font-family: 'Pacifico', cursive; }
+        .font-hand { font-family: 'Dancing Script', cursive; }
+      `}</style>
 
-      <div className="container mx-auto px-4 relative z-10">
-        
-        {/* --- Header --- */}
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center max-w-4xl mx-auto mb-20"
+      {/* HEADER SECTION */}
+      <div className="max-w-7xl mx-auto px-6 py-20 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#FF8A80]/10 text-[#FF8A80] rounded-full text-sm font-bold uppercase tracking-wider mb-6 border border-[#FF8A80]/20">
+          <div className="inline-flex items-center gap-2 px-6 py-2 bg-[#f7a7b4] text-white rounded-full text-sm font-bold uppercase tracking-widest mb-6">
             <Briefcase className="w-4 h-4" />
             Business Opportunity
           </div>
-          <h1 className="text-4xl lg:text-6xl font-fedorikanew text-gray-800 mb-6 leading-tight">
-            Build a Future with <br/>
-            <span className="text-[#FF8A80] relative inline-block">
-              Little Dreamers
-              <svg className="absolute w-full h-4 -bottom-2 left-0 text-[#FFE99B] -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
-                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
-              </svg>
-            </span>
+          <h1 className="text-4xl md:text-6xl font-black text-gray-800 mb-4">
+            Partner with <span className="text-[#f7a7b4]">Little Dreamers</span>
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Partner with a trusted brand in early childhood education. We provide the blueprint, training, and support—you bring the passion for shaping young minds.
+          <p className="text-xl text-gray-600 font-medium max-w-3xl mx-auto">
+            Join a revolutionary preschool franchise with zero royalty, 100% profit retention, and proven success
           </p>
         </motion.div>
+      </div>
 
-        {/* --- Unique Selling Points (USPs) --- */}
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid md:grid-cols-3 gap-8 mb-24"
-        >
-          {[
-            {
-              icon: TrendingUp,
-              color: "text-emerald-500",
-              bg: "bg-emerald-50",
-              title: "Proven Business Model",
-              desc: "A tested framework that ensures operational efficiency and faster ROI."
-            },
-            {
-              icon: BookOpen,
-              color: "text-blue-500",
-              bg: "bg-blue-50",
-              title: "Award-Winning Curriculum",
-              desc: "Access to our proprietary play-based learning syllabus and materials."
-            },
-            {
-              icon: ShieldCheck,
-              color: "text-amber-500",
-              bg: "bg-amber-50",
-              title: "Established Brand Trust",
-              desc: "Leverage our 15+ years of reputation to gain instant parent confidence."
-            }
-          ].map((usp, idx) => (
-            <motion.div key={idx} variants={itemVariants}>
-              <Card className="h-full border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white/80 backdrop-blur overflow-hidden group">
-                <CardHeader className="pb-2">
-                  <div className={`w-14 h-14 ${usp.bg} ${usp.color} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                    <usp.icon className="w-7 h-7" />
-                  </div>
-                  <CardTitle className="text-xl font-bold text-gray-800">{usp.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 leading-relaxed">{usp.desc}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
+      {/* MOSAIC LAYOUT */}
+      <div className="max-w-[1920px] mx-auto grid grid-cols-1 md:grid-cols-12">
 
-        {/* --- Main Content Grid: Info & Form --- */}
-        <div className="grid lg:grid-cols-12 gap-12 items-start">
-          
-          {/* LEFT COLUMN: Benefits, Support, Investment */}
-          <div className="lg:col-span-7 space-y-16">
-            
-            {/* Benefits Section */}
-            <section>
-              <h2 className="text-3xl font-fedorikanew text-gray-800 mb-8 flex items-center gap-3">
-                <Star className="w-8 h-8 text-[#FFE99B] fill-amber-300" />
-                Partner Benefits
-              </h2>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {[
-                  "High Returns on Investment (ROI)",
-                  "Recession-Resilient Industry",
-                  "Work-Life Balance",
-                  "Comprehensive Marketing Support",
-                  "Ongoing Staff Training",
-                  "Site Selection Assistance"
-                ].map((benefit, i) => (
-                  <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-white border border-gray-100 shadow-sm">
-                    <CheckCircle2 className="w-5 h-5 text-[#B8F3D1] fill-emerald-500 shrink-0" />
-                    <span className="font-medium text-gray-700">{benefit}</span>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Support Services */}
-            <section>
-              <h2 className="text-3xl font-fedorikanew text-gray-800 mb-8 flex items-center gap-3">
-                <Users className="w-8 h-8 text-[#A7D8FF] fill-blue-300" />
-                360° Franchise Support
-              </h2>
-              <div className="space-y-6">
-                <div className="flex gap-5">
-                  <div className="w-12 h-12 bg-[#FF8A80]/20 rounded-full flex items-center justify-center text-[#FF8A80] shrink-0">
-                    <Building2 className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-800">Pre-Launch</h3>
-                    <p className="text-gray-600">Site survey, interior design guidelines, legal agreement assistance, and licensing support.</p>
-                  </div>
-                </div>
-                <div className="flex gap-5">
-                  <div className="w-12 h-12 bg-[#FFE99B]/30 rounded-full flex items-center justify-center text-amber-600 shrink-0">
-                    <Lightbulb className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-800">Launch & Marketing</h3>
-                    <p className="text-gray-600">Grand opening event planning, digital marketing setup, social media kit, and lead generation strategies.</p>
-                  </div>
-                </div>
-                <div className="flex gap-5">
-                  <div className="w-12 h-12 bg-[#A7D8FF]/20 rounded-full flex items-center justify-center text-[#0EA5E9] shrink-0">
-                    <BookOpen className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-800">Ongoing Operations</h3>
-                    <p className="text-gray-600">Regular audits, curriculum updates, teacher training workshops, and 24/7 operational guidance.</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Investment Details */}
-            <section className="bg-[#FFF9F0] rounded-3xl p-8 border border-[#FFE99B]/50">
-              <h2 className="text-2xl font-fedorikanew text-gray-800 mb-6 flex items-center gap-3">
-                <Wallet className="w-7 h-7 text-amber-500" />
-                Investment Snapshot
-              </h2>
-              <p className="text-gray-600 mb-6 text-sm">
-                *Figures are indicative and may vary based on location and city tier.
-              </p>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center p-4 bg-white rounded-xl border border-dashed border-gray-300">
-                  <span className="font-medium text-gray-600">Franchise Fee</span>
-                  <span className="font-bold text-gray-800">$15,000 - $25,000</span>
-                </div>
-                <div className="flex justify-between items-center p-4 bg-white rounded-xl border border-dashed border-gray-300">
-                  <span className="font-medium text-gray-600">Setup Cost (Interiors & Equipment)</span>
-                  <span className="font-bold text-gray-800">$40,000 - $60,000</span>
-                </div>
-                <div className="flex justify-between items-center p-4 bg-white rounded-xl border border-dashed border-gray-300">
-                  <span className="font-medium text-gray-600">Area Required</span>
-                  <span className="font-bold text-gray-800">1500 - 2500 Sq. Ft.</span>
-                </div>
-                <div className="p-4 bg-[#B8F3D1]/20 rounded-xl text-center mt-4">
-                  <span className="text-emerald-800 font-bold">Estimated ROI: 12 - 18 Months</span>
-                </div>
-              </div>
-            </section>
-
+        {/* 1. ZERO ROYALTY - Large Feature */}
+        <Tile className="md:col-span-5 bg-[#9dcedc] text-white min-h-[500px] flex flex-col relative">
+          <div className="absolute top-0 right-0 p-2 opacity-20">
+            <DollarSign className="w-32 h-32" />
           </div>
-
-          {/* RIGHT COLUMN: Franchise Form */}
-          <div className="lg:col-span-5 sticky top-24">
-            <div className="relative">
-              {/* Rotated Background */}
-              <div className="absolute inset-0 bg-[#A7D8FF] rounded-[2rem] rotate-3 scale-105 opacity-20 pointer-events-none" />
-              
-              <Card className="border-none shadow-xl bg-white relative z-10 overflow-hidden rounded-[2rem]">
-                <div className="h-3 bg-gradient-to-r from-[#FF8A80] via-[#FFE99B] to-[#A7D8FF]" />
-                <CardHeader className="text-center pt-8">
-                  <CardTitle className="text-2xl font-fedorikanew text-gray-800">Start Your Journey</CardTitle>
-                  <p className="text-sm text-gray-500 mt-2">Fill out the form to download our detailed brochure.</p>
-                </CardHeader>
-                
-                <CardContent className="p-6 md:p-8">
-                  {isSuccess ? (
-                    <motion.div 
-                      initial={{ scale: 0.9, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      className="text-center py-12"
-                    >
-                      <div className="w-20 h-20 bg-[#B8F3D1] text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <CheckCircle2 className="w-10 h-10" />
-                      </div>
-                      <h3 className="text-2xl font-bold text-gray-800 mb-2">Request Received!</h3>
-                      <p className="text-gray-600 mb-6">
-                        Our franchise development team will review your profile and contact you within 48 hours.
-                      </p>
-                      <Button variant="outline" onClick={() => setIsSuccess(false)}>Submit Another</Button>
-                    </motion.div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-5">
-                      
-                      {/* Personal Info */}
-                      <div className="space-y-4">
-                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Personal Details</h4>
-                        <div className="grid grid-cols-2 gap-4">
-                          <input required type="text" placeholder="First Name" className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-[#FF8A80] outline-none transition-all text-sm" />
-                          <input required type="text" placeholder="Last Name" className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-[#FF8A80] outline-none transition-all text-sm" />
-                        </div>
-                        <input required type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-[#FF8A80] outline-none transition-all text-sm" />
-                        <input required type="tel" placeholder="Mobile Number" className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-[#FF8A80] outline-none transition-all text-sm" />
-                      </div>
-
-                      {/* Location & Business Info */}
-                      <div className="space-y-4 pt-2">
-                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Franchise Details</h4>
-                        <div className="grid grid-cols-2 gap-4">
-                          <input required type="text" placeholder="City" className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-[#A7D8FF] outline-none transition-all text-sm" />
-                          <input required type="text" placeholder="State" className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-[#A7D8FF] outline-none transition-all text-sm" />
-                        </div>
-                        
-                        <select className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-[#A7D8FF] outline-none transition-all text-sm text-gray-600">
-                          <option value="">Do you own property?</option>
-                          <option value="owned">Yes, I own a property</option>
-                          <option value="leased">No, but I can lease one</option>
-                          <option value="looking">Currently looking for space</option>
-                        </select>
-
-                        <select className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-[#A7D8FF] outline-none transition-all text-sm text-gray-600">
-                          <option value="">Investment Budget</option>
-                          <option value="low">$50k - $75k</option>
-                          <option value="mid">$75k - $100k</option>
-                          <option value="high">$100k+</option>
-                        </select>
-                      </div>
-
-                      <div className="space-y-2 pt-2">
-                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Your Story</h4>
-                        <textarea 
-                          rows={3}
-                          placeholder="Why do you want to partner with Little Dreamers?"
-                          className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-[#FFE99B] outline-none transition-all text-sm resize-none"
-                        />
-                      </div>
-
-                      <Button 
-                        type="submit" 
-                        disabled={isSubmitting}
-                        className="w-full py-6 bg-[#FF8A80] hover:bg-[#ff7566] text-white font-bold rounded-xl shadow-lg shadow-[#FF8A80]/20 mt-4 group"
-                      >
-                        {isSubmitting ? "Processing..." : (
-                          <span className="flex items-center gap-2">
-                            Submit Application
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                          </span>
-                        )}
-                      </Button>
-                      
-                      <p className="text-xs text-center text-gray-400 mt-4">
-                        By clicking submit, you agree to our terms and privacy policy.
-                      </p>
-                    </form>
-                  )}
-                </CardContent>
-              </Card>
+          
+          <div className="relative z-10 max-w-xl">
+            <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-6">
+              <Trophy className="w-8 h-8" />
+            </div>
+            <h3 className="text-4xl md:text-5xl font-black mb-6 leading-tight">
+              Zero <span className="text-[#FFE5E5]">Royalty</span> Model
+            </h3>
+            <p className="text-xl font-bold text-blue-50 mb-8 leading-relaxed">
+              100% profit retention for franchise partners. We only charge for student kits—no recurring royalty fees ever.
+            </p>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <CheckCircle2 className="w-6 h-6 shrink-0" />
+                <span className="font-bold">Keep all your earnings</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <CheckCircle2 className="w-6 h-6 shrink-0" />
+                <span className="font-bold">Pay only for student kits</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <CheckCircle2 className="w-6 h-6 shrink-0" />
+                <span className="font-bold">No hidden recurring fees</span>
+              </div>
             </div>
           </div>
+        </Tile>
 
-        </div>
+        {/* 2. DAYCARE BONUS */}
+        <Tile className="md:col-span-3 bg-[#fad06e] text-white min-h-[500px] flex flex-col relative">
+          <div className="absolute bottom-0 right-0 opacity-20">
+            <Heart className="w-40 h-40" />
+          </div>
+          
+          <div className="relative z-10">
+            <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mb-6">
+              <Heart className="w-7 h-7" />
+            </div>
+            <h3 className="text-3xl md:text-4xl font-black mb-4 leading-tight">
+              Daycare Revenue Bonus
+            </h3>
+            <p className="text-lg font-bold text-yellow-50 leading-relaxed">
+              No royalty on daycare operations. Enjoy 100% earnings for consistent monthly income stream.
+            </p>
+          </div>
+        </Tile>
+
+        {/* 3. HIGH ROI */}
+        <Tile className="md:col-span-4 bg-[#7209B7] text-white min-h-[500px] flex flex-col justify-between relative">
+          <div className="absolute top-0 left-0 opacity-10">
+            <TrendingUp className="w-48 h-48" />
+          </div>
+          
+          <div className="relative z-10">
+            <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mb-6">
+              <TrendingUp className="w-7 h-7" />
+            </div>
+            <h3 className="text-3xl md:text-4xl font-black mb-4 leading-tight">
+              High ROI Business
+            </h3>
+            <p className="text-lg font-bold text-purple-100 leading-relaxed mb-6">
+              Low investment with quick breakeven and scalable profitability. Recession-resilient education industry.
+            </p>
+          </div>
+          
+          <div className="bg-[#5a0793] p-6 -mx-8 md:-mx-10 -mb-8 md:-mb-10">
+            <div className="text-center">
+              <div className="text-4xl font-black mb-2">12-18 Months</div>
+              <div className="text-sm font-bold text-purple-200 uppercase tracking-wider">Expected Breakeven</div>
+            </div>
+          </div>
+        </Tile>
+
+        {/* 4. PROVEN CURRICULUM */}
+        <Tile className="md:col-span-4 bg-[#f7a7b4] text-white min-h-[450px] flex flex-col relative">
+          <div className="absolute top-2 right-2 opacity-20">
+            <BookOpen className="w-32 h-32" />
+          </div>
+          
+          <div className="relative z-10">
+            <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mb-6">
+              <BookOpen className="w-7 h-7" />
+            </div>
+            <h3 className="text-3xl font-black mb-4">
+              Proven Academic Framework
+            </h3>
+            <p className="text-lg font-bold text-pink-50 leading-relaxed">
+              Scientifically designed curriculum blending play-based, experiential and value-based learning.
+            </p>
+          </div>
+        </Tile>
+
+        {/* 5. COMPLETE SETUP SUPPORT */}
+        <Tile className="md:col-span-4 bg-[#06D6A0] text-white min-h-[450px] flex flex-col relative">
+          <div className="absolute bottom-0 left-0 opacity-20">
+            <Building2 className="w-36 h-36" />
+          </div>
+          
+          <div className="relative z-10">
+            <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mb-6">
+              <Building2 className="w-7 h-7" />
+            </div>
+            <h3 className="text-3xl font-black mb-4">
+              Complete Setup Support
+            </h3>
+            <p className="text-lg font-bold text-green-50 leading-relaxed">
+              End-to-end guidance from property selection, interiors, branding to staff recruitment and training.
+            </p>
+          </div>
+        </Tile>
+
+        {/* 6. BENEFITS GRID */}
+        <Tile className="md:col-span-4 bg-[#fad06e] text-white min-h-[450px] flex flex-col relative">
+          <div className="absolute top-2 right-2 opacity-20">
+            <Star className="w-32 h-32" />
+          </div>
+          
+          <div className="relative z-10">
+            <h3 className="text-3xl font-black mb-6">
+              More Benefits
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <Award className="w-6 h-6 shrink-0 mt-1" />
+                <div>
+                  <div className="font-black text-lg mb-1">Strong Brand Identity</div>
+                  <div className="text-sm font-bold text-yellow-50">Premium preschool parents trust</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Users className="w-6 h-6 shrink-0 mt-1" />
+                <div>
+                  <div className="font-black text-lg mb-1">Comprehensive Training</div>
+                  <div className="text-sm font-bold text-yellow-50">Step-by-step operational support</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Sparkles className="w-6 h-6 shrink-0 mt-1" />
+                <div>
+                  <div className="font-black text-lg mb-1">Marketing Support</div>
+                  <div className="text-sm font-bold text-yellow-50">Digital marketing & lead generation</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Tile>
+
+        {/* 7. INVESTMENT DETAILS - Full Width */}
+        <Tile className="md:col-span-8 bg-gradient-to-br from-[#9dcedc] to-[#7209B7] text-white min-h-[400px] flex flex-col relative">
+          <div className="absolute top-0 right-0 opacity-10">
+            <Wallet className="w-64 h-64" />
+          </div>
+          
+          <div className="relative z-10 max-w-5xl">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+                <Wallet className="w-8 h-8" />
+              </div>
+              <h3 className="text-4xl font-black">Investment Overview</h3>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border-2 border-white/20">
+                <div className="text-5xl font-black mb-2">₹10-15L</div>
+                <div className="text-lg font-bold text-blue-100 uppercase tracking-wide">Franchise Fee</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border-2 border-white/20">
+                <div className="text-5xl font-black mb-2">₹25-40L</div>
+                <div className="text-lg font-bold text-blue-100 uppercase tracking-wide">Setup Cost</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border-2 border-white/20">
+                <div className="text-5xl font-black mb-2">1500+</div>
+                <div className="text-lg font-bold text-blue-100 uppercase tracking-wide">Sq. Ft. Area</div>
+              </div>
+            </div>
+            
+            <p className="text-sm font-bold text-blue-100 mt-6 opacity-80">
+              *Figures are indicative and may vary based on location and city tier
+            </p>
+          </div>
+        </Tile>
+
+        {/* 8. APPLICATION FORM */}
+        <Tile className="md:col-span-4 bg-[#f7a7b4] text-white min-h-[400px] flex flex-col relative">
+          {isSuccess ? (
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="relative z-10 flex flex-col items-center justify-center h-full text-center"
+            >
+              <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mb-6">
+                <CheckCircle2 className="w-10 h-10" />
+              </div>
+              <h4 className="text-3xl font-black mb-3">Success!</h4>
+              <p className="text-lg font-bold text-pink-50 mb-6">
+                We'll contact you within 48 hours
+              </p>
+              <button 
+                onClick={() => setIsSuccess(false)}
+                className="px-6 py-3 bg-white text-[#f7a7b4] font-black rounded-full hover:scale-105 transition-transform"
+              >
+                Submit Another
+              </button>
+            </motion.div>
+          ) : (
+            <div className="relative z-10">
+              <h3 className="text-3xl font-black mb-2">Apply Now</h3>
+              <p className="text-sm font-bold text-pink-100 mb-6">Join the Little Dreamers family</p>
+              
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <input 
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    type="text" 
+                    placeholder="First Name" 
+                    className="w-full px-4 py-3 rounded-xl bg-white/20 border-2 border-white/30 placeholder-white/70 text-white outline-none focus:border-white transition-all font-bold"
+                  />
+                  <input 
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    type="text" 
+                    placeholder="Last Name" 
+                    className="w-full px-4 py-3 rounded-xl bg-white/20 border-2 border-white/30 placeholder-white/70 text-white outline-none focus:border-white transition-all font-bold"
+                  />
+                </div>
+                <input 
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  type="email" 
+                  placeholder="Email" 
+                  className="w-full px-4 py-3 rounded-xl bg-white/20 border-2 border-white/30 placeholder-white/70 text-white outline-none focus:border-white transition-all font-bold"
+                />
+                <input 
+                  name="mobile"
+                  value={formData.mobile}
+                  onChange={handleInputChange}
+                  type="tel" 
+                  placeholder="Mobile" 
+                  className="w-full px-4 py-3 rounded-xl bg-white/20 border-2 border-white/30 placeholder-white/70 text-white outline-none focus:border-white transition-all font-bold"
+                />
+                <input 
+                  name="city"
+                  value={formData.city}
+                  onChange={handleInputChange}
+                  type="text" 
+                  placeholder="City" 
+                  className="w-full px-4 py-3 rounded-xl bg-white/20 border-2 border-white/30 placeholder-white/70 text-white outline-none focus:border-white transition-all font-bold"
+                />
+                <select 
+                  name="budget"
+                  value={formData.budget}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-xl bg-white/20 border-2 border-white/30 text-white outline-none focus:border-white transition-all font-bold"
+                >
+                  <option value="" className="text-gray-800">Investment Budget</option>
+                  <option value="low" className="text-gray-800">₹35L - ₹50L</option>
+                  <option value="mid" className="text-gray-800">₹50L - ₹75L</option>
+                  <option value="high" className="text-gray-800">₹75L+</option>
+                </select>
+
+                <button 
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                  className="w-full py-4 bg-white text-[#f7a7b4] font-black rounded-xl hover:scale-105 transition-transform shadow-lg disabled:opacity-50"
+                >
+                  {isSubmitting ? (
+                    "Processing..."
+                  ) : (
+                    <span className="flex items-center justify-center gap-2">
+                      Submit Application
+                      <ArrowRight className="w-5 h-5" />
+                    </span>
+                  )}
+                </button>
+              </div>
+            </div>
+          )}
+        </Tile>
+
+        {/* 9. DAYCARE INTEGRATION */}
+        <Tile className="md:col-span-3 bg-[#06D6A0] text-white min-h-[350px] flex flex-col relative">
+          <div className="absolute bottom-0 right-0 opacity-20">
+            <Target className="w-32 h-32" />
+          </div>
+          
+          <div className="relative z-10">
+            <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mb-6">
+              <Target className="w-7 h-7" />
+            </div>
+            <h3 className="text-2xl font-black mb-4">
+              Daycare Integration
+            </h3>
+            <p className="text-lg font-bold text-green-50 leading-relaxed">
+              Extended service model for year-round revenue and higher parent satisfaction.
+            </p>
+          </div>
+        </Tile>
+
+        {/* 10. PAN-INDIA EXPANSION */}
+        <Tile className="md:col-span-5 bg-[#7209B7] text-white min-h-[350px] flex flex-col relative">
+          <div className="absolute top-0 right-0 opacity-10">
+            <Globe className="w-48 h-48" />
+          </div>
+          
+          <div className="relative z-10 max-w-xl">
+            <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mb-6">
+              <Globe className="w-7 h-7" />
+            </div>
+            <h3 className="text-3xl md:text-4xl font-black mb-4 leading-tight">
+              Pan-India & International Vision
+            </h3>
+            <p className="text-lg font-bold text-purple-100 leading-relaxed mb-6">
+              Opportunity to grow with a brand focused on quality, consistency and innovation across borders.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {['Quality', 'Consistency', 'Innovation', 'Growth'].map((tag, i) => (
+                <span key={i} className="px-4 py-2 bg-white/20 rounded-full text-sm font-bold">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </Tile>
+
+        {/* 11. 360° SUPPORT */}
+        <Tile className="md:col-span-4 bg-[#9dcedc] text-white min-h-[350px] flex flex-col relative">
+          <div className="absolute top-2 right-2 opacity-20">
+            <ShieldCheck className="w-32 h-32" />
+          </div>
+          
+          <div className="relative z-10">
+            <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mb-6">
+              <ShieldCheck className="w-7 h-7" />
+            </div>
+            <h3 className="text-3xl font-black mb-6">
+              360° Support System
+            </h3>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <Zap className="w-5 h-5 shrink-0" />
+                <span className="font-bold">Pre-launch assistance</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Zap className="w-5 h-5 shrink-0" />
+                <span className="font-bold">Marketing & admissions</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Zap className="w-5 h-5 shrink-0" />
+                <span className="font-bold">Ongoing operations support</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Zap className="w-5 h-5 shrink-0" />
+                <span className="font-bold">Regular training workshops</span>
+              </div>
+            </div>
+          </div>
+        </Tile>
+
       </div>
-    </div>
+
+      {/* CTA SECTION */}
+      <div className="max-w-7xl mx-auto px-6 py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="bg-gradient-to-r from-[#f7a7b4] via-[#9dcedc] to-[#fad06e] p-12 md:p-16 rounded-3xl text-center relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 opacity-10">
+            <Star className="w-64 h-64" />
+          </div>
+          
+          <div className="relative z-10">
+            <h3 className="text-3xl md:text-5xl font-black text-white mb-4">
+              Ready to Start Your Journey?
+            </h3>
+            <p className="text-xl text-white/90 font-bold mb-8 max-w-2xl mx-auto">
+              Join our mission to provide quality early childhood education
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-white text-[#f7a7b4] px-8 py-4 rounded-full font-black text-lg uppercase tracking-wide hover:scale-105 transition-transform shadow-lg">
+                Download Brochure
+              </button>
+              <button className="bg-white/20 backdrop-blur-sm text-white border-2 border-white px-8 py-4 rounded-full font-black text-lg uppercase tracking-wide hover:scale-105 transition-transform">
+                Schedule a Call
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+    </section>
   );
 };
 

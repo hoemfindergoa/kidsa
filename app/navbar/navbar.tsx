@@ -89,6 +89,11 @@ const Navbar = () => {
               >
                 Franchise
               </a>
+                <a href="/franchise"
+                className="relative px-4 py-2 text-slate-600 font-script hover:text-pink-500 text-2xl  rounded-full hover:bg-pink-50 transition-all duration-300 group  tracking-wide ml-2"
+              >
+                Admission
+              </a>
             </div>
 
             {/* --- CTA BUTTONS --- */}
