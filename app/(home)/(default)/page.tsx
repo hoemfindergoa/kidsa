@@ -6,11 +6,13 @@ import Hero from '@/components/Hero';
 import ContactPage from '@/components/Contact';
 import HeroNEW from '@/components/HeroNew';
 import KindergartenHome from '@/components/Newhome';
+import ProgramsSection from '@/components/ProgramsNew';
 export default function Page() {
   return (
     <div className="w-full overflow-x-hidden relative">
       <HeroNEW/>
       <About/>
+      <ProgramsSection/>
       {/* <Hero/>
       
       <Programs/>

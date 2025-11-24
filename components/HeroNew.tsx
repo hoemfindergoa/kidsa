@@ -67,7 +67,7 @@ const Hero = () => {
           transition={{ delay: 0.3, duration: 0.8 }}
           className="font-script text-2xl md:text-3xl text-white/95 mb-6 drop-shadow-sm font-normal"
         >
-          Where minds grow <span className="text-yellow-200 decoration-wavy underline decoration-white/30">sharper!</span>
+          Where Little Dreams Begin to  <span className="text-yellow-200 decoration-wavy underline decoration-white/30">Shine!</span>
         </motion.h2>
 
         {/* Buttons - Small & Elegant */}

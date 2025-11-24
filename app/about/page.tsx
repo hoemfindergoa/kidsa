@@ -4,17 +4,13 @@
   import smilingboy from "../../public/smilingboy.png";
   import Girls from "../../public/girlsimage.png"
   import anothergirl from "../../public/anothergirl.png"
+  import Toys from "../../public/Toys.png"
   import { 
     Target, 
     Heart, 
     ShieldCheck, 
+    Puzzle,
     Quote, 
-    GraduationCap, 
-    Puzzle, 
-    Star,
-    Sparkles,
-    Blocks,
-    Rocket
   } from "lucide-react";
   import Image from "next/image";
   import Childrengroup from "../../public/childrensimage.png"
@@ -59,7 +55,7 @@
               <div className="flex items-center gap-3 mb-6">
               {/* <span className="bg-white text-[#FF4D6D] px-4 py-1 font-bold text-xs uppercase tracking-widest rounded-sm">Our Mission</span> */}
               </div>
-              <h3 className="text-4xl md:text-5xl font-black mb-6 leading-tight">
+              <h3 className="text-3xl md:text-4xl font-black mb-6 leading-tight">
               Nurturing <span className="text-[#FFE5E5]">Curiosity</span> & <br/>
               Inspiring <span className="text-[#FFE5E5]">Dreams</span>
               </h3>
@@ -79,27 +75,29 @@
               <Image
               src={smilingboy}
               alt="Child corner"
-              width={400}
-              height={400}
+              width={380}
+              height={380}
               className="object-cover"
               />
             </div>
             </Tile>
                  <Tile className="md:col-span-4 bg-[#9dcedc] text-white min-h-[550px] flex flex-col  relative">
             <div className="absolute top-0 right-0 p-2 opacity-20">
-              <Target className="w-32 h-32" />
+              <Puzzle className="w-32 h-32" />
             </div>
             
             <div className="relative mt-0 z-10 max-w-xl mx-auto md:mx-0">
               <div className="flex items-center gap-3 mb-6">
               {/* <span className="bg-white text-[#FF4D6D] px-4 py-1 font-bold text-xs uppercase tracking-widest rounded-sm">Our Mission</span> */}
               </div>
-              <h3 className="text-4xl md:text-5xl font-black mb-6 leading-tight">
+              <h3 className="text-3xl md:text-4xl font-black mb-6 leading-tight">
               Building <span className="text-[#FFE5E5]">Strong Minds</span> & <br/>
               Kind Hearts 
               </h3>
               <p className="text-lg font-bold text-pink-50 mb-8 leading-relaxed">
-             Every day is filled with stories, smiles, and new discoveries
+             we cherish the magical early years of
+childhood — a phase where curiosity sparks, imagination takes flight and the foundation
+for lifelong learning is built with care.
               </p>
               <div className="flex gap-4">
                 <div className="flex flex-col items-center">
@@ -114,8 +112,8 @@
               <Image
               src={Girls}
               alt="Child corner"
-              width={400}
-              height={400}
+              width={380}
+              height={380}
               className="object-cover"
               />
             </div>
@@ -189,20 +187,43 @@
           </Tile> */}
 
           {/* 6. LEARNING THROUGH PLAY (Full Width Banner) */}
-          <Tile className="md:col-span-8 bg-slate-900 relative p-0 min-h-[300px] group overflow-hidden">
-            <Image 
-              src={Childrengroup} 
-              alt="Learning" 
-              className="w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 flex flex-col justify-center items-start p-10 md:p-16">
-                <span className="text-[#FFD166] font-bold tracking-widest uppercase mb-2">Our Approach</span>
-                <h3 className="text-4xl md:text-5xl font-black text-white mb-4">Learning Through Play</h3>
-                <p className="text-white text-lg font-medium max-w-xl">
-                  We believe play is serious learning. From building blocks to storytelling, every activity is designed to spark cognitive growth.
-                </p>
+            <Tile className="md:col-span-8 bg-[#fad06e] text-white min-h-[550px] flex flex-col  relative">
+            <div className="absolute top-0 right-0 p-2 opacity-20">
+              <Heart className="w-32 h-32" />
             </div>
-          </Tile>
+            
+            <div className="relative mt-0 z-10 max-w-xl mx-auto md:mx-0">
+              <div className="flex items-center gap-3 mb-6">
+              {/* <span className="bg-white text-[#FF4D6D] px-4 py-1 font-bold text-xs uppercase tracking-widest rounded-sm">Our Mission</span> */}
+              </div>
+              <h3 className="text-3xl md:text-4xl font-black mb-6 leading-tight">
+              Curiosity<span className="text-[#FFE5E5]"> Sparks,</span> & <br/>
+              Imagination takes <span className="text-[#FFE5E5]">flight</span>
+              </h3>
+              <p className="text-lg font-bold text-pink-50 mb-8 leading-relaxed">
+             At Little Dreamers at Cambridge, we help those dreams shine brighter every day.With the perfect balance of structured learning, hands-on
+experiences, and joyful exploration, we empower children aged 2 to 6 years to grow
+with confidence, creativity, and strong character.
+              </p>
+              <div className="flex gap-4">
+                <div className="flex flex-col items-center">
+                </div>
+                <div className="flex flex-col items-center">
+                </div>
+              </div>
+            </div>
+
+            {/* Decorative image in the right corner */}
+            <div className="absolute bottom-0 right-4 z-20">
+              <Image
+              src={Toys}
+              alt="Child corner"
+              width={760}
+              height={760}
+              className="object-cover"
+              />
+            </div>
+            </Tile>
 
           {/* 7. TESTIMONIAL (Purple Block) */}
           <Tile className="md:col-span-4 bg-[#7209B7] text-white flex flex-col justify-center min-h-[300px]">
