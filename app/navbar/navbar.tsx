@@ -78,14 +78,14 @@ const Navbar = () => {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="relative px-4 py-2 text-slate-600 hover:text-pink-500 font-bold rounded-full hover:bg-pink-50 transition-all duration-300 group text-sm tracking-wide"
+                  className="relative px-4 py-2 text-slate-600 hover:text-pink-500 font-script rounded-full hover:bg-pink-50 transition-all duration-300 group text-2xl tracking-wide"
                 >
                   {link.label}
                 </a>
               ))}
               
               <a href="/franchise"
-                className="relative px-4 py-2 text-slate-600 hover:text-pink-500 font-bold rounded-full hover:bg-pink-50 transition-all duration-300 group text-sm tracking-wide ml-2"
+                className="relative px-4 py-2 text-slate-600 font-script hover:text-pink-500 text-2xl  rounded-full hover:bg-pink-50 transition-all duration-300 group  tracking-wide ml-2"
               >
                 Franchise
               </a>

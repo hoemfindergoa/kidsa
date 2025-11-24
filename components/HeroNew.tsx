@@ -55,7 +55,7 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="font-calligraphy text-4xl md:text-5xl text-white drop-shadow-md mb-2 relative inline-block"
         >
-          Little Dreamers
+          Little <span className="text-pink-500">Dreamers</span>
           {/* Cute Decor Star */}
           <Star className="absolute -top-3 -right-5 w-5 h-5 text-yellow-300 fill-yellow-300 rotate-12 animate-pulse" />
         </motion.h1>
