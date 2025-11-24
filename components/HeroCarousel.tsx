@@ -1,195 +1,184 @@
 "use client"
-import React from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRightIcon, StarFilledIcon } from "@radix-ui/react-icons";
-import { motion, Variants } from "framer-motion";
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
+import React from 'react';
+import { Star, Moon, Rocket, Cloud } from 'lucide-react';
 
-const carouselImages = [
-  { src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&q=80", alt: "Kids jumping" },
-  { src: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800&q=80", alt: "Kids on playground" },
-  { src: "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=800&q=80", alt: "Kids reading" },
-];
-
-const Hero = () => {
-  // Embla Carousel setup
-  const [emblaRef] = useEmblaCarousel({ loop: true }, [
-    Autoplay({ delay: 3000, stopOnInteraction: false }),
-  ]);
-
-  const stats = [
-    { value: "15+", label: "Years Experience", color: "text-[#FF8A80]", bgColor: "bg-[#FF8A80]/10" },
-    { value: "500+", label: "Happy Students", color: "text-[#4caf50]", textColor: "text-emerald-500", bgColor: "bg-[#B8F3D1]/40" },
-    { value: "30+", label: "Expert Teachers", color: "text-[#A7D8FF]", bgColor: "bg-[#A7D8FF]/10" },
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { type: "spring" as const, stiffness: 100 } },
-  };
-
+const WhimsicalTimeline = () => {
   return (
-    <section className="relative overflow-hidden bg-white pt-32 pb-48 min-h-[90vh] flex items-center">
-       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}
-      />
-      
-      {/* --- 1. THE WAVY DASHED LINE (Background) --- */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-visible">
-        <svg className="absolute w-full h-full opacity-30 text-teal-300" viewBox="0 0 1000 800" preserveAspectRatio="none">
-          <path 
-            d="M-50,100 C150,50 300,200 450,150 C600,100 700,50 900,100 C1100,150 1100,400 900,500 C700,600 600,750 400,700 C200,650 100,400 -50,450" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="5" 
-            strokeDasharray="20 20"
-            className="animate-pulse-slow" 
-          />
-        </svg>
-      </div>
+    <div className="min-h-screen bg-[#f9f7f2] text-slate-700 font-sans relative overflow-hidden">
+      {/* --- Global Styles for Fonts & Animations --- */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Quicksand:wght@400;600&display=swap');
+        
+        .font-hand { font-family: 'Patrick+Hand', cursive; }
+        .font-body { font-family: 'Quicksand', sans-serif; }
+        
+        .cloud-shape {
+          border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+          animation: float 6s ease-in-out 3s infinite;
+        }
+        
+        @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-15px); }
+          100% { transform: translateY(0px); }
+        }
+        
+        /* Textured Paper Effect Overlay */
+        .paper-texture {
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+          opacity: 0.4;
+        }
+      `}</style>
 
-      {/* --- 2. THE BOTTOM WAVE (Sand color) --- */}
-      <div className="absolute bottom-0 left-0 w-full leading-none z-10">
-        <svg className="block w-full h-16 md:h-24 lg:h-32 text-[#FFF9F0]" viewBox="0 0 1440 320" preserveAspectRatio="none">
-          <path fill="currentColor" fillOpacity="1" d="M0,224L48,213.3C96,203,192,181,288,192C384,203,480,245,576,245.3C672,245,768,203,864,186.7C960,171,1056,181,1152,192C1248,203,1344,213,1392,218.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-        </svg>
-      </div>
+      {/* Paper Texture Overlay */}
+      <div className="absolute inset-0 paper-texture pointer-events-none z-0 mix-blend-multiply" />
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          
-          {/* --- RIGHT SIDE: THE BUBBLE WINDOW CAROUSEL --- */}
-          {/* We order this first on mobile for visual impact, or last on desktop */}
-          <div className="relative order-first lg:order-last flex justify-center">
-            
-            {/* The Container Size */}
-            <div className="relative w-full max-w-[550px] aspect-[4/3] md:aspect-[5/4]">
-              
-              {/* THE ORGANIC SHAPE TRICK:
-                  We use an SVG mask/clipPath logic.
-                  Here we use a 'blob' borderRadius as a fallback, 
-                  but for the specific shape, a clip-path is best.
-                  
-                  Let's use a "Squircle-ish" shape via CSS radius for smoothness
-                  OR a custom clip-path polygon if we want edges.
-                  The reference looks like a wave-distorted rectangle.
-              */}
-              
-              {/* Background Blob Shadow/Offset (The light teal rim effect) */}
-              <div 
-                className="absolute inset-0 bg-[#dbeff6] scale-[1.03] translate-y-2 rounded-[35%_65%_70%_30%_/_30%_30%_70%_70%]"
-                style={{
-                  borderRadius: "45% 55% 52% 48% / 54% 43% 57% 46%", // Organic blob shape
-                  transform: "rotate(-3deg)"
-                }}
-              />
-              
-              {/* The "Frame" Border (Thick Light Blue/Grey Stroke) */}
-              <div 
-                className="absolute inset-[-15px] border-[20px] border-[#D1E9F1]/80 z-20 pointer-events-none"
-                style={{
-                  borderRadius: "42% 58% 55% 45% / 51% 40% 60% 49%",
-                  transform: "rotate(-2deg)"
-                }}
-              />
+      <div className="relative z-10 max-w-4xl mx-auto pb-32">
+        
+        {/* --- SVG Winding Path --- */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none z-0 opacity-40">
+          <svg className="w-full h-[2000px]" viewBox="0 0 400 1200" preserveAspectRatio="none">
+            {/* This path draws the winding road. 
+              M = Move to start
+              Q = Quadratic Bezier Curve (ControlPointX ControlPointY, EndX EndY)
+              T = Smooth continuation
+            */}
+            <path 
+              d="M 200 50 
+                 Q 150 150 200 250
+                 T 200 450 
+                 T 200 650 
+                 T 200 850
+                 T 200 1050"
+              fill="none" 
+              stroke="#555" 
+              strokeWidth="2" 
+              strokeDasharray="8,8"
+              className="opacity-30"
+            />
+          </svg>
+        </div>
 
-              {/* The Main Clipper for Images */}
-              <div 
-                className="relative h-full w-full overflow-hidden shadow-2xl z-10 bg-white"
-                style={{
-                   borderRadius: "45% 55% 52% 48% / 54% 43% 57% 46%",
-                   transform: "rotate(-2deg)"
-                }}
-              >
-                 {/* Carousel Inside the Blob */}
-                 <div className="h-full w-full" ref={emblaRef}>
-                    <div className="flex h-full w-full">
-                      {carouselImages.map((img, index) => (
-                        <div className="relative flex-[0_0_100%] h-full w-full min-w-0" key={index}>
-                           <img
-                             src={img.src}
-                             alt={img.alt}
-                             className="absolute inset-0 w-full h-full object-cover scale-110" // Slight scale to avoid gaps during blob curve
-                           />
-                           {/* Overlay gradient for better text contrast if needed later */}
-                           <div className="absolute inset-0 bg-black/5" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+        {/* --- Header Section --- */}
+        <header className="text-center pt-20 pb-12 relative">
+          <div className="inline-block relative">
+            <h1 className="text-5xl font-hand text-slate-600 mb-2">Night Night</h1>
+            <h2 className="text-4xl font-hand text-slate-400">Sleep Tight</h2>
+            {/* Sleeping Moon Icon */}
+            <div className="absolute -top-12 -right-16 text-yellow-400 animate-float">
+              <div className="bg-white p-3 rounded-full shadow-sm">
+                <Moon size={48} fill="#fde047" strokeWidth={0} />
+                <span className="absolute top-0 right-0 text-blue-300 text-xl font-bold z-10">zZ</span>
               </div>
-
-         
             </div>
+          </div>
+          <p className="mt-6 max-w-md mx-auto text-slate-500 font-body text-sm">
+            Explore the dreamy landscape of our journey. Follow the path to discover hidden treasures.
+          </p>
+        </header>
 
+        {/* --- Timeline Items --- */}
+        <div className="relative space-y-24">
+
+          {/* Item 1: The Donut Planet (Left) */}
+          <div className="relative flex justify-center md:justify-start md:pl-20">
+             {/* Background Blob/Cloud */}
+            <div className="relative bg-[#fff9c4] p-8 w-64 cloud-shape transform -rotate-2 z-10">
+              <div className="absolute -top-8 -left-8 animate-float-delayed text-4xl">🪐</div>
+              <h3 className="font-hand text-2xl text-yellow-700 mb-2">Reach the Stars</h3>
+              <p className="font-body text-xs text-yellow-800/70 leading-relaxed">
+                Our first stop on the journey takes us to the ringed planet of sweetness.
+              </p>
+              <button className="mt-4 px-4 py-1 bg-yellow-400 text-white font-hand rounded-full text-sm hover:bg-yellow-500 transition">
+                Explore
+              </button>
+            </div>
+            
+            {/* Path Decoration */}
+            <div className="absolute right-1/2 top-0 translate-x-16 hidden md:block">
+               <Rocket className="text-red-400 animate-float" size={32} />
+            </div>
           </div>
 
-
-          {/* --- LEFT SIDE: CONTENT --- */}
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="space-y-6 text-center lg:text-left pt-8 lg:pt-0"
-          >
-            <motion.div variants={itemVariants} className="inline-block px-4 py-1.5 bg-[#FFF4E5] rounded-full border border-[#FFE0B2]">
-              <span className="text-sm font-bold text-[#FF9800] tracking-wide uppercase font-sans">
-                The Best Kindergarten
-              </span>
-            </motion.div>
-
-            <motion.div variants={itemVariants} className="space-y-4">
-              <h1 className="text-4xl lg:text-6xl font-fedorikanew text-[#2D3748] leading-[1.15] tracking-tight">
-                Join Our Friendly
-                <span className="block text-[#E91E63]">Little  Dreamers Family</span>
-              </h1>
-
-              <p className="text-lg text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0 font-medium">
-                Discover our unique program designed to help each child quickly adapt and feel at home. At Peas in Pod, we nurture individuality and happiness.
-              </p>
-            </motion.div>
-
-            <motion.div variants={itemVariants} className="flex flex-wrap gap-4 justify-center lg:justify-start pt-2">
-              <a href="/enroll">
-              <Button size="lg" className="bg-[#8BC34A] hover:bg-[#7CB342] text-white rounded-full px-8 py-7 text-lg font-bold shadow-lg shadow-[#8BC34A]/30 transition-transform hover:-translate-y-1">
-                LEARN MORE 
-                <ArrowRightIcon className="w-5 h-5 ml-2" />
-              </Button>
-              </a>
-              <div className="w-14 h-14 bg-[#D1E9F1] rounded-full flex items-center justify-center text-[#26A69A] cursor-pointer hover:bg-[#B2DFDB] transition-colors">
-                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                    <path fillRule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 4.5z" clipRule="evenodd" />
-                 </svg>
+          {/* Item 2: The Cloud Castle (Right) */}
+          <div className="relative flex justify-center md:justify-end md:pr-20">
+             {/* Background Blob/Cloud */}
+            <div className="relative bg-white p-8 w-72 rounded-[40px] border-4 border-dashed border-blue-100 transform rotate-1 z-10 shadow-sm">
+              <div className="absolute -right-6 -top-6 bg-blue-100 rounded-full p-2">
+                 <Cloud size={32} className="text-blue-400" fill="white" />
               </div>
-            </motion.div>
+              <h3 className="font-hand text-2xl text-blue-400 mb-2">Cloud Nine</h3>
+              <p className="font-body text-xs text-slate-500 leading-relaxed">
+                1. Dream big and sleep well.<br/>
+                2. Count the sheep jumping over fences.<br/>
+                3. Wake up refreshed.
+              </p>
+              <div className="mt-3 w-full h-1 bg-blue-50 rounded-full overflow-hidden">
+                <div className="w-2/3 h-full bg-blue-300 rounded-full"></div>
+              </div>
+            </div>
+          </div>
 
-            {/* Stats Cards Row */}
-            {/* <motion.div variants={itemVariants} className="grid grid-cols-3 gap-3 pt-6 max-w-md mx-auto lg:mx-0">
-               // ... stats code if you want to keep them ... 
-            </motion.div> */}
-          </motion.div>
+          {/* Item 3: The Star Bonus (Center/Left) */}
+          <div className="relative flex justify-center">
+             <div className="bg-[#fef3c7] p-6 rounded-full w-56 h-56 flex flex-col items-center justify-center text-center shadow-inner border-4 border-white z-10">
+                <h3 className="font-hand text-3xl text-orange-400 rotate-[-5deg]">Bonus!</h3>
+                <div className="flex gap-2 mt-2">
+                   <Star className="text-yellow-500 animate-bounce" fill="#f59e0b" size={24} />
+                   <Star className="text-yellow-400 animate-bounce delay-100" fill="#fbbf24" size={20} />
+                </div>
+                <p className="font-body text-xs text-orange-800/60 mt-2 px-2">
+                  Collect all the stars to unlock the secret dream level.
+                </p>
+             </div>
+          </div>
+
+          {/* Item 4: The Ocean Deep (Right) */}
+          <div className="relative flex justify-center md:justify-end md:pr-32 pt-10">
+             {/* Background Blob/Cloud */}
+            <div className="relative bg-[#e0f2fe] p-8 w-64 cloud-shape transform -rotate-1 z-10">
+              <h3 className="font-hand text-2xl text-sky-600 mb-2">Deep Blue</h3>
+              <p className="font-body text-xs text-sky-800/70 leading-relaxed">
+                Dive into the subconscious ocean where the whales sing lullabies.
+              </p>
+              <div className="absolute -bottom-10 -right-10 text-6xl animate-float-delayed">
+                🐳
+              </div>
+              <div className="mt-4 text-center">
+                <span className="inline-block bg-sky-500 text-white text-[10px] px-2 py-1 rounded uppercase tracking-widest font-bold">
+                  Dive In
+                </span>
+              </div>
+            </div>
+             {/* Floating bubbles decoration */}
+            <div className="absolute left-0 top-0 text-sky-200 text-xl opacity-50 animate-pulse">∘</div>
+            <div className="absolute left-4 top-4 text-sky-300 text-2xl opacity-50 animate-pulse">｡</div>
+          </div>
+          
+          {/* Footer Area */}
+          <div className="text-center pt-20">
+            <div className="bg-slate-800 text-white inline-block px-8 py-3 rounded-t-3xl rounded-b-lg shadow-lg transform rotate-1">
+                <span className="font-hand text-xl">Thanks for watching!</span>
+            </div>
+             {/* Decorative mountains at bottom */}
+             <div className="flex justify-center items-end gap-[-20px] mt-10 opacity-80">
+                <div className="w-0 h-0 border-l-[30px] border-l-transparent border-b-[50px] border-b-slate-700 border-r-[30px] border-r-transparent"></div>
+                <div className="w-0 h-0 border-l-[40px] border-l-transparent border-b-[70px] border-b-slate-600 border-r-[40px] border-r-transparent -ml-4"></div>
+                <div className="w-0 h-0 border-l-[25px] border-l-transparent border-b-[40px] border-b-slate-700 border-r-[25px] border-r-transparent -ml-4"></div>
+             </div>
+          </div>
 
         </div>
       </div>
-      
-      <style jsx global>{`
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.5; }
-        }
-        .animate-pulse-slow {
-          animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-      `}</style>
-    </section>
+    </div>
   );
 };
 
-export default Hero;
+export default WhimsicalTimeline;
