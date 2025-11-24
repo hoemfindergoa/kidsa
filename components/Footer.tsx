@@ -139,7 +139,7 @@ const Footer = () => {
         {/* --- BOTTOM BAR --- */}
         <div className="pt-8 border-t border-pink-100/60 text-center flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs md:text-sm text-slate-500 font-medium">
-            © 2025 Little Dreamers. Made with ❤️ for happy learning.
+            © 2025 Little Dreamers. Made with ❤️ for happy learning by <a href="https://scalesaas.ashishrohilla.co.in/"> scalesaas</a>
           </p>
           <div className="flex gap-4 text-xs font-bold text-slate-400">
             <a href="#" className="hover:text-pink-500 transition-colors">Privacy Policy</a>

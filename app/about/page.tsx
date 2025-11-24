@@ -1,216 +1,209 @@
-"use client"
+"use client";
+
 import React from "react";
-import { Heart, Sparkles, Users, Award } from "lucide-react";
+import { motion } from "framer-motion";
+import { 
+  Target, 
+  Heart, 
+  ShieldCheck, 
+  Quote, 
+  GraduationCap, 
+  Puzzle, 
+  Star,
+  Sparkles,
+  Blocks,
+  Rocket
+} from "lucide-react";
 
-// --- UI Components ---
-type DivProps = React.HTMLAttributes<HTMLDivElement>;
+type TileProps = {
+  children?: React.ReactNode;
+  className?: string;
+  delay?: number;
+};
 
-const Card = ({ className, children, ...props }: DivProps) => (
-  <div className={`rounded-3xl border bg-card text-card-foreground shadow-sm ${className}`} {...props}>
+const Tile: React.FC<TileProps> = ({ children, className, delay = 0 }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.95 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay }}
+    className={`relative p-8 md:p-10 overflow-hidden ${className}`}
+  >
     {children}
-  </div>
+  </motion.div>
 );
 
-const CardContent = ({ className, children, ...props }: DivProps) => (
-  <div className={`p-6 ${className}`} {...props}>
-    {children}
-  </div>
-);
-
-const About = () => {
-  // Using Unsplash images to match the "Teacher + Child" and "Group of Kids" vibe from your reference
-  const mainImage = "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=800&q=80"; // Teacher helping child
-  const subImage = "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&q=80";   // Group of kids
-  const beeImage = "https://cdn-icons-png.flaticon.com/512/826/826963.png"; 
-  const cloudImage = "https://cdn-icons-png.flaticon.com/512/1161/1161670.png"; // Car icon replacement for the left side
-
-  const features = [
-    {
-      icon: Heart,
-      title: "Loving Care",
-      description: "Nurturing environment where every child feels valued and secure",
-      color: "text-[#FF8A80]",
-      bgColor: "bg-[#FF8A80]/10",
-      borderColor: "border-[#FF8A80]/20",
-    },
-    {
-      icon: Sparkles,
-      title: "Creative Learning",
-      description: "Engaging activities that spark imagination and curiosity",
-      color: "text-[#E6C200]", // Adjusted for better contrast
-      textColor: "text-amber-500",
-      bgColor: "bg-[#FFE99B]/20",
-      borderColor: "border-[#FFE99B]/30",
-    },
-    {
-      icon: Users,
-      title: "Social Skills",
-      description: "Building friendships and learning to work together",
-      color: "text-[#A7D8FF]",
-      bgColor: "bg-[#A7D8FF]/10",
-      borderColor: "border-[#A7D8FF]/20",
-    },
-    {
-      icon: Award,
-      title: "Expert Teachers",
-      description: "Qualified educators passionate about child development",
-      color: "text-[#4CAF50]",
-      textColor: "text-emerald-500",
-      bgColor: "bg-[#B8F3D1]/20",
-      borderColor: "border-[#B8F3D1]/30",
-    },
-  ];
-
+const AboutUs = () => {
   return (
-    <section
-      id="about"
-      className="py-24 relative overflow-hidden bg-gradient-to-b from-[#FFF9F0] via-white to-[#FFF9F0]"
-    >
-      {/* --- Floating Background Elements --- */}
-      <div className="absolute top-20 right-10 w-16 h-16 animate-bounce-slow opacity-80 z-10">
-        <img src={beeImage} alt="Bee" className="w-full h-full object-contain drop-shadow-lg" />
-      </div>
+    <section  className="bg-white font-sans" id="about">
       
-      <div className="absolute top-40 left-10 w-20 h-20 animate-pulse-slow opacity-60 z-10 hidden lg:block">
-        <img src={cloudImage} alt="Cloud Car" className="w-full h-full object-contain -rotate-12" />
-      </div>
-
-      {/* Decorative Background Blobs */}
-      <div className="absolute top-1/3 left-0 w-72 h-72 bg-[#A7D8FF]/20 rounded-full blur-3xl -z-0" />
-      <div className="absolute bottom-1/3 right-0 w-80 h-80 bg-[#FFE99B]/20 rounded-full blur-3xl -z-0" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          
-          {/* --- LEFT: COMPOSITE IMAGE (Blob Layout) --- */}
-          <div className="relative order-2 lg:order-1 flex justify-center lg:justify-end pr-0 lg:pr-10">
-            <div className="relative w-full max-w-[500px]">
-              
-              {/* 1. MAIN BLOB IMAGE */}
-              <div className="relative z-10">
-                 {/* The Main Blob Shape */}
-                 <div 
-                   className="relative overflow-hidden shadow-2xl w-full aspect-[4/5] bg-gray-100"
-                   style={{
-                     borderRadius: "62% 38% 36% 64% / 56% 48% 52% 44%", // Organic blob shape
-                   }}
-                 >
-                   <img
-                     src={mainImage}
-                     alt="Teacher and Child"
-                     className="w-full h-full object-cover scale-105 hover:scale-110 transition-transform duration-700"
-                   />
-                 </div>
-              </div>
-
-              {/* 2. SECONDARY BLOB IMAGE (Overlapping) */}
-              <div className="absolute -bottom-12 -left-8 lg:-left-12 z-20 w-48 h-48 lg:w-56 lg:h-56">
-                 <div 
-                   className="relative overflow-hidden shadow-xl w-full h-full bg-white border-[8px] border-white"
-                   style={{
-                     borderRadius: "41% 59% 42% 58% / 56% 42% 58% 44%", // Smaller blob
-                   }}
-                 >
-                   <img
-                     src={subImage}
-                     alt="Children Playing"
-                     className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-                   />
-                 </div>
-                 {/* Decorative sparkles near the small blob */}
-                 <div className="absolute -top-4 -right-4 text-[#FF8A80] animate-bounce">
-                    <Sparkles className="w-8 h-8 fill-current" />
-                 </div>
-              </div>
-
-              {/* Background decorative shape behind everything */}
-              <div 
-                className="absolute top-10 -right-10 w-full h-full bg-[#FF8A80] opacity-10 -z-10"
-                style={{ borderRadius: "54% 46% 42% 58% / 45% 52% 48% 55%" }}
-              />
-
-            </div>
-          </div>
-
-          {/* --- RIGHT: CONTENT --- */}
-          <div className="space-y-8 order-1 lg:order-2 text-center lg:text-left">
-            <div className="space-y-4">
-              <div className="inline-block px-4 py-1.5 bg-[#FF8A80]/10 rounded-full border border-[#FF8A80]/20">
-                <span className="text-sm font-bold text-[#FF8A80] tracking-wide uppercase">
-                  About Our School
-                </span>
-              </div>
-              <h2 className="text-4xl lg:text-6xl font-fedorikanew text-[#2D3748] leading-tight">
-                Creating a Foundation for
-                <span className="relative inline-block mx-2 text-[#A7D8FF]">
-                  Lifelong
-                  <svg
-                    className="absolute w-full h-3 -bottom-1 left-0 text-[#FFE99B] -z-10"
-                    viewBox="0 0 100 10"
-                    preserveAspectRatio="none"
-                  >
-                    <path
-                      d="M0 5 Q 50 10 100 5"
-                      stroke="currentColor"
-                      strokeWidth="8"
-                      fill="none"
-                    />
-                  </svg>
-                </span>
-                <span className="text-[#FF8A80]">Learning</span>
-              </h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                At Happy Kids Kindergarten, we believe every child is unique and
-                capable of achieving great things. Our play-based curriculum
-                combines structured learning with creative exploration.
-              </p>
-            </div>
-
-            {/* Feature Grid */}
-            <div className="grid sm:grid-cols-2 gap-5">
-              {features.map((feature, index) => (
-                <Card
-                  key={index}
-                  className={`group border-2 ${feature.borderColor} hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white/60 backdrop-blur-sm rounded-3xl overflow-hidden`}
-                >
-                  <CardContent className="p-5 space-y-3 flex flex-col items-center text-center lg:items-start lg:text-left">
-                    <div
-                      className={`w-12 h-12 ${feature.bgColor} rounded-2xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300`}
-                    >
-                      <feature.icon
-                        className={`w-6 h-6 ${
-                          feature.textColor || feature.color
-                        }`}
-                      />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-gray-800 mb-1">
-                        {feature.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 leading-snug">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-
-        </div>
-      </div>
-
+      {/* 0. FONTS & STYLES */}
       <style jsx global>{`
-        @keyframes bounce-slow {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-15px); }
-        }
-        .animate-bounce-slow {
-          animation: bounce-slow 3s infinite ease-in-out;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap');
+        .font-calligraphy { font-family: 'Pacifico', cursive; }
+        .font-hand { font-family: 'Dancing Script', cursive; }
       `}</style>
+
+      {/* HEADER TITLE AREA */}
+      <div className="bg-white py-6 text-center px-4 relative overflow-hidden">
+         {/* Decorative Background Elements */}
+         <motion.div 
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           className="relative z-10"
+         >
+           <h2 className="text-4xl md:text-5xl font-calligraphy text-slate-900 mb-2">
+             About <span className="text-[#FF4D6D]">Us</span>
+           </h2>
+         
+         </motion.div>
+      </div>
+
+      {/* THE MOSAIC LAYOUT (Sharp Edges, Vibrant Colors) */}
+      <div className="max-w-[1920px] mx-auto grid grid-cols-1 md:grid-cols-12">
+
+        {/* 1. AIM & VISION (Pink Block) */}
+        <Tile className="md:col-span-6 bg-[#FF9AAB] text-white min-h-[500px] flex flex-col justify-center">
+           <div className="absolute top-0 right-0 p-4 opacity-20">
+              <Target className="w-32 h-32" />
+           </div>
+           
+           <div className="relative z-10 max-w-xl mx-auto md:mx-0">
+             <div className="flex items-center gap-3 mb-6">
+               <span className="bg-white text-[#FF4D6D] px-4 py-1 font-bold text-xs uppercase tracking-widest rounded-sm">Our Mission</span>
+             </div>
+             <h3 className="text-4xl md:text-5xl font-black mb-6 leading-tight">
+               Nurturing <span className="text-[#FFE5E5]">Curiosity</span> & <br/>
+               Inspiring <span className="text-[#FFE5E5]">Dreams</span>
+             </h3>
+             <p className="text-lg font-bold text-pink-50 mb-8 leading-relaxed">
+               We aim to create a safe haven where learning is an adventure. Our vision is to empower every child with confidence, creativity, and compassion.
+             </p>
+             <div className="flex gap-4">
+                <div className="flex flex-col items-center">
+                   <div className="w-16 h-16 bg-white rounded-none flex items-center justify-center mb-2 shadow-sm">
+                      <Rocket className="w-8 h-8 text-[#FF4D6D]" />
+                   </div>
+                   <span className="text-xs font-bold uppercase tracking-wider">Explore</span>
+                </div>
+                <div className="flex flex-col items-center">
+                   <div className="w-16 h-16 bg-white rounded-none flex items-center justify-center mb-2 shadow-sm">
+                      <Blocks className="w-8 h-8 text-[#FF4D6D]" />
+                   </div>
+                   <span className="text-xs font-bold uppercase tracking-wider">Create</span>
+                </div>
+             </div>
+           </div>
+        </Tile>
+
+        {/* 2. IMAGE BLOCK (Child with Toys) */}
+        <Tile className="md:col-span-6 bg-[#FFD166] p-0 min-h-[500px] relative group">
+           <img 
+             src="https://img.freepik.com/free-photo/cute-little-girl-playing-with-colorful-toys_155003-45524.jpg?w=740" 
+             alt="Child Playing" 
+             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+           />
+           {/* Graphic Overlay */}
+           <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/50 to-transparent"></div>
+           <div className="absolute bottom-8 left-8 text-white">
+              <p className="font-calligraphy text-4xl">Pure Joy!</p>
+           </div>
+        </Tile>
+
+        {/* 3. WHY CHOOSE US (Blue Block) */}
+        <Tile className="md:col-span-4 bg-[#4CC9F0] text-white min-h-[400px]">
+           <h3 className="text-3xl font-black mb-8 border-b-4 border-white/30 inline-block pb-2">Why Parents Love Us</h3>
+           <ul className="space-y-6">
+             {['Safe & Secure Campus', 'Nutritious Meals Included', 'Large Outdoor Playground', 'Transparent Communication'].map((item, i) => (
+               <li key={i} className="flex items-center gap-4">
+                 <div className="w-10 h-10 bg-white/20 flex items-center justify-center shrink-0">
+                    <Star className="w-5 h-5 text-white fill-white" />
+                 </div>
+                 <span className="font-bold text-lg">{item}</span>
+               </li>
+             ))}
+           </ul>
+        </Tile>
+
+        {/* 4. PHILOSOPHY & SAFETY (Green Block) */}
+        <Tile className="md:col-span-4 bg-[#06D6A0] text-white min-h-[400px] flex flex-col justify-between">
+           <div>
+              <div className="flex items-center gap-3 mb-4">
+                 <Puzzle className="w-8 h-8 text-[#E0FFF8]" />
+                 <h3 className="text-2xl font-black uppercase">Teaching Philosophy</h3>
+              </div>
+              <p className="font-medium text-[#E0FFF8] text-lg leading-relaxed mb-8">
+                 We follow a unique blend of Montessori and Play-Way methods. Learning happens best when hands are busy and hearts are happy.
+              </p>
+           </div>
+           
+           <div className="bg-[#04ad80] p-6 -mx-8 -mb-10 mt-auto">
+              <div className="flex items-center gap-3 mb-2">
+                 <ShieldCheck className="w-6 h-6 text-white" />
+                 <h4 className="font-black text-xl uppercase">Safety First</h4>
+              </div>
+              <p className="text-sm font-medium opacity-90">24/7 CCTV • Verified Staff • Child-safe Zones</p>
+           </div>
+        </Tile>
+
+        {/* 5. TEACHERS (Yellow Block) */}
+        <Tile className="md:col-span-4 bg-[#FFD166] text-[#5c4d26] min-h-[400px]">
+           <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-6 shadow-sm">
+              <GraduationCap className="w-8 h-8 text-[#FFD166]" />
+           </div>
+           <h3 className="text-3xl font-black mb-4">Expert Educators</h3>
+           <p className="font-bold text-lg opacity-80 mb-8">
+             Our teachers aren't just qualified; they are passionate mentors with 5+ years of experience in early child development.
+           </p>
+           
+           <div className="flex items-center gap-4">
+              <div className="flex -space-x-4">
+                 {[1,2,3].map(i => (
+                    <div key={i} className="w-12 h-12 rounded-full border-4 border-[#FFD166] bg-gray-100 overflow-hidden">
+                       <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i+5}`} alt="Teacher" />
+                    </div>
+                 ))}
+              </div>
+              <span className="font-black text-sm uppercase tracking-wide">Highly Qualified Team</span>
+           </div>
+        </Tile>
+
+        {/* 6. LEARNING THROUGH PLAY (Full Width Banner) */}
+        <Tile className="md:col-span-8 bg-slate-900 relative p-0 min-h-[300px] group overflow-hidden">
+           <img 
+             src="https://img.freepik.com/free-photo/preschooler-playing-with-abacus_23-2148193688.jpg?w=996" 
+             alt="Learning" 
+             className="w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-105"
+           />
+           <div className="absolute inset-0 flex flex-col justify-center items-start p-10 md:p-16">
+              <span className="text-[#FFD166] font-bold tracking-widest uppercase mb-2">Our Approach</span>
+              <h3 className="text-4xl md:text-5xl font-black text-white mb-4">Learning Through Play</h3>
+              <p className="text-white text-lg font-medium max-w-xl">
+                 We believe play is serious learning. From building blocks to storytelling, every activity is designed to spark cognitive growth.
+              </p>
+           </div>
+        </Tile>
+
+        {/* 7. TESTIMONIAL (Purple Block) */}
+        <Tile className="md:col-span-4 bg-[#7209B7] text-white flex flex-col justify-center min-h-[300px]">
+           <Quote className="w-12 h-12 text-[#9D4EDD] mb-6 fill-current" />
+           <p className="text-xl md:text-2xl font-hand leading-relaxed mb-6">
+             "My daughter wakes up excited to go to school every single day. The teachers are simply wonderful!"
+           </p>
+           <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-white rounded-full overflow-hidden">
+                 <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=parent1" alt="Parent" />
+              </div>
+              <div>
+                 <p className="font-bold text-sm">Mrs. Kapoor</p>
+                 <p className="text-xs text-purple-200 uppercase tracking-wider">Parent of Viaan</p>
+              </div>
+           </div>
+        </Tile>
+
+      </div>
     </section>
   );
 };
 
-export default About;
+export default AboutUs;

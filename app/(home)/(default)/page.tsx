@@ -10,8 +10,9 @@ export default function Page() {
   return (
     <div className="w-full overflow-x-hidden relative">
       <HeroNEW/>
-      {/* <Hero/>
       <About/>
+      {/* <Hero/>
+      
       <Programs/>
       <Gallery/>
       <ContactPage/> */}
