@@ -1,14 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Camera,
-  Heart,
-  Sparkles,
-  Sun,
-  Palette,
-  Star
-} from "lucide-react";
 
 const galleryItems = [
   {
@@ -18,6 +10,7 @@ const galleryItems = [
     category: "Outdoor Fun",
     className: "md:col-span-2 md:row-span-2",
     bgColor: "#9dcedc",
+    borderColor: "border-[#7209B7]",
   },
   {
     id: 2,
@@ -26,6 +19,7 @@ const galleryItems = [
     category: "Creative Arts",
     className: "md:col-span-1 md:row-span-1",
     bgColor: "#fad06e",
+    borderColor: "border-[#fad06e]",
   },
   {
     id: 3,
@@ -34,6 +28,7 @@ const galleryItems = [
     category: "Early Learning",
     className: "md:col-span-1 md:row-span-2",
     bgColor: "#f7a7b4",
+    borderColor: "border-[#06D6A0]",
   },
   {
     id: 4,
@@ -42,6 +37,7 @@ const galleryItems = [
     category: "Story Time",
     className: "md:col-span-1 md:row-span-1",
     bgColor: "#06D6A0",
+    borderColor: "border-[#9dcedc]",
   },
   {
     id: 5,
@@ -50,6 +46,7 @@ const galleryItems = [
     category: "Adventures",
     className: "md:col-span-2 md:row-span-1",
     bgColor: "#7209B7",
+    borderColor: "border-[#fad06e]",
   },
   {
     id: 6,
@@ -58,8 +55,8 @@ const galleryItems = [
     category: "Music & Dance",
     className: "md:col-span-2 md:row-span-1",
     bgColor: "#fad06e",
+    borderColor: "border-[#7209B7]",
   },
-
 ];
 
 const GallerySection = () => {
@@ -85,7 +82,7 @@ const GallerySection = () => {
         >
           <div className="flex  items-center justify-center gap-2 ">
          
-            <span className="bg-[#f7a7b4] text-white px-6 py-2 font-bold text-sm uppercase tracking-widest rounded-full inline-block">
+            <span className="bg-white text-white px-6 py-2 font-bold text-sm uppercase tracking-widest rounded-full inline-block">
               Our Gallery
             </span>
           </div>
@@ -134,7 +131,7 @@ const GallerySection = () => {
 
               {/* Colored Border Accent */}
               <div 
-                className="absolute inset-0 border-4 border-white pointer-events-none"
+              className={`absolute inset-0 border-4  pointer-events-none ${item.borderColor}`}
                 style={{ borderRadius: 'inherit' }}
               />
 
