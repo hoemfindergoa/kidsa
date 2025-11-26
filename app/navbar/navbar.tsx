@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Menu, X, Phone, Sparkles, ArrowRight } from "lucide-react";
 import logo from "../../public/logo.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -19,10 +20,9 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "#about", label: "About" },
-    { href: "#programs", label: "Programs" },
-    { href: "#gallery", label: "Gallery" },
+    { href: "/#about", label: "About" },
+    { href: "/#programs", label: "Programs" },
+    { href: "/#gallery", label: "Gallery" },
     { href: "/contact", label: "Contact" },
   ];
 
@@ -51,7 +51,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between">
             
             {/* --- LOGO SECTION --- */}
-            <a href="/" className="flex items-center gap-2 group cursor-pointer">
+            <Link href="/" className="flex items-center gap-2 group cursor-pointer">
               {/* Logo Icon Placeholder */}
               <div className="relative w-12 h-12 flex items-center justify-center  group-hover:rotate-12 transition-transform duration-300">
                 <Image 
@@ -70,43 +70,43 @@ const Navbar = () => {
                   At Cambridge
                 </div>
               </div>
-            </a>
+            </Link>
 
             {/* --- DESKTOP MENU --- */}
             <div className="hidden md:flex items-center gap-1">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   className="relative px-4 py-2 text-slate-400 hover:text-pink-500 font-script rounded-full hover:bg-pink-50 transition-all duration-300 group text-2xl tracking-wide"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               
-              <a href="/franchise"
+              <Link href="/franchise"
                 className="relative px-4 py-2 text-slate-400 font-script hover:text-pink-500 text-2xl  rounded-full hover:bg-pink-50 transition-all duration-300 group  tracking-wide ml-2"
               >
                 Franchise
-              </a>
-                <a href="/admission"
+              </Link>
+                <Link href="/admission"
                 className="relative px-4 py-2 text-slate-400 font-script hover:text-pink-500 text-2xl  rounded-full hover:bg-pink-50 transition-all duration-300 group  tracking-wide ml-2"
               >
                 Admission
-              </a>
+              </Link>
             </div>
 
             {/* --- CTA BUTTONS --- */}
             <div className="flex items-center gap-3">
               
               {/* Enroll Button (Desktop) */}
-              <a href="/enroll" className="hidden sm:block">
+              <Link href="/enroll" className="hidden sm:block">
                 <button
                   className="bg-pink-500 hover:bg-pink-600 text-white rounded-full font-bold shadow-lg shadow-pink-200 px-6 py-2.5 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 flex items-center gap-2 text-sm"
                 >
                   Enroll Now <ArrowRight className="w-4 h-4" />
                 </button>
-              </a>
+              </Link>
 
               {/* Mobile Menu Toggle */}
               <button
@@ -129,28 +129,39 @@ const Navbar = () => {
             <div className="container mx-auto px-4 py-6">
               <div className="flex flex-col gap-2">
                 {navLinks.map((link, index) => (
-                  <a
+                  <Link
                     key={link.href}
                     href={link.href}
-                    className="group relative text-lg font-bold text-slate-600 hover:text-pink-500 transition-all duration-300 p-4 rounded-2xl hover:bg-pink-50 flex items-center justify-between"
+                    className="group relative text-2xl  font-script text-slate-400 hover:text-pink-500 transition-all duration-300 p-4 rounded-2xl hover:bg-pink-50 flex items-center justify-between"
                     onClick={() => setMobileMenuOpen(false)}
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <span className="flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full bg-blue-200 group-hover:bg-pink-500 transition-colors duration-300" />
                       {link.label}
                     </span>
-                  </a>
+                  </Link>
                 ))}
+                  <Link href="/franchise"
+                className="relative px-2  py-2 text-slate-400 font-script hover:text-pink-500 text-2xl  rounded-full hover:bg-pink-50 transition-all duration-300 group  tracking-wide ml-2"
+              >
+                Franchise
+              </Link>
+                <Link href="/admission"
+                className="relative px-2 py-2 text-slate-400 font-script hover:text-pink-500 text-2xl  rounded-full hover:bg-pink-50 transition-all duration-300 group  tracking-wide ml-2"
+              >
+                Admission
+              </Link>
+                
               </div>
+              
 
               {/* Mobile Menu Footer */}
               <div className="mt-6 pt-6 border-t border-slate-100">
-                <a href="/enroll" onClick={() => setMobileMenuOpen(false)}>
+                <Link href="/enroll" onClick={() => setMobileMenuOpen(false)}>
                   <button className="w-full bg-pink-500 hover:bg-pink-600 text-slate-600 font-bold rounded-2xl shadow-lg shadow-pink-200 py-4 text-lg transition-all duration-300 flex justify-center items-center gap-2">
                     Enroll Now <ArrowRight className="w-5 h-5" />
                   </button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
