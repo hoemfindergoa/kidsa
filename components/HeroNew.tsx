@@ -8,7 +8,7 @@ import maineimage from "../public/mainimage.png";
 
 const Hero = () => {
   return (
-    <section className="relative w-full pt-[100px] h-[260px] md:h-[700px]  overflow-hidden flex items-center justify-center font-sans">
+    <section className="relative w-full pt-[70px] h-[310px] md:h-[700px]  overflow-hidden flex items-center justify-center font-sans">
       
       {/* 0. GOOGLE FONT IMPORT (For Calligraphy Style) */}
       <style jsx global>{`
@@ -77,7 +77,7 @@ const Hero = () => {
           transition={{ delay: 0.5 }}
           className="flex flex-wrap gap-3 justify-center"
         >
-          <button className="bg-pink-500/90 hover:bg-pink-500 text-white px-5 py-2 rounded-full font-medium text-sm shadow-md backdrop-blur-sm transition-all hover:scale-105 flex items-center gap-2">
+          <button className="bg-pink-500/90 mb-6 hover:bg-pink-500 text-white px-5 py-2 rounded-full font-medium text-sm shadow-md backdrop-blur-sm transition-all hover:scale-105 flex items-center gap-2">
             Join Now <ArrowRight className="w-4 h-4" />
           </button>
 {/*           
