@@ -23,7 +23,7 @@ const Navbar = () => {
     { href: "#about", label: "About" },
     { href: "#programs", label: "Programs" },
     { href: "#gallery", label: "Gallery" },
-    { href: "#contact", label: "Contact" },
+    { href: "/contact", label: "Contact" },
   ];
 
   return (
@@ -43,8 +43,8 @@ const Navbar = () => {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-lg shadow-pink-100/50 py-2"
-            : "bg-transparent py-4"
+            ? "bg-white backdrop-blur-md shadow-lg shadow-pink-100/50 py-2"
+            : "bg-white py-4"
         }`}
       >
         <div className="container mx-auto px-4">
@@ -78,19 +78,19 @@ const Navbar = () => {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="relative px-4 py-2 text-slate-600 hover:text-pink-500 font-script rounded-full hover:bg-pink-50 transition-all duration-300 group text-2xl tracking-wide"
+                  className="relative px-4 py-2 text-slate-400 hover:text-pink-500 font-script rounded-full hover:bg-pink-50 transition-all duration-300 group text-2xl tracking-wide"
                 >
                   {link.label}
                 </a>
               ))}
               
               <a href="/franchise"
-                className="relative px-4 py-2 text-slate-600 font-script hover:text-pink-500 text-2xl  rounded-full hover:bg-pink-50 transition-all duration-300 group  tracking-wide ml-2"
+                className="relative px-4 py-2 text-slate-400 font-script hover:text-pink-500 text-2xl  rounded-full hover:bg-pink-50 transition-all duration-300 group  tracking-wide ml-2"
               >
                 Franchise
               </a>
-                <a href="/franchise"
-                className="relative px-4 py-2 text-slate-600 font-script hover:text-pink-500 text-2xl  rounded-full hover:bg-pink-50 transition-all duration-300 group  tracking-wide ml-2"
+                <a href="/admission"
+                className="relative px-4 py-2 text-slate-400 font-script hover:text-pink-500 text-2xl  rounded-full hover:bg-pink-50 transition-all duration-300 group  tracking-wide ml-2"
               >
                 Admission
               </a>
@@ -147,7 +147,7 @@ const Navbar = () => {
               {/* Mobile Menu Footer */}
               <div className="mt-6 pt-6 border-t border-slate-100">
                 <a href="/enroll" onClick={() => setMobileMenuOpen(false)}>
-                  <button className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-2xl shadow-lg shadow-pink-200 py-4 text-lg transition-all duration-300 flex justify-center items-center gap-2">
+                  <button className="w-full bg-pink-500 hover:bg-pink-600 text-slate-600 font-bold rounded-2xl shadow-lg shadow-pink-200 py-4 text-lg transition-all duration-300 flex justify-center items-center gap-2">
                     Enroll Now <ArrowRight className="w-5 h-5" />
                   </button>
                 </a>

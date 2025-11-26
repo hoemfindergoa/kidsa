@@ -1,239 +1,233 @@
 "use client";
-
 import React from "react";
-import { motion, Variants } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
 import { 
   MapPin, 
   Phone, 
   Mail, 
   Clock, 
-  Facebook, 
-  Instagram, 
-  Twitter, 
-  Navigation,
-  ArrowUpRight
+  MessageCircle, 
+  Send,
+  Sparkles,
+  Sun
 } from "lucide-react";
+import Image from "next/image";
 
-const ContactPage = () => {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.1 },
-    },
-  };
+// Reusing assets for consistency
+import smilingboy from "../../public/smilingboy.png";
+import Toys from "../../public/Toys.png"; 
 
-  const itemVariants: Variants = {
-    hidden: { y: 20, opacity: 0, scale: 0.95 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      scale: 1,
-      transition: { type: "spring" as const, stiffness: 100, damping: 15 },
-    },
-  };
+type TileProps = {
+  children?: React.ReactNode;
+  className?: string;
+  delay?: number;
+};
 
+// Reusing the exact Tile animation logic from your About Page
+const Tile: React.FC<TileProps> = ({ children, className, delay = 0 }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.95 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay }}
+    className={`relative p-8 md:p-10 overflow-hidden ${className}`}
+  >
+    {children}
+  </motion.div>
+);
+
+const ContactUs = () => {
   return (
-    <div className=" bg-gradient-to-b from-[#FDFBF7] via-[#FFF9F0] to-white relative overflow-hidden pt-24 pb-20">
+    <section className="bg-white font-sans" id="contact">
       
-      {/* --- Background Elements --- */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}
-      />
-      <div className="absolute top-20 left-[-100px] w-80 h-80 bg-[#A7D8FF]/20 rounded-full blur-3xl -z-10 mix-blend-multiply" />
-      <div className="absolute bottom-40 right-[-50px] w-96 h-96 bg-[#FFE99B]/20 rounded-full blur-3xl -z-10 mix-blend-multiply" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#FF8A80]/5 rounded-full blur-3xl -z-10" />
+      {/* 0. FONTS & STYLES */}
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap');
+        .font-calligraphy { font-family: 'Pacifico', cursive; }
+        .font-hand { font-family: 'Dancing Script', cursive; }
+      `}</style>
 
-      <div className="container mx-auto px-4 relative z-10">
-        
-        {/* --- Header --- */}
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <div className="inline-block mb-3 px-4 py-1 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wider shadow-sm">
-            We're here for you
+      {/* THE MOSAIC LAYOUT */}
+      <div className="max-w-[1920px] mx-auto grid grid-cols-1 md:grid-cols-12 auto-rows-fr">
+
+        {/* 1. HEADER / CALL TO ACTION (Pink Block) */}
+        <Tile className="md:col-span-8 bg-[#f7a7b4] text-white min-h-[400px] flex flex-col justify-center relative">
+          <div className="absolute top-0 right-0 p-4 opacity-20">
+            <MessageCircle className="w-40 h-40" />
           </div>
-          <h1 className="text-4xl lg:text-6xl font-fedorikanew text-gray-800 mb-6 tracking-tight">
-            Come Say <span className="text-[#A7D8FF] relative inline-block transform rotate-2">
-              Hello!
-              <svg className="absolute w-[110%] h-3 -bottom-1 -left-1 text-[#FF8A80] -z-10 opacity-80" viewBox="0 0 100 10" preserveAspectRatio="none">
-                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
-              </svg>
-            </span>
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We love meeting new families. Drop by for a visit, give us a call, or just explore our campus on the map below.
-          </p>
-        </motion.div>
-
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid lg:grid-cols-12 gap-8 lg:gap-10"
-        >
           
-          {/* --- Left Column: Contact Details (Redesigned Cards) --- */}
-          <div className="lg:col-span-4 space-y-5">
-            
-            {/* Address Card (Blue Theme) */}
-            <motion.div variants={itemVariants} className="">
-              <Card className=" border-none shadow-sm hover:shadow-xl bg-gradient-to-br from-[#F0F9FF] to-[#E0F2FE]  group transition-all duration-300 hover:-translate-y-1 ring-1 ring-[#A7D8FF]/30">
-                <CardContent className="p-6 relative">
-                  {/* Decorative blob */}
-                  <div className="absolute -right-6 -top-6 w-24 h-24 bg-[#BAE6FD] rounded-full opacity-50 blur-xl group-hover:scale-150 transition-transform duration-500" />
-                  
-                  <div className="flex items-start gap-4 relative z-10">
-                    <div className="w-14 h-14 bg-white/80 backdrop-blur shadow-sm text-[#0EA5E9] rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                      <MapPin className="w-7 h-7" />
-                    </div>
-                    <div className="space-y-1">
-                      <h3 className="text-lg font-bold text-gray-800">Our Campus</h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">
-                        123 Sunshine Avenue,<br />
-                        Happy Valley District,<br />
-                        California, 90210
-                      </p>
-                    </div>
-                  </div>
-                  <Button 
-                    className="w-full mt-5 bg-white/60 hover:bg-white text-[#0284C7] border-0 shadow-sm hover:shadow font-semibold justify-between group/btn"
-                  >
-                    <span>Get Directions</span>
-                    <Navigation className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Contact Card (Coral Theme) */}
-            <motion.div variants={itemVariants} className="">
-              <Card className=" border-none shadow-sm hover:shadow-xl bg-gradient-to-br from-[#FFF1F2] to-[#FFE4E6] overflow-hidden group transition-all duration-300 hover:-translate-y-1 ring-1 ring-[#FF8A80]/30">
-                <CardContent className="p-6 relative">
-                  <div className="absolute -right-6 -top-6 w-24 h-24 bg-[#FECDD3] rounded-full opacity-50 blur-xl group-hover:scale-150 transition-transform duration-500" />
-                  
-                  <div className="flex items-start gap-4 relative z-10">
-                    <div className="w-14 h-14 bg-white/80 backdrop-blur shadow-sm text-[#E11D48] rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                      <Phone className="w-7 h-7" />
-                    </div>
-                    <div className="w-full space-y-3">
-                      <h3 className="text-lg font-bold text-gray-800">Get in Touch</h3>
-                      
-                      <a href="tel:+15551234567" className="flex items-center justify-between p-2 rounded-lg bg-white/40 hover:bg-white/70 transition-colors group/link cursor-pointer">
-                        <span className="text-sm font-medium text-gray-700">+1 (555) 123-4567</span>
-                        <ArrowUpRight className="w-3 h-3 text-gray-400 group-hover/link:text-[#E11D48]" />
-                      </a>
-                      
-                      <a href="mailto:hello@littledreamers.edu" className="flex items-center justify-between p-2 rounded-lg bg-white/40 hover:bg-white/70 transition-colors group/link cursor-pointer">
-                        <span className="text-sm font-medium text-gray-700">hello@littledreamers.edu</span>
-                        <ArrowUpRight className="w-3 h-3 text-gray-400 group-hover/link:text-[#E11D48]" />
-                      </a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Hours Card (Yellow Theme) */}
-            <motion.div variants={itemVariants} className="">
-              <Card className=" border-none shadow-sm hover:shadow-xl bg-gradient-to-br from-[#FFFBEB] to-[#FEF3C7] overflow-hidden group transition-all duration-300 hover:-translate-y-1 ring-1 ring-[#FFE99B]/30">
-                <CardContent className="p-6 relative">
-                  <div className="absolute -right-6 -top-6 w-24 h-24 bg-[#FDE68A] rounded-full opacity-50 blur-xl group-hover:scale-150 transition-transform duration-500" />
-                  
-                  <div className="flex items-start gap-4 relative z-10">
-                    <div className="w-14 h-14 bg-white/80 backdrop-blur shadow-sm text-[#D97706] rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                      <Clock className="w-7 h-7" />
-                    </div>
-                    <div className="w-full">
-                      <h3 className="text-lg font-bold text-gray-800 mb-3">Opening Hours</h3>
-                      <div className="space-y-2">
-                        <div className="flex justify-between items-center text-sm border-b border-[#D97706]/10 pb-1">
-                          <span className="text-gray-600">Weekdays</span>
-                          <span className="font-bold text-[#D97706]">8:00 AM - 6:00 PM</span>
-                        </div>
-                        <div className="flex justify-between items-center text-sm border-b border-[#D97706]/10 pb-1">
-                          <span className="text-gray-600">Saturday</span>
-                          <span className="font-bold text-[#D97706]">9:00 AM - 1:00 PM</span>
-                        </div>
-                        <div className="flex justify-between items-center text-sm text-gray-400 pt-1">
-                          <span>Sunday</span>
-                          <span>Closed</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Social Links - Now bigger & more distinct */}
-            <motion.div variants={itemVariants} className="pt-2 flex gap-3">
-               {[
-                 { Icon: Facebook, color: "text-blue-600", bg: "bg-blue-50 hover:bg-blue-100" }, 
-                 { Icon: Instagram, color: "text-pink-600", bg: "bg-pink-50 hover:bg-pink-100" }, 
-                 { Icon: Twitter, color: "text-sky-500", bg: "bg-sky-50 hover:bg-sky-100" }
-               ].map(({Icon, color, bg}, i) => (
-                 <button key={i} className={`flex-1 py-3 rounded-xl ${bg} ${color} shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 flex items-center justify-center`}>
-                   <Icon className="w-6 h-6" />
-                 </button>
-               ))}
-            </motion.div>
-
+          <div className="relative z-10 max-w-2xl">
+            <div className="flex items-center gap-3 mb-4">
+               <span className="bg-white/20 backdrop-blur-sm px-4 py-1 font-bold text-xs uppercase tracking-widest rounded-full">
+                 Admissions Open
+               </span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
+              Ready to Start the <br />
+              <span className="text-[#FFE5E5] font-calligraphy">Journey?</span>
+            </h2>
+            <p className="text-xl font-bold text-pink-50 max-w-lg">
+              We'd love to hear from you! Whether you have questions about admissions, our curriculum, or just want to say hello.
+            </p>
           </div>
 
-          {/* --- Right Column: The Big Map --- */}
-          <motion.div 
-            variants={itemVariants}
-            className="lg:col-span-8 h-full min-h-[500px]"
-          >
-            <div className="relative h-full w-full group">
-              {/* Playful Stickers around map */}
-              <div className="absolute -top-4 -left-4 z-20 bg-[#FF8A80] text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg transform -rotate-12 hidden md:block">
-                Visit Us!
-              </div>
+          {/* Reusing image asset from About page for consistency */}
+          <div className="absolute bottom-[-20px] right-0 z-20 hidden md:block">
+            <Image
+              src={smilingboy}
+              alt="Happy Student"
+              width={320}
+              height={320}
+              className="object-contain transform scale-x-[-1]" // Flipping image to face text
+            />
+          </div>
+        </Tile>
 
-              {/* Rotated background decorative frame */}
-              <div className="absolute inset-0 bg-[#B8F3D1] rounded-[2.5rem] rotate-1 scale-[1.01] opacity-60 group-hover:rotate-2 transition-transform duration-500" />
-              <div className="absolute inset-0 bg-[#A7D8FF] rounded-[2.5rem] -rotate-1 scale-[1.01] opacity-60 group-hover:-rotate-2 transition-transform duration-500 -z-10" />
-              
-              {/* Map Container */}
-              <div className="relative h-full w-full bg-white rounded-[2.5rem] overflow-hidden shadow-2xl shadow-gray-200/60 border-[8px] border-white transform transition-transform duration-500">
-                <iframe 
-                  src="https://www.google.com/maps?q=New+Delhi,+India&z=13&output=embed" 
-                  width="100%" 
-                  height="100%" 
-                  style={{ border: 0, minHeight: '500px' }} 
-                  allowFullScreen 
-                  loading="lazy" 
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="w-full h-full grayscale-[0.1] group-hover:grayscale-0 transition-all duration-700"
-                ></iframe>
-
-                {/* Floating Location Badge on Map */}
-                <div className="absolute bottom-6 left-6 right-6 md:right-auto bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-gray-100 max-w-xs">
-                  <div className="flex items-center gap-3 mb-2">
-                     <span className="relative flex h-3 w-3">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                      </span>
-                    <span className="font-bold text-gray-800 text-sm">Visitor Parking Available</span>
-                  </div>
-                  <p className="text-xs text-gray-500">
-                    Use the entrance on Sunset Blvd for easy drop-off and pick-up.
-                  </p>
+        {/* 2. CONTACT INFO SIDEBAR (Blue Block) */}
+        <Tile className="md:col-span-4 bg-[#9dcedc] text-white flex flex-col justify-between min-h-[400px]">
+          <div>
+            <h3 className="text-3xl font-black mb-8">Get in Touch</h3>
+            
+            <ul className="space-y-8">
+              <li className="flex items-start gap-4">
+                <div className="bg-white/20 p-3 rounded-xl">
+                  <MapPin className="w-6 h-6" />
                 </div>
+                <div>
+                  <p className="font-bold text-sm uppercase opacity-80 mb-1">Visit Us</p>
+                  <p className="text-lg font-bold leading-tight">123 Sunshine Avenue, <br/>Little Dreamers Lane</p>
+                </div>
+              </li>
+              
+              <li className="flex items-start gap-4">
+                <div className="bg-white/20 p-3 rounded-xl">
+                  <Phone className="w-6 h-6" />
+                </div>
+                <div>
+                  <p className="font-bold text-sm uppercase opacity-80 mb-1">Call Us</p>
+                  <p className="text-lg font-bold">+91 98765 43210</p>
+                </div>
+              </li>
+
+              <li className="flex items-start gap-4">
+                <div className="bg-white/20 p-3 rounded-xl">
+                  <Mail className="w-6 h-6" />
+                </div>
+                <div>
+                  <p className="font-bold text-sm uppercase opacity-80 mb-1">Email Us</p>
+                  <p className="text-lg font-bold">hello@littledreamers.com</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          
+          <div className="mt-8 pt-8 border-t border-white/20">
+            <div className="flex items-center gap-2">
+              <Sun className="w-5 h-5 animate-spin-slow" />
+              <span className="font-hand text-xl">We reply with a smile!</span>
+            </div>
+          </div>
+        </Tile>
+
+        {/* 3. INTERACTIVE FORM (Yellow Block) */}
+        <Tile className="md:col-span-7 bg-[#fad06e] text-[#5c4d26] min-h-[500px] relative">
+           <div className="absolute top-10 right-10 opacity-10">
+            <Sparkles className="w-32 h-32" />
+          </div>
+
+          <h3 className="text-3xl font-black mb-2 text-white">Send a Message</h3>
+          <p className="text-white/90 font-bold mb-8">Fill out the form below and we'll get back to you shortly.</p>
+
+          <form className="relative z-10 space-y-4 max-w-xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="text-sm font-bold text-white uppercase ml-1">Parent's Name</label>
+                <input 
+                  type="text" 
+                  className="w-full bg-white/90 border-0 rounded-2xl p-4 text-gray-800 placeholder-gray-400 focus:ring-4 focus:ring-white/50 focus:outline-none transition-all font-bold"
+                  placeholder="John Doe"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-sm font-bold text-white uppercase ml-1">Phone</label>
+                <input 
+                  type="tel" 
+                  className="w-full bg-white/90 border-0 rounded-2xl p-4 text-gray-800 placeholder-gray-400 focus:ring-4 focus:ring-white/50 focus:outline-none transition-all font-bold"
+                  placeholder="+91..."
+                />
               </div>
             </div>
-          </motion.div>
 
-        </motion.div>
+            <div className="space-y-1">
+              <label className="text-sm font-bold text-white uppercase ml-1">Email Address</label>
+              <input 
+                type="email" 
+                className="w-full bg-white/90 border-0 rounded-2xl p-4 text-gray-800 placeholder-gray-400 focus:ring-4 focus:ring-white/50 focus:outline-none transition-all font-bold"
+                placeholder="name@example.com"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-sm font-bold text-white uppercase ml-1">Message</label>
+              <textarea 
+                rows={4}
+                className="w-full bg-white/90 border-0 rounded-2xl p-4 text-gray-800 placeholder-gray-400 focus:ring-4 focus:ring-white/50 focus:outline-none transition-all font-bold resize-none"
+                placeholder="Tell us about your child..."
+              ></textarea>
+            </div>
+
+            <button className="bg-[#7209B7] text-white font-black text-lg py-4 px-8 rounded-2xl hover:bg-[#5e0796] hover:scale-[1.02] transition-all flex items-center gap-2 shadow-lg shadow-purple-900/10 mt-4">
+              Send Enquiry <Send className="w-5 h-5" />
+            </button>
+          </form>
+        </Tile>
+
+        {/* 4. MAP & HOURS (Purple/Image Block Mix) */}
+        <div className="md:col-span-5 grid grid-rows-2 h-full">
+            
+            {/* Hours Block */}
+            <Tile className="bg-[#7209B7] text-white flex flex-col justify-center">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
+                  <Clock className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-black">School Hours</h3>
+              </div>
+              <div className="space-y-2 text-purple-100 font-medium text-lg">
+                <div className="flex justify-between border-b border-white/10 pb-2">
+                  <span>Mon - Fri</span>
+                  <span className="font-bold text-white">8:30 AM - 1:30 PM</span>
+                </div>
+                <div className="flex justify-between pt-1">
+                  <span>Saturday</span>
+                  <span className="font-bold text-white">9:00 AM - 12:00 PM</span>
+                </div>
+              </div>
+            </Tile>
+
+            {/* Decorative / Map Placeholder Block */}
+            <Tile className="bg-gray-100 relative min-h-[300px] p-0 overflow-hidden group">
+               {/* In a real scenario, put an iframe map here. 
+                   For design consistency, we use the Toys image to fill the space 
+                   until the map loads */}
+               <div className="absolute inset-0 bg-[#06D6A0] flex items-center justify-center">
+                  <Image 
+                    src={Toys}
+                    alt="Map Location"
+                    layout="fill"
+                    objectFit="cover"
+                    className="opacity-50 group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <a href="#" className="absolute z-20 bg-white text-[#06D6A0] px-6 py-3 rounded-full font-black shadow-xl hover:scale-105 transition-transform flex items-center gap-2">
+                    <MapPin className="w-5 h-5" /> View on Google Maps
+                  </a>
+               </div>
+            </Tile>
+        </div>
+
       </div>
-    </div>
+    </section>
   );
 };
 
-export default ContactPage;
+export default ContactUs;

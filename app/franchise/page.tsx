@@ -87,7 +87,7 @@ const FranchisePage = () => {
   };
 
   return (
-    <section className="bg-white font-sans" id="franchise">
+    <section className="bg-[#06D6A0] font-sans" id="franchise">
       
       {/* FONTS & STYLES */}
       <style jsx global>{`
@@ -97,7 +97,7 @@ const FranchisePage = () => {
       `}</style>
 
       {/* HEADER SECTION */}
-      <div className="max-w-7xl mx-auto px-6 py-20 text-center">
+      <div className="max-w-7xl  pt-[200px] mx-auto px-6 py-20 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -487,38 +487,6 @@ const FranchisePage = () => {
           </div>
         </Tile>
 
-      </div>
-
-      {/* CTA SECTION */}
-      <div className="max-w-7xl mx-auto px-6 py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="bg-gradient-to-r from-[#f7a7b4] via-[#9dcedc] to-[#fad06e] p-12 md:p-16 rounded-3xl text-center relative overflow-hidden"
-        >
-          <div className="absolute top-0 right-0 opacity-10">
-            <Star className="w-64 h-64" />
-          </div>
-          
-          <div className="relative z-10">
-            <h3 className="text-3xl md:text-5xl font-black text-white mb-4">
-              Ready to Start Your Journey?
-            </h3>
-            <p className="text-xl text-white/90 font-bold mb-8 max-w-2xl mx-auto">
-              Join our mission to provide quality early childhood education
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-[#f7a7b4] px-8 py-4 rounded-full font-black text-lg uppercase tracking-wide hover:scale-105 transition-transform shadow-lg">
-                Download Brochure
-              </button>
-              <button className="bg-white/20 backdrop-blur-sm text-white border-2 border-white px-8 py-4 rounded-full font-black text-lg uppercase tracking-wide hover:scale-105 transition-transform">
-                Schedule a Call
-              </button>
-            </div>
-          </div>
-        </motion.div>
       </div>
 
     </section>

@@ -82,7 +82,7 @@ const GallerySection = () => {
         >
           <div className="flex  items-center justify-center gap-2 ">
          
-            <span className="bg-white text-white px-6 py-2 font-bold text-sm uppercase tracking-widest rounded-full inline-block">
+            <span className="bg-[#f7a7b4] text-white px-6 py-2 font-bold text-sm uppercase tracking-widest rounded-full inline-block">
               Our Gallery
             </span>
           </div>
