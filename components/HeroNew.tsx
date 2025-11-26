@@ -8,7 +8,7 @@ import maineimage from "../public/mainimage.png";
 
 const Hero = () => {
   return (
-    <section className="relative w-full h-[260px] md:h-[700px]  overflow-hidden flex items-center justify-center font-sans">
+    <section className="relative w-full pt-[100px] h-[260px] md:h-[700px]  overflow-hidden flex items-center justify-center font-sans">
       
       {/* 0. GOOGLE FONT IMPORT (For Calligraphy Style) */}
       <style jsx global>{`
@@ -23,7 +23,7 @@ const Hero = () => {
       `}</style>
 
       {/* 1. BACKGROUND IMAGE (Full Cover) */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute pt-16  inset-0 z-0">
         <Image 
           // Using the image generated in the previous step
           src={maineimage}
