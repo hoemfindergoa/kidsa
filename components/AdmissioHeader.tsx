@@ -5,6 +5,24 @@ import { motion } from "framer-motion";
 import { Home, ChevronRight, Star, Heart, Cloud } from "lucide-react";
 import Image from "next/image"; // 1. Import Next.js Image component
 import Girlonwing from "../public/boywithelephent.png"; // Ensure path is correct for your project structure
+import { Titan_One, Nunito } from 'next/font/google';
+
+
+// Ensure you have these fonts in your layout or globals.css
+// @import url('https://fonts.googleapis.com/css2?family=Chewy&family=Baloo+2:wght@400;700&display=swap');
+
+
+const titleFont = Titan_One({ 
+  weight: '400', 
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+const bodyFont = Nunito({ 
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800'],
+  display: 'swap',
+});
 
 // Ensure you have these fonts in your layout or globals.css
 // @import url('https://fonts.googleapis.com/css2?family=Chewy&family=Baloo+2:wght@400;700&display=swap');
@@ -86,8 +104,7 @@ const Admissionheader = () => {
                 initial={{ opacity: 0, scale: 0.9, x: -50 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 transition={{ duration: 0.5, type: "spring" }}
-                className="text-4xl lg:text-8xl text-[#3E3431] mb-2 drop-shadow-sm leading-tight"
-                style={{ fontFamily: '"Chewy", cursive' }}
+                className={`text-6xl lg:text-7xl text-[#3E3431] mb-2 drop-shadow-sm leading-tight ${titleFont.className}`}
             >
            Join Our
             <span className="text-[#D33060] inline-block ml-4 relative">
