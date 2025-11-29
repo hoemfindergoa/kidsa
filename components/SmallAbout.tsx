@@ -115,7 +115,7 @@ const features = [
 const SpreadingLoveSection = () => {
   return (
   <div className="bg-gradient-to-b from-orange-50 to-white">
-      <section className={`relative w-full bg-rose-400 pt-40 pb-48 overflow-hidden ${bodyFont.className}`}>
+      <section className={`relative w-full bg-rose-200 pt-40 pb-48 overflow-hidden ${bodyFont.className}`}>
       
       {/* Top Moving Wave */}
       <WaveSeparator position="top" />

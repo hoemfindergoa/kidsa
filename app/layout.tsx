@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import { Toaster } from "@/components/ui/sonner"
 import Navbar from './navbar/navbar';
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import logo from '../public/logo.png';
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : 'http://localhost:3000'
@@ -13,8 +14,12 @@ export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: 'Little Dreamers - Nurturing Young Minds with Love and Care',
   description: 'A loving and safe environment for children to explore, learn, and grow. We provide a holistic approach to early childhood education with experienced educators and a vibrant community.',
+  images: [
+    {
+      url: logo,
 }
-
+  ],
+}
 export default function RootLayout({
   children,
 }: {
