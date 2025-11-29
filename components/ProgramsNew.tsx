@@ -117,7 +117,7 @@ const ProgramSection: React.FC = () => {
   return (
     <section className={`py-16 bg-gradient-to-b from-orange-50 to-white relative overflow-hidden ${bodyFont.className}`}>
       
-      <div className="max-w-8xl mx-auto px-4 sm:px-6">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6">
         
         {/* --- HEADER --- */}
         <div className="text-center mb-16 relative z-10">

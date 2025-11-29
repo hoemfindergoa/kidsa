@@ -7,6 +7,7 @@ import ContactPage from '@/components/Contact';
 import HeroNEW from '@/components/HeroNew';
 import KindergartenHome from '@/components/Newhome';
 import ProgramsSection from '@/components/ProgramsNew';
+import BlogSection from '@/components/BlogComponents';
 export default function Page() {
   return (
     <div className="w-full overflow-x-hidden relative">
@@ -21,6 +22,7 @@ export default function Page() {
       
 
       <ContactPage/> */}
+      <BlogSection/>
  
     </div>
   );
