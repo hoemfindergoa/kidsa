@@ -2,92 +2,131 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Star, Sparkles } from "lucide-react";
+import { ArrowRight, Play, Sparkles, Heart } from "lucide-react";
 import Image from "next/image";
+import { Titan_One, Nunito, Caveat } from 'next/font/google';
 import maineimage from "../public/mainimage.png";
+
+// --- FONT CONFIGURATION ---
+const titleFont = Titan_One({ 
+  weight: '400', 
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+const bodyFont = Nunito({ 
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800'],
+  display: 'swap',
+});
+
+const handwritingFont = Caveat({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap',
+});
 
 const Hero = () => {
   return (
-    <section className="relative w-full pt-[70px] h-[310px] md:h-[700px]  overflow-hidden flex items-center justify-center font-sans">
+    <section className="w-full min-h-screen mt-[80px] flex flex-col md:relative md:block overflow-hidden bg-white">
       
-      {/* 0. GOOGLE FONT IMPORT (For Calligraphy Style) */}
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap');
-        
-        .font-calligraphy {
-          font-family: 'Pacifico', cursive;
-        }
-        .font-script {
-           font-family: 'Dancing Script', cursive;
-        }
-      `}</style>
-
-      {/* 1. BACKGROUND IMAGE (Full Cover) */}
-      <div className="absolute pt-16  inset-0 z-0">
+      {/* --- IMAGE SECTION --- 
+          Mobile: Takes top 45% of screen
+          Desktop: Absolute Fullscreen Background
+      */}
+      <div className="relative w-full h-[250px]  md:h-[930px] md:absolute md:inset-0  z-0">
         <Image 
-          // Using the image generated in the previous step
           src={maineimage}
-          alt="Indian Kids Playing Background" 
-          className="w-full h-full object-cover"
+          alt="Happy children at Little Dreamers" 
+          fill
+          className="object-cover"
+          priority
         />
-        {/* Subtle Dark Overlay to make white text pop */}
-        <div className="absolute inset-0 bg-black/10 md:bg-black/20 backdrop-blur-[1px]"></div>
+        {/* Overlay: Stronger on desktop to ensure text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10 md:bg-gradient-to-r md:from-white/90 md:via-white/40 md:to-transparent"></div>
       </div>
 
-      {/* 2. MAIN CONTENT OVERLAY (Centered Text) */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto text-center px-4 flex flex-col items-center justify-center mt-8">
+      {/* --- CONTENT SECTION --- 
+          Mobile: Blocks flow below image
+          Desktop: Floats on top of image
+      */}
+      <div className="relative z-10  mt-8  flex-1 md:h-full md:flex md:ml-[120px]  max-w-8xl mx-auto md:px-2 lg:px-8">
         
-        {/* Small Badge */}
+        {/* Content Card Wrapper */}
         <motion.div 
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/40 mb-3"
+          transition={{ duration: 0.8 }}
+          className={`
+            w-full bg-white px-6 py-10 -mt-10 rounded-t-[40px] shadow-[0_-10px_40px_rgba(0,0,0,0.1)]
+            md:mt-0 md:bg-white/0     backdrop-blur-md  md:backdrop-blur-none  md:rounded-[50px] md:p-12 md:max-w-2xl  md:shadow-none md:border-none  border-2  border-white/50
+          `}
         >
-          <Sparkles className="w-3 h-3 text-yellow-200 fill-yellow-200" />
-          <span className="text-[10px] md:text-xs font-bold text-white tracking-widest uppercase shadow-sm">Admissions Open</span>
+          
+          {/* Badge */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+            className="inline-flex  items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-1.5 rounded-full shadow-md mb-6"
+          >
+            <Sparkles className="w-4 h-4 text-yellow-200 fill-yellow-200" />
+            <span className={`text-xs font-bold text-white tracking-widest uppercase ${bodyFont.className}`}>Admissions Open 2025</span>
+          </motion.div>
+
+          {/* Heading */}
+          <h1 className={`text-4xl sm:text-5xl lg:text-6xl leading-[1.15] mb-4 ${titleFont.className}`}>
+            <span className="text-gray-800">Welcome to</span>
+            <br />
+            <span className="text-rose-500 relative inline-block">
+              Little Dreamers
+              {/* Desktop Only Heart Decoration */}
+              <Heart className="hidden md:block absolute -top-4 -right-10 w-8 h-8 text-pink-400 fill-pink-400 animate-bounce" />
+            </span>
+          </h1>
+
+          {/* Tagline */}
+          <h2 className={`text-2xl sm:text-3xl text-rose-500 mb-6 font-bold ${handwritingFont.className}`}>
+            Where Little Dreams Begin to Shine!
+          </h2>
+
+          {/* Description */}
+          <p className={`text-gray-600 text-base sm:text-lg leading-relaxed font-semibold mb-8 ${bodyFont.className}`}>
+            We cherish the magical early years of childhood — a phase where curiosity sparks, imagination takes flight, and the foundation for lifelong learning is built with love, care, and laughter.
+          </p>
+
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg flex items-center justify-center gap-2 transition-all ${bodyFont.className}`}
+            >
+              Enroll Your Child <ArrowRight className="w-5 h-5" />
+            </motion.button>
+            
+          
+          </div>
+
+          {/* Stats Row */}
+          <div className="flex items-center gap-6 mt-10 pt-8 border-t border-gray-100">
+             <div>
+                <span className={`block text-3xl font-bold text-rose-500 ${titleFont.className}`}>12+</span>
+                <span className={`text-xs font-bold text-gray-400 uppercase tracking-wider ${bodyFont.className}`}>Years Exp</span>
+             </div>
+             <div className="w-px h-10 bg-gray-200"></div>
+             <div>
+                <span className={`block text-3xl font-bold text-rose-500 ${titleFont.className}`}>2-6</span>
+                <span className={`text-xs font-bold text-gray-400 uppercase tracking-wider ${bodyFont.className}`}>Age Group</span>
+             </div>
+          </div>
+
         </motion.div>
-
-        {/* Main Title - Calligraphy Style & Smaller */}
-        <motion.h1 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="font-calligraphy text-4xl md:text-5xl text-white drop-shadow-md mb-2 relative inline-block"
-        >
-          Little <span className="text-pink-500">Dreamers</span>
-          {/* Cute Decor Star */}
-          <Star className="absolute -top-3 -right-5 w-5 h-5 text-yellow-300 fill-yellow-300 rotate-12 animate-pulse" />
-        </motion.h1>
-
-        {/* Subtitle - Script Style */}
-        <motion.h2
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="font-script text-2xl md:text-3xl text-white/95 mb-6 drop-shadow-sm font-normal"
-        >
-          Where Little Dreams Begin to  <span className="text-yellow-200 decoration-wavy underline decoration-white/30">Shine!</span>
-        </motion.h2>
-
-        {/* Buttons - Small & Elegant */}
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="flex flex-wrap gap-3 justify-center"
-        >
-          <button className="bg-pink-500/90 mb-6 hover:bg-pink-500 text-white px-5 py-2 rounded-full font-medium text-sm shadow-md backdrop-blur-sm transition-all hover:scale-105 flex items-center gap-2">
-            Join Now <ArrowRight className="w-4 h-4" />
-          </button>
-{/*           
-          <button className="bg-white/20 hover:bg-white/30 text-white border border-white/50 px-5 py-2 rounded-full font-medium text-sm shadow-sm backdrop-blur-sm transition-all flex items-center gap-2">
-            <Play className="w-3 h-3 fill-white" /> Watch Video
-          </button> */}
-        </motion.div>
-
       </div>
 
+      {/* Decorative Floating Blobs (Desktop Only) */}
+      <div className="hidden md:block absolute top-20 right-20 w-32 h-32 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+      <div className="hidden md:block absolute bottom-20 right-40 w-32 h-32 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
     </section>
   );
 };

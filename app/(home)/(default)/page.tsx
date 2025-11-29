@@ -11,13 +11,15 @@ export default function Page() {
   return (
     <div className="w-full overflow-x-hidden relative">
       <HeroNEW/>
-      <About/>
-      <ProgramsSection/>
-        <Gallery/>
+        <ProgramsSection/>
+              <Programs/>
+    
+      {/* <About/>
+    
+        <Gallery/> */}
       {/* <Hero/>
       
-      <Programs/>
-    
+
       <ContactPage/> */}
  
     </div>

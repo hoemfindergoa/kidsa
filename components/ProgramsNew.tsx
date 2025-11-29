@@ -1,283 +1,298 @@
-"use client";
-import React from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { 
-  Sparkles, 
-  BookOpen, 
-  Palette, 
-  Award,
-  Heart,
-  Sun,
-  Star
-} from "lucide-react";
-import image1 from "../public/butterfly.png";
-import image2 from "../public/elephant.png"
-import image3 from "../public/maindoodle.png"
-import image4 from "../public/bird.png"
-import image5 from "../public/cloud.png"
+'use client';
 
+import React, { useRef } from 'react';
+import { motion } from 'framer-motion';
+import { Play, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Titan_One, Nunito, Caveat } from 'next/font/google';
+import boywithcup from "../public/boywithcup.png";
+import girlwithbook from "../public/girlwithbook 1.svg"
+import boywithelephant from "../public/boywithelephent.png"
+import girlonswing from "../public/girlonwing.png"
+import boywithbrush from "../public/boywithbrush.png"
+import Image from 'next/image';
 
-type TileProps = {
-  children?: React.ReactNode;
-  className?: string;
-  delay?: number;
-};
+// --- TYPES & INTERFACES ---
 
-const Tile: React.FC<TileProps> = ({ children, className, delay = 0 }) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.95 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay }}
-    className={`relative p-8 md:p-10 overflow-hidden ${className}`}
-  >
-    {children}
-  </motion.div>
-);
+type ThemeColor = 'rose' | 'sky' | 'purple' | 'teal' | 'amber';
 
-const ProgramsSection = () => {
+interface Program {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  fullDescription: string;
+  theme: ThemeColor;
+  image: any;
+}
+
+interface ThemeStyles {
+  text: string;
+  bg: string;
+  border: string;
+  btn: string;
+  image?: string;
+}
+
+// --- FONT CONFIGURATION ---
+const titleFont = Titan_One({ 
+  weight: '400', 
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+const bodyFont = Nunito({ 
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800'],
+  display: 'swap',
+});
+
+const handwritingFont = Caveat({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap',
+});
+
+// --- DATA ---
+const programs: Program[] = [
+  {
+    id: 1,
+    title: "Little Explorers",
+    subtitle: "Play Group – Age 2–3 Years",
+    description: "At Little Dreamers, our Little Explorers begin their joyful learning journey through play and imagination.",
+    fullDescription: "Activities are thoughtfully designed to build sensory awareness, strengthen motor skills, and encourage social interaction. Children learn to adapt, express themselves freely, and gain early confidence.",
+    theme: "rose", 
+    image : boywithcup
+  },
+  {
+    id: 2,
+    title: "Curious Learners",
+    subtitle: "Nursery – Age 3–4 Years",
+    description: "Our Curious Learners explore the world of colors, numbers, and letters through fun, interactive activities.",
+    fullDescription: "This stage builds imagination, communication, and growing independence. Children learn to observe, question, express, and share their ideas.",
+    theme: "sky",
+    image : girlwithbook
+  },
+  {
+    id: 3,
+    title: "Creative Thinkers",
+    subtitle: "LKG – Age 4–5 Years",
+    description: "Children strengthen early academic skills while exploring creativity, imagination, and expression.",
+    fullDescription: "Through phonics, storytelling, art, and group play, they build confidence. Each day encourages children to think creatively and communicate confidently.",
+    theme: "purple",
+    image : boywithelephant
+  },
+  {
+    id: 4,
+    title: "Future Leaders",
+    subtitle: "UKG – Age 5–6 Years",
+    description: "Prepares children for formal schooling by building a strong foundation in academics and life skills.",
+    fullDescription: "With structured learning in language, math, and environmental studies, children develop clarity in concepts and confidence in application.",
+    theme: "teal",
+    image : girlonswing
+  },
+  {
+    id: 5,
+    title: "Day Care Service",
+    subtitle: "Flexible Hours – 2 Years+",
+    description: "A home away from home where your child is cared for in a safe, engaging, and loving environment.",
+    fullDescription: "Our Day Care program offers structured relaxation, nutritious snacks, and supervised play activities giving parents peace of mind.",
+    theme: "amber",
+    image : boywithbrush
+  }
+];
+
+// --- COMPONENTS ---
+
+const ProgramSection: React.FC = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if(scrollRef.current) {
+      const { current } = scrollRef;
+      const scrollAmount = direction === 'left' ? -400 : 400;
+      current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section className="bg-white font-sans" id="programs">
+    <section className={`py-16 bg-gradient-to-b from-orange-50 to-white relative overflow-hidden ${bodyFont.className}`}>
       
-      {/* FONTS & STYLES */}
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap');
-        .font-calligraphy { font-family: 'Pacifico', cursive; }
-        .font-hand { font-family: 'Dancing Script', cursive; }
-      `}</style>
-
-      {/* SECTION HEADER */}
-      <div className=" bg-[#066d8c] mx-auto px-6 py-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="bg-[#f7a7b4] text-white px-6 py-2 font-bold text-sm uppercase tracking-widest rounded-full inline-block mb-4">
-            Our Programs
-          </span>
-          <h2 className="text-3xl md:text-5xl font-black text-gray-800 mb-4">
-            Growing with <span className="text-[#7209B7]">Purpose</span>
-          </h2>
-        </motion.div>
-      </div>
-
-      {/* MOSAIC LAYOUT */}
-      <div className="max-w-[1920px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-0">
-
-        {/* 1. LITTLE EXPLORERS (Play Group) */}
-        <Tile className="md:col-span-6 bg-[#9dcedc] text-white min-h-[500px] flex flex-col justify-between relative">
-          <div className="absolute top-4 right-4 opacity-20">
-            <Sparkles className="w-32 h-32" />
-          </div>
-          
-          <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-4">
-            
-              <div>
-                <h3 className="text-3xl md:text-4xl font-black leading-tight">
-                  Little Explorers
-                </h3>
-                <p className="text-sm font-bold text-blue-100 uppercase tracking-wider">
-                  Play Group • Age 2–3 Years
-                </p>
-              </div>
-            </div>
-
-            <p className="text-lg font-bold text-blue-50 leading-relaxed mt-6">
-              Begin their joyful learning journey through play, imagination, and hands-on discovery. Activities build sensory awareness, strengthen motor skills, and encourage social interaction.
-            </p>
-
-            <div className="mt-8 space-y-3">
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-white rounded-full mt-2 shrink-0"></div>
-                <span className="font-medium text-blue-50">Sensory development & motor skills</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-white rounded-full mt-2 shrink-0"></div>
-                <span className="font-medium text-blue-50">Social interaction & expression</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-white rounded-full mt-2 shrink-0"></div>
-                <span className="font-medium text-blue-50">Warm, home-like environment</span>
-              </div>
-            </div>
-            <Image src={image1} height={300} width={300} alt="Butterfly" className="mt-4 md:ml-[450px]  ml-[120px] rounded-lg" />
-
-          </div>
-
-          <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/10 rounded-tl-full"></div>
-        </Tile>
-
-        {/* 2. CURIOUS LEARNERS (Nursery) */}
-        <Tile className="md:col-span-6 bg-[#fad06e] text-white min-h-[500px] flex flex-col justify-between relative">
-          <div className="absolute top-4 right-4 opacity-20">
-            <BookOpen className="w-32 h-32" />
-          </div>
-          
-          <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-4">
-             
-              <div>
-                <h3 className="text-3xl md:text-4xl font-black leading-tight">
-                  Curious Learners
-                </h3>
-                <p className="text-sm font-bold text-yellow-100 uppercase tracking-wider">
-                  Nursery • Age 3–4 Years
-                </p>
-              </div>
-            </div>
-
-            <p className="text-lg font-bold text-yellow-50 leading-relaxed mt-6">
-              Explore the world of colors, numbers, and letters through fun, interactive activities. This stage builds imagination, communication, and growing independence.
-            </p>
-
-            <div className="mt-8 space-y-3">
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-white rounded-full mt-2 shrink-0"></div>
-                <span className="font-medium text-yellow-50">Colors, numbers & letters</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-white rounded-full mt-2 shrink-0"></div>
-                <span className="font-medium text-yellow-50">Observation & questioning skills</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-white rounded-full mt-2 shrink-0"></div>
-                <span className="font-medium text-yellow-50">Creative thinking foundation</span>
-              </div>
-            </div>
-                        <Image src={image2} height={300} width={300} alt="Butterfly" className="mt-4 md:ml-[450px]  ml-[0px] rounded-lg" />
-
-          </div>
-
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-tr-full"></div>
-        </Tile>
-
-        {/* 3. CREATIVE THINKERS (LKG) */}
-        <Tile className="md:col-span-4 bg-[#f7a7b4] text-white min-h-[500px] flex flex-col justify-between relative">
-          <div className="absolute top-4 right-4 opacity-20">
-            <Palette className="w-24 h-24" />
-          </div>
-          
-          <div className="relative z-10">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6">
         
-            
-            <h3 className="text-3xl md:text-4xl font-black leading-tight mb-2">
-              Creative Thinkers
-            </h3>
-            <p className="text-sm font-bold text-pink-100 uppercase tracking-wider mb-6">
-              Lower Kindergarten • Age 4–5 Years
-            </p>
-
-            <p className="text-lg font-bold text-pink-50 leading-relaxed">
-              Strengthen early academic skills while exploring creativity and expression through phonics, storytelling, art, and group play.
-            </p>
-
-            <div className="mt-8 space-y-3">
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-white rounded-full mt-2 shrink-0"></div>
-                <span className="font-medium text-pink-50">Reading & writing skills</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-white rounded-full mt-2 shrink-0"></div>
-                <span className="font-medium text-pink-50">Numeracy & problem-solving</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-white rounded-full mt-2 shrink-0"></div>
-                <span className="font-medium text-pink-50">Confidence & collaboration</span>
-              </div>
-            </div>
-                        <Image src={image3} height={400} width={400} alt="Butterfly" className="mt-4 md:ml-[200px] ml-[40px] rounded-lg" />
-
-          </div>
-        </Tile>
-
-        {/* 4. FUTURE LEADERS (UKG) */}
-        <Tile className="md:col-span-4 bg-[#7209B7] text-white min-h-[500px] flex flex-col justify-between relative">
-          <div className="absolute top-4 right-4 opacity-20">
-            <Award className="w-24 h-24" />
-          </div>
+        {/* --- HEADER --- */}
+        <div className="text-center mb-16 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="inline-block"
+          >
+            <h2 className={`text-5xl md:text-7xl uppercase leading-tight ${titleFont.className}`}>
+              <span className="text-rose-500">Spreading</span>{' '}
+              <span className="text-black">Love</span>
+            </h2>
+          </motion.div>
           
-          <div className="relative z-10">
-            
-            
-            <h3 className="text-3xl md:text-4xl font-black leading-tight mb-2">
-              Future Leaders
-            </h3>
-            <p className="text-sm font-bold text-purple-100 uppercase tracking-wider mb-6">
-              Upper Kindergarten • Age 5–6 Years
-            </p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className={`text-4xl md:text-6xl text-rose-500 mt-3 flex items-center justify-center gap-3 ${titleFont.className}`}
+          >
+            <span className="uppercase">Since</span>
+            <span className="relative inline-block">
+               <span className="relative z-10">30+ Years</span>
+               {/* Hand-drawn underline */}
+               <svg 
+                 className="absolute -bottom-2 left-0 w-full h-4" 
+                 viewBox="0 0 200 15" 
+                 preserveAspectRatio="none"
+               >
+                 <path 
+                   d="M5 10 Q 50 5, 100 8 T 195 10" 
+                   stroke="#fb7185" 
+                   strokeWidth="4" 
+                   fill="none" 
+                   strokeLinecap="round"
+                 />
+               </svg>
+            </span>
+          </motion.div>
 
-            <p className="text-lg font-bold text-purple-50 leading-relaxed">
-              Prepare for formal schooling with strong academics, life skills, and character development. Build leadership, empathy, and responsibility.
-            </p>
-
-            <div className="mt-8 space-y-3">
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-white rounded-full mt-2 shrink-0"></div>
-                <span className="font-medium text-purple-50">Language, math & science</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-white rounded-full mt-2 shrink-0"></div>
-                <span className="font-medium text-purple-50">Leadership & empathy</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-white rounded-full mt-2 shrink-0"></div>
-                <span className="font-medium text-purple-50">School readiness</span>
-              </div>
-            </div>
-                        <Image src={image4} height={300} width={300} alt="Butterfly" className="mt-4 md:ml-[200px] ml-[2px] rounded-lg" />
-
+          {/* Decorative bird */}
+          <div className="hidden md:block absolute -top-4 right-10 text-6xl animate-bounce" style={{ animationDuration: '3s' }}>
+             🐦
           </div>
-        </Tile>
+        </div>
 
-        {/* 5. DAYCARE (Little Nest) - FULL WIDTH */}
-        <Tile className="md:col-span-4 bg-[#06D6A0] text-white min-h-[500px] flex flex-col justify-between relative">
-          <div className="absolute top-4 right-4 opacity-20">
-            <Heart className="w-24 h-24" />
-          </div>
-          
-          <div className="relative z-10">
-            
-            <h3 className="text-3xl md:text-4xl font-black leading-tight mb-2">
-              Little Nest
-            </h3>
-            <p className="text-sm font-bold text-green-100 uppercase tracking-wider mb-6">
-              Daycare • Age 2–12 Years
-            </p>
+        {/* --- DESKTOP CAROUSEL BUTTONS --- */}
+        <div className="hidden md:flex justify-end gap-3 mb-6">
+           <motion.button 
+             whileHover={{ scale: 1.1 }}
+             whileTap={{ scale: 0.95 }}
+             onClick={() => scroll('left')} 
+             className="p-3 rounded-full bg-white border-2 border-rose-200 hover:bg-rose-50 hover:border-rose-300 transition-all shadow-md"
+           >
+             <ChevronLeft className="w-6 h-6 text-rose-500" />
+           </motion.button>
+           <motion.button 
+             whileHover={{ scale: 1.1 }}
+             whileTap={{ scale: 0.95 }}
+             onClick={() => scroll('right')} 
+             className="p-3 rounded-full bg-white border-2 border-rose-200 hover:bg-rose-50 hover:border-rose-300 transition-all shadow-md"
+           >
+             <ChevronRight className="w-6 h-6 text-rose-500" />
+           </motion.button>
+        </div>
 
-            <p className="text-lg font-bold text-green-50 leading-relaxed">
-              A safe, caring, and homely space for children after school. With nutritious meals, nap areas, and engaging activities—cared for by trained and loving caregivers.
-            </p>
-
-            <div className="mt-8  -mx-8 p-6">
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-white rounded-full shrink-0"></div>
-                  <span className="font-bold">Safe & homely environment</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-white rounded-full shrink-0"></div>
-                  <span className="font-bold">Nutritious meals included</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-white rounded-full shrink-0"></div>
-                  <span className="font-bold">Engaging activities & rest areas</span>
-                </div>
-              </div>
-            </div>
-              <Image src={image5} height={300} width={300} alt="Butterfly" className="mt-4  md:ml-[200px] ml-[2px] rounded-lg" />
-          </div>
-        </Tile>
+        {/* --- PROGRAM LIST / CAROUSEL --- */}
+        <div 
+          ref={scrollRef}
+          className="
+            flex flex-col gap-8 
+            md:flex-row md:overflow-x-auto md:snap-x md:snap-mandatory md:pb-12 md:px-4
+            scrollbar-hide
+          "
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {programs.map((program, index) => (
+            <ProgramCard key={program.id} data={program} index={index} />
+          ))}
+        </div>
 
       </div>
-
- 
-
     </section>
   );
 };
 
-export default ProgramsSection;
+// --- CARD COMPONENT ---
+
+interface ProgramCardProps {
+  data: Program;
+  index: number;
+}
+
+const ProgramCard: React.FC<ProgramCardProps> = ({ data, index }) => {
+  
+  const colors: Record<ThemeColor, ThemeStyles> = {
+    rose:   { text: 'text-rose-600', bg: 'bg-rose-50', border: 'border-rose-200', btn: 'bg-rose-500' },
+    sky:    { text: 'text-sky-600', bg: 'bg-sky-50', border: 'border-sky-200', btn: 'bg-sky-500' },
+    purple: { text: 'text-purple-600', bg: 'bg-purple-50', border: 'border-purple-200', btn: 'bg-purple-500' },
+    teal:   { text: 'text-teal-600', bg: 'bg-teal-50', border: 'border-teal-200', btn: 'bg-teal-500' },
+    amber:  { text: 'text-amber-600', bg: 'bg-amber-50', border: 'border-amber-200', btn: 'bg-amber-500' },
+  };
+
+  const theme = colors[data.theme];
+
+  return (
+    <motion.div
+      className={`
+        shrink-0 snap-center
+        w-full md:w-[450px] 
+        relative flex flex-col items-center gap-6 
+        p-8 md:p-10
+        bg-white border-[3px] ${theme.border} 
+        rounded-[50px]
+        shadow-xl hover:shadow-2xl transition-all duration-300
+        hover:-translate-y-2
+      `}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
+      viewport={{ once: true }}
+    >
+      {/* --- CHARACTER IMAGE --- */}
+      <div className="relative mb-4">
+        <div className="w-40 h-40 sm:w-48 sm:h-48  overflow-hidden flex items-center justify-center relative z-10">
+          <Image 
+            src={data.image} 
+            alt={data.title} 
+            width={320}
+            height={320}
+            className="object-cover py-8" 
+          /> 
+        </div>
+        {/* Decorative glow */}
+        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] ${theme.bg} rounded-full blur-2xl opacity-60 -z-0`} />
+      </div>
+
+      {/* --- CONTENT --- */}
+      <div className="flex-1 text-center space-y-4 w-full">
+        <div>
+          <h3 className={`text-3xl sm:text-4xl ${theme.text} mb-2 ${handwritingFont.className} font-bold tracking-wide`}>
+            {data.title}
+          </h3>
+          <p className={`text-gray-700 font-extrabold text-sm uppercase tracking-widest ${bodyFont.className}`}>
+            {data.subtitle}
+          </p>
+        </div>
+        
+        <p className={`text-gray-700 text-base leading-relaxed font-semibold px-4 ${bodyFont.className}`}>
+          {data.description}
+          <span className="hidden md:inline"> {data.fullDescription}</span>
+        </p>
+
+        {/* --- ACTION BUTTONS --- */}
+        <div className="pt-6 flex items-center justify-center gap-4">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`px-6 py-3 rounded-full bg-gradient-to-r from-gray-800 to-black text-white font-bold text-sm flex items-center gap-2 shadow-lg hover:shadow-xl transition-all ${bodyFont.className}`}
+          >
+            Know More 
+            <ArrowRight className="w-4 h-4" />
+          </motion.button>
+
+          <motion.button 
+            whileHover={{ scale: 1.15, rotate: 15 }}
+            whileTap={{ scale: 0.9 }}
+            className="w-14 h-14 rounded-full bg-amber-400 hover:bg-amber-500 flex items-center justify-center shadow-lg hover:shadow-xl border-4 border-white transition-all"
+          >
+            <Play className="w-5 h-5 fill-white text-white ml-1" />
+          </motion.button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+export default ProgramSection;
