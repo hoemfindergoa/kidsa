@@ -1,6 +1,6 @@
 import NimaayaNavbar from '@/app/navbar/navbar';
 import About from '@/app/about/page';
-import Programs from '@/components/Programs';
+import Programs from '@/components/SmallProgram';
 import Gallery from '@/components/Gallery';
 import Hero from '@/components/Hero';
 import ContactPage from '@/components/Contact';

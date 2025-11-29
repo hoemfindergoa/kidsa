@@ -10,6 +10,7 @@ import boywithelephant from "../public/boywithelephent.png"
 import girlonswing from "../public/girlonwing.png"
 import boywithbrush from "../public/boywithbrush.png"
 import Image from 'next/image';
+import Link from 'next/link';
 // --- TYPES & INTERFACES ---
 
 type ThemeColor = 'rose' | 'sky' | 'purple' | 'teal' | 'amber';
@@ -22,6 +23,7 @@ interface Program {
   fullDescription: string;
   theme: ThemeColor;
   image: any;
+  ids: string;
 }
 
 interface ThemeStyles {
@@ -60,7 +62,8 @@ const programs: Program[] = [
     description: "At Little Dreamers, our Little Explorers begin their joyful learning journey through play and imagination.",
     fullDescription: "Activities are thoughtfully designed to build sensory awareness, strengthen motor skills, and encourage social interaction. Children learn to adapt, express themselves freely, and gain early confidence.",
     theme: "rose", 
-    image : boywithcup
+    image : boywithcup,
+    ids: "#explorers"
   },
   {
     id: 2,
@@ -69,7 +72,8 @@ const programs: Program[] = [
     description: "Our Curious Learners explore the world of colors, numbers, and letters through fun, interactive activities.",
     fullDescription: "This stage builds imagination, communication, and growing independence. Children learn to observe, question, express, and share their ideas.",
     theme: "sky",
-    image : girlwithbook
+    image : girlwithbook,
+    ids: "learners"
   },
   {
     id: 3,
@@ -78,7 +82,8 @@ const programs: Program[] = [
     description: "Children strengthen early academic skills while exploring creativity, imagination, and expression.",
     fullDescription: "Through phonics, storytelling, art, and group play, they build confidence. Each day encourages children to think creatively and communicate confidently.",
     theme: "purple",
-    image : boywithelephant
+    image : boywithelephant,
+    ids: "thinkers"
   },
   {
     id: 4,
@@ -87,7 +92,8 @@ const programs: Program[] = [
     description: "Prepares children for formal schooling by building a strong foundation in academics and life skills.",
     fullDescription: "With structured learning in language, math, and environmental studies, children develop clarity in concepts and confidence in application.",
     theme: "teal",
-    image : girlonswing
+    image : girlonswing,
+    ids: "/Programs/#leaders"
   },
   {
     id: 5,
@@ -96,7 +102,8 @@ const programs: Program[] = [
     description: "A home away from home where your child is cared for in a safe, engaging, and loving environment.",
     fullDescription: "Our Day Care program offers structured relaxation, nutritious snacks, and supervised play activities giving parents peace of mind.",
     theme: "amber",
-    image : boywithbrush
+    image : boywithbrush,
+    ids: "/Programs/#daycare"
   }
 ];
 
@@ -291,12 +298,13 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ data, index }) => {
         </p>
 
         {/* --- ACTION BUTTONS --- */}
+        <Link href={`Programs/#${data.ids}`}>
         <div className="pt-6 flex items-center justify-center gap-4">
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className={`px-6 py-3 rounded-full bg-gradient-to-r from-gray-800 to-black text-white font-bold text-sm flex items-center gap-2 shadow-lg hover:shadow-xl transition-all ${bodyFont.className}`}
-          >
+            >
             Know More 
             <ArrowRight className="w-4 h-4" />
           </motion.button>
@@ -305,10 +313,11 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ data, index }) => {
             whileHover={{ scale: 1.15, rotate: 15 }}
             whileTap={{ scale: 0.9 }}
             className="w-14 h-14 rounded-full bg-amber-400 hover:bg-amber-500 flex items-center justify-center shadow-lg hover:shadow-xl border-4 border-white transition-all"
-          >
+            >
             <Play className="w-5 h-5 fill-white text-white ml-1" />
           </motion.button>
         </div>
+            </Link>
       </div>
     </motion.div>
   );
