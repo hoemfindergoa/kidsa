@@ -6,6 +6,7 @@ import { ArrowRight, Play, Sparkles, Heart } from "lucide-react";
 import Image from "next/image";
 import { Titan_One, Nunito, Caveat } from 'next/font/google';
 import maineimage from "../public/mainimage.png";
+import Link from "next/link";
 
 // --- FONT CONFIGURATION ---
 const titleFont = Titan_One({ 
@@ -97,13 +98,15 @@ const Hero = () => {
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
+            <Link href="/admission">
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={`bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg flex items-center justify-center gap-2 transition-all ${bodyFont.className}`}
-            >
+              >
               Enroll Your Child <ArrowRight className="w-5 h-5" />
             </motion.button>
+              </Link>
             
           
           </div>

@@ -6,6 +6,7 @@ import { ArrowRight, Star, Cloud } from "lucide-react";
 import Image from "next/image";
 import girlwithbucket from "../public/girlwithcup.png"; // Ensure path is correct
 import { Titan_One, Nunito, Caveat } from 'next/font/google';
+import Link from "next/link";
 
 // --- FONT CONFIGURATION ---
 const titleFont = Titan_One({ 
@@ -129,17 +130,19 @@ const LittleDreamersBanner = () => {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto font-bold">
+              <Link href="/admission">
               <motion.a
                 href="/enroll"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="group relative inline-flex items-center justify-center bg-[#D33060] text-white text-lg py-4 px-10 rounded-full shadow-[0_10px_20px_rgba(211,48,96,0.3)] hover:bg-[#b0264d] transition-all duration-300 overflow-hidden"
-              >
+                >
                 <span className="relative z-10 flex items-center gap-2">
                   Enroll Now
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </span>
               </motion.a>
+                </Link>
 
               <motion.button
                 whileHover={{ scale: 1.05 }}

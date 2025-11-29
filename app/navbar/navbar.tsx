@@ -47,11 +47,11 @@ const Navbar = () => {
   const navLinks = [
     { href: "/about", label: "About Us" },
     { href: "/#programs", label: "Programs" },
-     { href: "/#Why Us", label: "Why Us" },
+     { href: "/Whyus", label: "Why Us" },
     { href: "/admission", label: "Admissions" },
     { href: "/franchise", label: "Franchise" },
-       { href: "/our-centers", label: "Our Centers" },
-    { href: "/Contact Us", label: "Contact Us" },
+       { href: "/Ourcenters", label: "Our Centers" },
+    { href: "/contact", label: "Contact Us" },
   ];
 
   return (
@@ -99,7 +99,6 @@ const Navbar = () => {
                   className="relative group py-2"
                 >
                   {/* The Handwritten Arrow (Shows on Hover or Active) */}
-                  <AnimatePresence>
                     {isActive && (
                       <motion.div
                         initial={{ opacity: 0, y: -10, rotate: -10 }}
@@ -108,12 +107,9 @@ const Navbar = () => {
                         className="absolute -top-6 left-1/2 -translate-x-1/2 text-rose-500 w-6 h-6"
                       >
                          {/* Doodle Arrow SVG */}
-                         <svg viewBox="0 0 30 30" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M15 2 L15 20 M15 20 L8 12 M15 20 L22 12" />
-                         </svg>
+                      
                       </motion.div>
                     )}
-                  </AnimatePresence>
 
                   <span className={`text-lg transition-colors duration-300 ${
                     isActive ? "text-rose-500 font-bold" : "text-slate-500 font-semibold"
@@ -128,7 +124,7 @@ const Navbar = () => {
           {/* --- RIGHT ACTIONS --- */}
           <div className="flex items-center gap-3">
             {/* Desktop Enroll Button */}
-            <Link href="/enroll" className="hidden sm:block">
+            <Link href="/admission" className="hidden sm:block">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
