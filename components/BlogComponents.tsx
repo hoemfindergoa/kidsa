@@ -108,7 +108,7 @@ const blogPosts = [
 
 const BlogSection: React.FC = () => {
   return (
-    <section className="relative w-full bg-sky-50 pt-32 pb-40 overflow-hidden">
+    <section className="relative w-full bg-rose-500 pt-32 pb-40 overflow-hidden">
       <WaveSeparator position="top" color="text-white" />
 
       {/* Background Doodle - Clouds/Blobs */}

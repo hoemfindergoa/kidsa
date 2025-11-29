@@ -10,7 +10,6 @@ import boywithelephant from "../public/boywithelephent.png"
 import girlonswing from "../public/girlonwing.png"
 import boywithbrush from "../public/boywithbrush.png"
 import Image from 'next/image';
-
 // --- TYPES & INTERFACES ---
 
 type ThemeColor = 'rose' | 'sky' | 'purple' | 'teal' | 'amber';
@@ -121,7 +120,28 @@ const ProgramSection: React.FC = () => {
         
         {/* --- HEADER --- */}
         <div className="text-center mb-16 relative z-10">
-          <motion.div 
+
+
+   <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="text-sky-500 font-bold tracking-wider text-sm uppercase bg-sky-100 px-4 py-1 rounded-full">
+              Our Programs
+            </span>
+          <h2 className={`text-5xl pt-4 md:text-7xl uppercase leading-tight ${titleFont.className}`}>
+              <span className="text-rose-500">Spreading</span>{' '}
+              <span className="text-black">Love</span>
+            </h2>
+          </motion.div>
+        </div>
+
+
+
+
+          {/* <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="inline-block"
@@ -130,9 +150,9 @@ const ProgramSection: React.FC = () => {
               <span className="text-rose-500">Spreading</span>{' '}
               <span className="text-black">Love</span>
             </h2>
-          </motion.div>
+          </motion.div> */}
           
-          <motion.div 
+          {/* <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -141,7 +161,6 @@ const ProgramSection: React.FC = () => {
             <span className="uppercase">Since</span>
             <span className="relative inline-block">
                <span className="relative z-10">30+ Years</span>
-               {/* Hand-drawn underline */}
                <svg 
                  className="absolute -bottom-2 left-0 w-full h-4" 
                  viewBox="0 0 200 15" 
@@ -156,7 +175,7 @@ const ProgramSection: React.FC = () => {
                  />
                </svg>
             </span>
-          </motion.div>
+          </motion.div> */}
 
           {/* Decorative bird */}
           <div className="hidden md:block absolute -top-4 right-10 text-6xl animate-bounce" style={{ animationDuration: '3s' }}>

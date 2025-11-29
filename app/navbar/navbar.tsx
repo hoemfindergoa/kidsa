@@ -47,9 +47,11 @@ const Navbar = () => {
   const navLinks = [
     { href: "/about", label: "About Us" },
     { href: "/#programs", label: "Programs" },
-    { href: "/#gallery", label: "Gallery" },
+     { href: "/#Why Us", label: "Why Us" },
     { href: "/admission", label: "Admissions" },
     { href: "/franchise", label: "Franchise" },
+       { href: "/our-centers", label: "Our Centers" },
+    { href: "/Contact Us", label: "Contact Us" },
   ];
 
   return (

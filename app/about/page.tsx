@@ -97,7 +97,7 @@ const AboutUsSegmented: React.FC = () => {
       {/* =========================================
           SECTION 1: OUR AIM (Wavy Background)
       ========================================= */}
-      <section className="relative w-full bg-amber-50 pt-32 pb-32 overflow-hidden">
+      <section className="relative w-full bg-amber-200 pt-32 pb-32 overflow-hidden">
         <WaveSeparator position="top" color="text-white" />
         
         {/* Background Doodle */}
@@ -223,7 +223,7 @@ const AboutUsSegmented: React.FC = () => {
       {/* =========================================
           SECTION 3: WHY US (Wavy Background)
       ========================================= */}
-      <section className="relative w-full bg-rose-50 pt-32 pb-40 overflow-hidden">
+      <section className="relative w-full bg-rose-400 pt-32 pb-40 overflow-hidden">
         <WaveSeparator position="top" color="text-white" />
         
         {/* Background Doodle */}

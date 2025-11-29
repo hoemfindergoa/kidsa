@@ -1,12 +1,9 @@
 "use client";
+
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import GirlHead from "../public/girlfaceonly.png"; // Ensure path is correct
-// Import icons (Make sure to npm install lucide-react)
 import { 
-  
   GraduationCap, 
   ShieldCheck, 
   Shapes, 
@@ -15,23 +12,37 @@ import {
   Users, 
   HeartHandshake, 
   Music, 
-  Sparkles 
+  Sparkles,
+  Cloud,
+  Star
 } from "lucide-react";
+import { Titan_One, Nunito, Caveat } from 'next/font/google';
 
-// Helper to map IDs to icons dynamically
+// --- FONTS ---
+const titleFont = Titan_One({ 
+  weight: '400', 
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+const bodyFont = Nunito({ 
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800'],
+  display: 'swap',
+});
+
+const handwritingFont = Caveat({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap',
+});
+
+// --- DATA ---
 const getIcon = (id: number) => {
   const icons = [
-    GraduationCap,  // 1
-    ShieldCheck,    // 2
-    Shapes,         // 3
-    Clock,          // 4
-    Laptop,         // 5
-    Users,          // 7
-    HeartHandshake, // 8
-    Music,          // 9
-    Sparkles        // 10
+    GraduationCap, ShieldCheck, Shapes, Clock, Laptop, Users, HeartHandshake, Music, Sparkles 
   ];
-  return icons[id] || Sparkles;
+  return icons[id - 1] || Sparkles;
 };
 
 const methodologyData = [
@@ -39,76 +50,55 @@ const methodologyData = [
     id: 1,
     title: "Research-Backed",
     desc: "Blending Montessori & experiential learning for holistic development.",
-    // Updated colors to gradients for depth
-    style: "from-purple-100 to-purple-200 text-purple-900 border-purple-300",
-    iconColor: "text-purple-600"
+    // Using specific tailwind colors for the new UI look
+    style: "bg-[#FFF5F7] text-[#D33060] border-[#D33060]", 
+    iconBg: "bg-[#D33060] text-white"
   },
   {
     id: 2,
     title: "Expert Educators",
     desc: "Specialized training ensures personalized attention and warmth.",
-    style: "from-blue-100 to-blue-200 text-blue-900 border-blue-300",
-    iconColor: "text-blue-600"
+    style: "bg-[#F0F9FF] text-[#0ea5e9] border-[#0ea5e9]",
+    iconBg: "bg-[#0ea5e9] text-white"
   },
   {
     id: 3,
     title: "Safe Infrastructure",
     desc: "Rounded furniture and sensory corners designed for child safety.",
-    style: "from-rose-100 to-rose-200 text-rose-900 border-rose-300",
-    iconColor: "text-rose-600"
+    style: "bg-[#FFF1F2] text-[#e11d48] border-[#e11d48]",
+    iconBg: "bg-[#e11d48] text-white"
   },
   {
     id: 4,
     title: "Montessori Lab",
     desc: "Authentic materials encourage exploration and fine motor skills.",
-    style: "from-amber-100 to-amber-200 text-amber-900 border-amber-300",
-    iconColor: "text-amber-600"
+    style: "bg-[#FFFBEB] text-[#d97706] border-[#d97706]",
+    iconBg: "bg-[#d97706] text-white"
   },
   {
     id: 5,
     title: "Structured Daycare",
     desc: "A balanced mix of rest, meals, and play ensures a happy environment.",
-    style: "from-emerald-100 to-emerald-200 text-emerald-900 border-emerald-300",
-    iconColor: "text-emerald-600"
+    style: "bg-[#ECFDF5] text-[#059669] border-[#059669]",
+    iconBg: "bg-[#059669] text-white"
   },
   {
     id: 6,
     title: "Tech-Enabled",
     desc: "Age-appropriate digital resources introduce early literacy.",
-    style: "from-cyan-100 to-cyan-200 text-cyan-900 border-cyan-300",
-    iconColor: "text-cyan-600"
+    style: "bg-[#ECFEFF] text-[#0891b2] border-[#0891b2]",
+    iconBg: "bg-[#0891b2] text-white"
   },
   {
     id: 7,
     title: "Parent Partnership",
     desc: "Consistent updates and digital reports ensure active collaboration.",
-    style: "from-indigo-100 to-indigo-200 text-indigo-900 border-indigo-300",
-    iconColor: "text-indigo-600"
-  },
-  {
-    id: 8,
-    title: "Values & Skills",
-    desc: "Learning empathy and discipline through daily routines.",
-    style: "from-orange-100 to-orange-200 text-orange-900 border-orange-300",
-    iconColor: "text-orange-600"
-  },
-  {
-    id: 9,
-    title: "Holistic Growth",
-    desc: "Music, art, and dance to boost physical and emotional development.",
-    style: "from-pink-100 to-pink-200 text-pink-900 border-pink-300",
-    iconColor: "text-pink-600"
-  },
-  {
-    id: 10,
-    title: "Clean Environment",
-    desc: "Strict sanitization ensures a clean, safe space for all children.",
-    style: "from-teal-100 to-teal-200 text-teal-900 border-teal-300",
-    iconColor: "text-teal-600"
+    style: "bg-[#EEF2FF] text-[#4f46e5] border-[#4f46e5]",
+    iconBg: "bg-[#4f46e5] text-white"
   },
 ];
 
-// --- ANIMATED WAVE COMPONENT (UNCHANGED) ---
+// --- YOUR ORIGINAL MOVING WAVE COMPONENT ---
 interface WaveSeparatorProps {
   position: "top" | "bottom";
 }
@@ -139,11 +129,10 @@ const WaveSeparator: React.FC<WaveSeparatorProps> = ({ position }) => {
 
   const mobilePath = getWavePath(5);
   const desktopPath = getWavePath(20);
-  const transformClass = "";
 
   const WaveLayer = ({ pathD, opacityClass, duration }: { pathD: string, opacityClass: string, duration: number }) => (
     <motion.div
-      className={`absolute inset-0 w-[200%] h-full text-white ${opacityClass} ${transformClass}`}
+      className={`absolute inset-0 w-[200%] h-full text-white ${opacityClass}`}
       animate={{ x: position === "top" ? ["0%", "-50%"] : ["-50%", "0%"] }}
       transition={{ duration: duration, repeat: Infinity, ease: "linear" }}
     >
@@ -167,6 +156,8 @@ const WaveSeparator: React.FC<WaveSeparatorProps> = ({ position }) => {
   );
 };
 
+
+// --- MAIN COMPONENT ---
 const UniqueFeatures: React.FC = () => {
   const [index, setIndex] = useState(0);
   const [width, setWidth] = useState(0);
@@ -174,123 +165,165 @@ const UniqueFeatures: React.FC = () => {
 
   useEffect(() => {
     if (carouselRef.current) {
-      setWidth(carouselRef.current.scrollWidth / methodologyData.length);
+      // Adjusted card width for new styling: 320px card + 24px gap
+      setWidth(344);
     }
   }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % methodologyData.length);
-    }, 3500); 
+      setIndex((prev) => {
+        if (prev >= methodologyData.length - 1) return 0;
+        return prev + 1;
+      });
+    }, 4000); 
 
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <section className="relative w-full bg-amber-50 pt-32 pb-40 overflow-hidden">
+    // Updated background color to theme Teal
+    <section className={`relative w-full bg-[#9BC6C0] py-32 md:py-40 overflow-hidden ${bodyFont.className}`}>
+      
+      {/* YOUR MOVING TOP WAVE */}
       <WaveSeparator position="top" />
 
-      {/* Background Dotted Line Doodle */}
-      <div className="absolute inset-0 pointer-events-none opacity-30 hidden lg:block top-40">
-        <svg className="w-full h-full" viewBox="0 0 1200 800" preserveAspectRatio="none">
-          <path 
-            d="M50,300 Q200,100 350,300 T650,300 T950,300 T1250,300" 
-            fill="none" 
-            stroke="#fb7185" 
-            strokeWidth="3" 
-            strokeDasharray="12,12"
-          />
-        </svg>
+      {/* --- NEW BACKGROUND DECORATIONS --- */}
+      <div className="absolute inset-0 pointer-events-none">
+         {/* Doodles */}
+         <svg className="absolute top-1/4 left-10 w-32 h-32 opacity-20" viewBox="0 0 100 100">
+             <circle cx="50" cy="50" r="40" stroke="white" strokeWidth="4" fill="none" strokeDasharray="10,10"/>
+         </svg>
+         <svg className="absolute bottom-1/4 right-10 w-40 h-40 opacity-20" viewBox="0 0 100 100">
+             <path d="M10,50 Q25,25 50,50 T90,50" fill="none" stroke="white" strokeWidth="4" />
+         </svg>
+         
+         {/* Floating Icons */}
+         <motion.div 
+            animate={{ y: [0, -15, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-40 right-[20%]"
+         >
+            <Cloud className="text-white/40 w-20 h-20" fill="currentColor" />
+         </motion.div>
+         <motion.div 
+            animate={{ rotate: [0, 10, -10, 0] }}
+            transition={{ duration: 5, repeat: Infinity }}
+            className="absolute bottom-40 left-[10%]"
+         >
+            <Star className="text-[#F4D03F] w-12 h-12 drop-shadow-md" fill="currentColor" stroke="white" strokeWidth={2} />
+         </motion.div>
       </div>
 
-      <div className=" md:mx-[30px] px-4">
-        <div className="bg-rose-100 rounded-[3rem] p-8 md:p-12 lg:p-16 flex flex-col lg:flex-row items-center gap-12 relative overflow-hidden shadow-sm border border-rose-200">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           
-          {/* LEFT SIDE: Static Content */}
-          <div className="w-full lg:w-[300px] flex flex-col items-center lg:items-start text-center lg:text-left z-10 shrink-0">
-            <h2 className="font-black text-4xl md:text-5xl text-slate-900 mb-2 leading-tight">
-              OUR 
-              <span className="block text-rose-500 font-cursive" style={{ fontFamily: '"Comic Sans MS", "Chalkboard SE", sans-serif' }}>
-                Unique Features
+          {/* --- LEFT SIDE: Improved Static Content --- */}
+          <motion.div 
+            className="w-full lg:w-1/3 text-center lg:text-left text-white"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+             <span className={`inline-block px-4 py-1 mb-6 text-xl text-[#3E3431] bg-[#F4D03F] rounded-full shadow-lg rotate-[-2deg] ${handwritingFont.className} font-bold border-2 border-white`}>
+                Why Parents Love Us
+            </span>
+            
+            <h2 className={`${titleFont.className} text-5xl md:text-6xl leading-tight mb-6 drop-shadow-sm`}>
+              Our <br/>
+              <span className="text-[#D33060] inline-block relative">
+                 Unique
+                 {/* Doodle underline */}
+                 <svg className="absolute w-full h-3 -bottom-1 left-0 text-white opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
+                    <path d="M0,5 Q50,10 100,5" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+                 </svg>
               </span>
+              <br/> Features
             </h2>
-            <Image
-              src={GirlHead}
-              alt="Illustration of a girl's head"
-              width={400}
-              height={400}
-              className="mt-6 drop-shadow-md"
-            />
-          </div>
 
-          {/* RIGHT SIDE: Animated Carousel */}
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-rose-100 to-transparent z-20 pointer-events-none hidden lg:block" />
-          
-          <div className="w-full lg:w-2/3 overflow-hidden relative py-10" ref={carouselRef}>
-            <motion.div 
-              className="flex gap-6 pl-4" // Added padding left for initial offset
-              animate={{
-                x: width ? -index * width : 0,
-              }}
-              transition={{ type: "spring", stiffness: 50, damping: 15 }} 
-            >
-              {methodologyData.map((item) => {
-                // Dynamically get the Icon component
-                const IconComponent = getIcon(item.id);
+            <p className="text-lg md:text-xl font-medium opacity-90 leading-relaxed mb-8">
+               We don't just teach; we nurture. Discover the magic that makes Little Dreamers the perfect second home for your child.
+            </p>
 
-                return (
-                  <motion.div 
-                    key={item.id} 
-                    // Add hover effect
-                    whileHover={{ scale: 1.05, rotate: 1, y: -5 }}
-                    className={`
-                      shrink-0 
-                      w-[260px] md:w-[280px] lg:w-[300px] 
-                      h-[340px] 
-                      rounded-[2rem] p-6 
-                      flex flex-col items-center text-center 
-                      shadow-xl
-                      bg-gradient-to-br ${item.style}
-                      border-4 border-white
-                      relative
-                      group
-                      cursor-pointer
-                    `}
-                  >
-                    {/* Icon Bubble */}
-                    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-md mb-6 group-hover:scale-110 transition-transform duration-300">
-                      {/* @ts-ignore - Rendering dynamic icon */}
-                      <IconComponent className={`w-10 h-10 ${item.iconColor}`} />
-                    </div>
+            <button className="bg-white text-[#D33060] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-[#FFF5F7] hover:scale-105 transition-all duration-300">
+               Learn More
+            </button>
+          </motion.div>
 
-                    <h3 className="text-2xl font-black uppercase mb-3 leading-tight tracking-tight">
-                      {item.title}
-                    </h3>
-                    
-                    {/* Decorative Element */}
-                    <div className="w-16 h-1 bg-white/50 rounded-full mb-4"></div>
+          {/* --- RIGHT SIDE: Improved Carousel UI --- */}
+          <div className="w-full lg:w-2/3 relative">
+             {/* Gradient fade overlay for carousel edges */}
+             <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#9BC6C0] to-transparent z-10 hidden md:block"></div>
+             <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#9BC6C0] to-transparent z-10 hidden md:block"></div>
 
-                    <p className="text-sm font-semibold opacity-90 leading-relaxed">
-                      {item.desc}
-                    </p>
+             <div className="overflow-hidden p-4 -m-4" ref={carouselRef}>
+                <motion.div 
+                  className="flex gap-6"
+                  // Logic kept the same, just adjusted width calculation in useEffect
+                  animate={{ x: width ? -index * width : 0 }}
+                  transition={{ type: "spring", stiffness: 60, damping: 20 }}
+                >
+                   {/* Render items with NEW UI */}
+                   {methodologyData.map((item) => {
+                      const IconComponent = getIcon(item.id);
+                      return (
+                        <motion.div 
+                           key={item.id}
+                           // New "Flashcard" styling
+                           className={`
+                             shrink-0 w-[300px] md:w-[320px] 
+                             h-[380px] bg-white rounded-[40px] 
+                             p-8 flex flex-col items-center text-center justify-center
+                             shadow-[0_10px_30px_rgba(0,0,0,0.1)]
+                             border-4 ${item.style.split(' ').find(c => c.startsWith('border')) || 'border-transparent'}
+                             relative group overflow-hidden
+                           `}
+                           whileHover={{ y: -10, rotate: 1 }}
+                        >
+                           {/* Card Background Pattern */}
+                           <div className={`absolute top-0 left-0 w-full h-24 opacity-10 ${item.style.split(' ')[0]}`}></div>
+                           
+                           {/* Icon Bubble */}
+                           <div className={`w-20 h-20 rounded-full flex items-center justify-center shadow-md mb-6 relative z-10 ${item.iconBg} group-hover:scale-110 transition-transform duration-300`}>
+                              <IconComponent size={32} />
+                           </div>
 
-                    {/* Subtle shine effect on top right */}
-                    <div className="absolute top-4 right-4 w-6 h-6 bg-white/30 rounded-full blur-md"></div>
-                  </motion.div>
-                );
-              })}
-              
-              {/* Dummy buffer items for smooth scrolling illusion */}
-              {methodologyData.slice(0,3).map((item) => (
-                 <div key={`dummy-${item.id}`} className="shrink-0 w-[260px] md:w-[280px] lg:w-[300px] h-[340px] opacity-0"></div>
-              ))}
+                           <h3 className={`${titleFont.className} text-2xl text-[#3E3431] mb-3`}>
+                              {item.title}
+                           </h3>
+                           
+                           {/* Divider */}
+                           <div className="w-12 h-1.5 bg-gray-100 rounded-full mb-4"></div>
 
-            </motion.div>
+                           <p className="text-gray-600 font-medium leading-relaxed">
+                              {item.desc}
+                           </p>
+
+                           {/* Bottom decoration */}
+                           <div className={`absolute bottom-0 left-0 w-full h-2 ${item.iconBg}`}></div>
+                        </motion.div>
+                      )
+                   })}
+                </motion.div>
+             </div>
+             
+             {/* New Pagination Dots UI */}
+             <div className="flex justify-center gap-2 mt-8">
+                {methodologyData.map((_, i) => (
+                  <button 
+                    key={i}
+                    onClick={() => setIndex(i)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${i === index ? "bg-white w-8" : "bg-white/40"}`}
+                  />
+                ))}
+             </div>
           </div>
 
         </div>
       </div>
 
+      {/* YOUR MOVING BOTTOM WAVE */}
       <WaveSeparator position="bottom" />
     </section>
   );
