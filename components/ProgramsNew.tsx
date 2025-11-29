@@ -121,7 +121,7 @@ const ProgramSection: React.FC = () => {
   };
 
   return (
-    <section id='programs' className={`py-16 bg-gradient-to-b from-orange-50 to-white relative overflow-hidden ${bodyFont.className}`}>
+    <section id='programs' className={`py-16   relative overflow-hidden ${bodyFont.className}`}>
       
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6">
         
@@ -135,12 +135,12 @@ const ProgramSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-sky-500 font-bold tracking-wider text-sm uppercase bg-sky-100 px-4 py-1 rounded-full">
+            {/* <span className="text-sky-500 font-bold tracking-wider text-sm uppercase bg-sky-100 px-4 py-1 rounded-full">
               Our Programs
-            </span>
+            </span> */}
           <h2 className={`text-5xl pt-4 md:text-7xl uppercase leading-tight ${titleFont.className}`}>
-              <span className="text-rose-500">Spreading</span>{' '}
-              <span className="text-black">Love</span>
+              <span className="text-rose-500">Our </span>{' '}
+              <span className="text-black">Programs</span>
             </h2>
           </motion.div>
         </div>
