@@ -3,20 +3,17 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import GirlHead from "../../public/girlfaceonly.png"; // Placeholder Image
-import Boywithbrush from "../../public/boywithbrush.png"; // Placeholder Image
-import girlonswing from "../../public/girlonwing.png"; // Placeholder Image
-import { Target, Lightbulb, Heart, Sparkles } from "lucide-react";
-import boyonbucket from "../../public/boywithcup.png"; // Placeholder Image
-import AboutHeaderSimple from "@/components/AboutHeader";
-import { Titan_One, Nunito, Caveat } from 'next/font/google';
+import { Home, ChevronRight, ShieldCheck, Apple, Sun, Compass, GraduationCap, Sparkles, Star, Heart } from "lucide-react";
+import { Titan_One, Nunito } from 'next/font/google';
 
-// --- REUSABLE WAVE COMPONENT ---
-interface WaveSeparatorProps {
-  position: "top" | "bottom";
-  color?: string; // Allow changing wave color if needed
-}
+// Placeholder images - Replace with your actual paths
+import GirlHead from "../../public/girlfaceonly.png"; 
+import Boywithbrush from "../../public/boywithbrush.png"; 
+import girlonswing from "../../public/girlonwing.png"; 
+import boyonbucket from "../../public/boywithcup.png"; 
+import Whyheader from "@/components/WhyusHeader";
 
+// --- FONTS ---
 const titleFont = Titan_One({ 
   weight: '400', 
   subsets: ['latin'],
@@ -29,13 +26,13 @@ const bodyFont = Nunito({
   display: 'swap',
 });
 
-const handwritingFont = Caveat({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  display: 'swap',
-});
+// --- REUSABLE WAVE COMPONENT ---
+interface WaveSeparatorProps {
+  position: "top" | "bottom";
+  color: string; 
+}
 
-const WaveSeparator: React.FC<WaveSeparatorProps> = ({ position, color = "text-white" }) => {
+const WaveSeparator: React.FC<WaveSeparatorProps> = ({ position, color }) => {
   const viewBoxWidth = 2000;
   const viewBoxHeight = 100;
 
@@ -75,7 +72,7 @@ const WaveSeparator: React.FC<WaveSeparatorProps> = ({ position, color = "text-w
   );
 
   return (
-    <div className={`absolute left-0 w-full h-[60px] sm:h-[100px] overflow-hidden z-20 ${position === "top" ? "top-0" : "bottom-0"}`}>
+    <div className={`absolute left-0 w-full h-[60px] md:h-[100px] overflow-hidden z-20 ${position === "top" ? "top-0" : "bottom-0"}`}>
       <div className="block md:hidden w-full h-full absolute inset-0">
         <WaveLayer pathD={mobilePath} opacityClass="opacity-40" duration={20} />
         <WaveLayer pathD={mobilePath} opacityClass="opacity-100" duration={15} />
@@ -88,29 +85,71 @@ const WaveSeparator: React.FC<WaveSeparatorProps> = ({ position, color = "text-w
   );
 };
 
-const AboutUsSegmented: React.FC = () => {
-  return (
-    <div className="w-full flex flex-col">
 
-      <AboutHeaderSimple />
+// --- HEADER COMPONENT ---
+// const WhyChooseUsHeader = () => {
+//   return (
+//     <header className="relative w-full h-[50vh] min-h-[400px] bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 flex items-center justify-center overflow-hidden">
       
-      {/* =========================================
-          SECTION 1: OUR AIM (Wavy Background)
-      ========================================= */}
-      <section className="relative w-full bg-amber-200 pt-32 pb-32 overflow-hidden">
-        <WaveSeparator position="top" color="text-white" />
+//       {/* Background Doodles */}
+//       <Whyheader />
+//       {/* <div className="absolute inset-0 pointer-events-none opacity-20">
+//          <motion.div animate={{ rotate: 360 }} transition={{ duration: 50, repeat: Infinity, ease: "linear" }} className="absolute top-10 left-10">
+//             <Star className="w-20 h-20 text-white" />
+//          </motion.div>
+//          <motion.div animate={{ y: [0, -20, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute bottom-20 right-10">
+//             <Heart className="w-16 h-16 text-teal-100" />
+//          </motion.div>
+//       </div>
+
+//       <div className="relative z-10 text-center px-4 mt-8">
+//         <div className="inline-flex items-center gap-2 text-white/90 text-sm font-bold bg-white/20 backdrop-blur-md px-4 py-2 rounded-full mb-6">
+//             <Home className="w-4 h-4" />
+//             <span>Home</span>
+//             <ChevronRight className="w-4 h-4 opacity-75" />
+//             <span>Why Us</span>
+//         </div>
+
+//         <h1 className={`text-5xl md:text-7xl font-black text-white drop-shadow-md mb-4 ${titleFont.className}`}>
+//           Why Parents
+//           <span className="block text-teal-100 mt-2">Choose Us</span>
+//         </h1>
         
-        {/* Background Doodle */}
-        <div className="absolute inset-0 pointer-events-none opacity-10 top-20">
+//         <p className="text-xl text-white/90 max-w-2xl mx-auto font-medium">
+//           A safe, happy, and inspiring place for your little one to grow.
+//         </p>
+//       </div> */}
+
+//       {/* WAVE: Connects to Section 1 (Cyan) */}
+//       {/* <WaveSeparator position="bottom" color="text-cyan-100" /> */}
+//     </header>
+//   );
+// };
+
+
+// --- MAIN PAGE COMPONENT ---
+const WhyChooseUsPage: React.FC = () => {
+  return (
+   <div>
+        <Whyheader />
+     <div className={`w-full flex flex-col ${bodyFont.className}`}>
+
+      {/* =========================================
+          SECTION 1: SAFETY & SECURITY (Cyan Theme)
+      ========================================= */}
+      <section className="relative w-full bg-rose-500 pt-20 pb-32 overflow-hidden">
+        {/* Top Wave: Not needed (Header handles it) */}
+        
+                <WaveSeparator position="top" color="text-white" />
+
+        <div className="absolute inset-0 pointer-events-none opacity-20 top-20">
              <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M0,0 Q50,100 100,0" fill="none" stroke="#f59e0b" strokeWidth="0.5" strokeDasharray="2,2"/>
+                <path d="M0,50 Q50,0 100,50" fill="none" stroke="#0891b2" strokeWidth="0.5" strokeDasharray="2,2"/>
              </svg>
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-16">
-            
-            {/* TEXT (Left) */}
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -118,23 +157,21 @@ const AboutUsSegmented: React.FC = () => {
               className="w-full lg:w-1/2 text-left"
             >
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-amber-200 rounded-full flex items-center justify-center">
-                    <Target className="w-6 h-6 text-amber-700" />
+                <div className="w-14 h-14 bg-cyan-200 rounded-full flex items-center justify-center shadow-sm">
+                    <ShieldCheck className="w-7 h-7 text-cyan-700" />
                 </div>
-                <h2 className={`text-4xl md:text-5xl font-black text-amber-900 uppercase tracking-tight" ${titleFont.className}`}>
-                  Our Aim
+                <h2 className={`text-4xl md:text-5xl font-black text-cyan-900 uppercase tracking-tight ${titleFont.className}`}>
+                  Safety & Security
                 </h2>
               </div>
-              
-              <p className="text-lg md:text-xl text-amber-800 font-medium leading-relaxed mb-6">
-                At <strong>Little Dreamers at Cambridge</strong>, we are committed to nurturing young minds through quality early education for children aged 2 to 6 years.
+              <p className="text-lg md:text-xl text-cyan-900/80 font-bold leading-relaxed mb-4">
+                Your child’s safety is our utmost priority.
               </p>
-              <p className="text-lg md:text-xl text-amber-800 font-medium leading-relaxed">
-                Our programs focus on creativity, curiosity, and confidence — helping every child discover their unique potential. We don’t just teach — we inspire future leaders.
+              <p className="text-lg text-cyan-800 font-medium leading-relaxed">
+                Our campus is equipped with secure entry systems, CCTV surveillance, and trained staff to ensure constant supervision at all times.
               </p>
             </motion.div>
 
-            {/* IMAGE (Right) */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -142,36 +179,32 @@ const AboutUsSegmented: React.FC = () => {
               className="w-full lg:w-1/2 flex justify-center"
             >
               <div className="relative w-[300px] h-[300px] md:w-[450px] md:h-[400px]">
-                 {/* No Card, just image with shape */}
                  <Image 
-                   src={Boywithbrush} 
-                   alt="Our Aim" 
+                   src={GirlHead} 
+                   alt="Safety and Security" 
                    width={500}
                    height={500}
-                   className="object-contain drop-shadow-2xl"
+                   className="object-contain drop-shadow-xl"
                  />
-                 {/* Floating Element */}
-                 <div className="absolute top-0 right-10 animate-bounce">
-                    <Sparkles className="w-10 h-10 text-amber-400" />
+                 <div className="absolute top-10 right-10 animate-pulse">
+                    <ShieldCheck className="w-12 h-12 text-cyan-400 opacity-50" />
                  </div>
               </div>
             </motion.div>
-
           </div>
         </div>
 
+        {/* Bottom Wave: Transitions to White */}
         <WaveSeparator position="bottom" color="text-white" />
       </section>
 
 
       {/* =========================================
-          SECTION 2: OUR VISION (White Background - Clean)
+          SECTION 2: HEALTH & HYGIENE (White Theme)
       ========================================= */}
       <section className="w-full bg-white py-20 lg:py-32 overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row-reverse items-center gap-16">
-            
-            {/* TEXT (Right) */}
             <motion.div 
                initial={{ opacity: 0, x: 50 }}
                whileInView={{ opacity: 1, x: 0 }}
@@ -179,23 +212,21 @@ const AboutUsSegmented: React.FC = () => {
                className="w-full lg:w-1/2 text-left lg:text-right"
             >
               <div className="flex items-center gap-4 mb-6 justify-start lg:justify-end">
-                 <h2 className={`text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tight order-2 lg:order-1 ${titleFont.className}`}>
-                  Our Vision
+                 <h2 className={`text-4xl md:text-5xl font-black text-emerald-900 uppercase tracking-tight order-2 lg:order-1 ${titleFont.className}`}>
+                  Health & Hygiene
                 </h2>
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center order-1 lg:order-2">
-                    <Lightbulb className="w-6 h-6 text-purple-600" />
+                <div className="w-14 h-14 bg-emerald-100 rounded-full flex items-center justify-center order-1 lg:order-2 shadow-sm">
+                    <Apple className="w-7 h-7 text-emerald-600" />
                 </div>
               </div>
-
-              <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed mb-6">
-                We strive to create a joyful, safe, and stimulating environment where children learn through exploration, imagination, and purposeful play.
+              <p className="text-lg md:text-xl text-emerald-800/80 font-bold leading-relaxed mb-4">
+                We believe a healthy child is a happy learner.
               </p>
-              <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed">
-                With a strong focus on holistic development — intellectual, emotional, social, and physical — we aspire to empower every child to become an independent thinker and a future-ready leader.
+              <p className="text-lg text-slate-600 font-medium leading-relaxed">
+                We maintain the highest standards of cleanliness. Classrooms and play areas are regularly sanitized, and children are served fresh, nutritious meals prepared under strict hygiene protocols.
               </p>
             </motion.div>
 
-            {/* IMAGE (Left) */}
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -203,40 +234,146 @@ const AboutUsSegmented: React.FC = () => {
               className="w-full lg:w-1/2 flex justify-center lg:justify-start"
             >
                <div className="relative">
-                 {/* Simple Blob Background behind image */}
-                 <div className="absolute inset-0 bg-purple-100 rounded-full blur-3xl opacity-50 -z-10 transform scale-110"></div>
+                 <div className="absolute inset-0 bg-emerald-100 rounded-full blur-3xl opacity-50 -z-10 transform scale-110"></div>
                  <Image 
-                   src={girlonswing} 
-                   alt="Our Vision" 
+                   src={boyonbucket} 
+                   alt="Health and Hygiene" 
                    width={500}
                    height={500}
                    className="object-contain"
                  />
                </div>
             </motion.div>
-
           </div>
         </div>
       </section>
 
 
       {/* =========================================
-          SECTION 3: WHY US (Wavy Background)
+          SECTION 3: ENVIRONMENT (Lime Theme)
       ========================================= */}
-      <section className="relative w-full bg-rose-400 pt-32 pb-40 overflow-hidden">
+      <section className="relative w-full bg-lime-300 pt-32 pb-32 overflow-hidden">
+        
+        {/* FIX: Top Wave color set to WHITE to mask the top of the lime box against the previous white section */}
         <WaveSeparator position="top" color="text-white" />
         
-        {/* Background Doodle */}
-         <div className="absolute inset-0 pointer-events-none opacity-10 top-20">
+        <div className="absolute inset-0 pointer-events-none opacity-20 top-20">
+            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+               <path d="M100,100 Q50,50 0,100" fill="none" stroke="#65a30d" strokeWidth="0.5" strokeDasharray="2,2"/>
+            </svg>
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            <motion.div 
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="w-full lg:w-1/2 text-left"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-14 h-14 bg-lime-200 rounded-full flex items-center justify-center shadow-sm">
+                    <Sun className="w-7 h-7 text-lime-700" />
+                </div>
+                <h2 className={`text-4xl md:text-5xl font-black text-lime-900 uppercase tracking-tight ${titleFont.className}`}>
+                  Vibrant Environment
+                </h2>
+              </div>
+              <p className="text-lg text-lime-800 font-medium leading-relaxed">
+                Learning comes alive in a vibrant, child-friendly environment designed to spark curiosity. Each classroom is thoughtfully crafted with bright, engaging spaces and safe play zones.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="w-full lg:w-1/2 flex justify-center"
+            >
+              <div className="relative w-[300px] h-[300px] md:w-[450px] md:h-[400px]">
+                 <Image 
+                   src={girlonswing} 
+                   alt="Environment" 
+                   width={500}
+                   height={500}
+                   className="object-contain drop-shadow-xl"
+                 />
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Bottom Wave: Transitions to White */}
+        <WaveSeparator position="bottom" color="text-white" />
+      </section>
+
+
+      {/* =========================================
+          SECTION 4: OUR APPROACH (White Theme)
+      ========================================= */}
+      <section className="w-full bg-white py-20 lg:py-32 overflow-hidden">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-16">
+            <motion.div 
+               initial={{ opacity: 0, x: 50 }}
+               whileInView={{ opacity: 1, x: 0 }}
+               viewport={{ once: true }}
+               className="w-full lg:w-1/2 text-left lg:text-right"
+            >
+              <div className="flex items-center gap-4 mb-6 justify-start lg:justify-end">
+                 <h2 className={`text-4xl md:text-5xl font-black text-indigo-900 uppercase tracking-tight order-2 lg:order-1 ${titleFont.className}`}>
+                  Our Approach
+                </h2>
+                <div className="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center order-1 lg:order-2 shadow-sm">
+                    <Compass className="w-7 h-7 text-indigo-600" />
+                </div>
+              </div>
+              <p className="text-lg md:text-xl text-indigo-800/80 font-bold leading-relaxed mb-4">
+                Nurturing both the mind and heart.
+              </p>
+              <p className="text-lg text-slate-600 font-medium leading-relaxed">
+                We combine play-based exploration with structured learning experiences to develop creativity, critical thinking, and social–emotional growth.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="w-full lg:w-1/2 flex justify-center lg:justify-start"
+            >
+               <div className="relative">
+                 <div className="absolute inset-0 bg-indigo-100 rounded-full blur-3xl opacity-50 -z-10 transform scale-110"></div>
+                 <Image 
+                   src={Boywithbrush} 
+                   alt="Our Approach" 
+                   width={500}
+                   height={500}
+                   className="object-contain"
+                 />
+               </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* =========================================
+          SECTION 5: QUALIFIED TEACHERS (Orange Theme)
+      ========================================= */}
+      <section className="relative w-full bg-orange-300 pt-32 pb-40 overflow-hidden">
+        
+        {/* FIX: Top Wave color set to WHITE to mask the top of the orange box against the previous white section */}
+        <WaveSeparator position="top" color="text-white" />
+        
+         <div className="absolute inset-0 pointer-events-none opacity-20 top-20">
              <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M100,0 Q50,100 0,0" fill="none" stroke="#e11d48" strokeWidth="0.5" strokeDasharray="2,2"/>
+                <path d="M0,0 Q25,25 50,0 T100,0" fill="none" stroke="#ea580c" strokeWidth="0.5" strokeDasharray="2,2"/>
              </svg>
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-16">
-            
-            {/* TEXT (Left) */}
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -244,34 +381,21 @@ const AboutUsSegmented: React.FC = () => {
               className="w-full lg:w-1/2 text-left"
             >
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-rose-200 rounded-full flex items-center justify-center">
-                    <Heart className="w-6 h-6 text-rose-600" />
+                <div className="w-14 h-14 bg-orange-200 rounded-full flex items-center justify-center shadow-sm">
+                    <GraduationCap className="w-7 h-7 text-orange-600" />
                 </div>
-                <h2 className={`text-4xl md:text-5xl font-black text-rose-900 uppercase tracking-tight ${titleFont.className}`}>
-                  Why Choose Us
+                <h2 className={`text-4xl md:text-5xl font-black text-orange-900 uppercase tracking-tight ${titleFont.className}`}>
+                  Qualified Teachers
                 </h2>
               </div>
-              
-              <p className="text-lg md:text-xl text-rose-800 font-medium leading-relaxed mb-6">
-                Parents choose <strong>Little Dreamers</strong> because we blend care, creativity, and high-quality education to create a warm, nurturing environment.
+              <p className="text-lg md:text-xl text-orange-800 font-bold leading-relaxed mb-4">
+                 Our greatest strength lies in our teachers.
               </p>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 mt-2.5 bg-rose-500 rounded-full shrink-0" />
-                  <span className="text-lg text-rose-800 font-medium">Curriculum that balances play with purposeful learning.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 mt-2.5 bg-rose-500 rounded-full shrink-0" />
-                  <span className="text-lg text-rose-800 font-medium">Compassionate educators focusing on unique strengths.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 mt-2.5 bg-rose-500 rounded-full shrink-0" />
-                  <span className="text-lg text-rose-800 font-medium">Holistic development for life, not just school.</span>
-                </li>
-              </ul>
+              <p className="text-lg text-orange-900/80 font-medium leading-relaxed">
+                Our educators are qualified, compassionate, and expertly trained in early childhood education. They use innovative, age-appropriate teaching methods to make every lesson engaging.
+              </p>
             </motion.div>
 
-            {/* IMAGE (Right) */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -280,23 +404,27 @@ const AboutUsSegmented: React.FC = () => {
             >
                <div className="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px]">
                  <Image 
-                   src={boyonbucket} 
-                   alt="Why Choose Us" 
+                   src={GirlHead} 
+                   alt="Qualified Teachers" 
                    width={500}
                    height={500}
                    className="object-contain drop-shadow-2xl"
                  />
+                 <div className="absolute top-0 right-10 animate-bounce">
+                    <Sparkles className="w-10 h-10 text-orange-400" />
+                 </div>
                </div>
             </motion.div>
-
           </div>
         </div>
 
+        {/* Bottom Wave: Transitions to White */}
         <WaveSeparator position="bottom" color="text-white" />
       </section>
 
     </div>
+   </div>
   );
 };
 
-export default AboutUsSegmented;
+export default WhyChooseUsPage;

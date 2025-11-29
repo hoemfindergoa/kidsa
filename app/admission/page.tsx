@@ -2,21 +2,38 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import GirlHead from "../../public/girlfaceonly.png"; // Placeholder Image
-import Boywithbrush from "../../public/boywithbrush.png"; // Placeholder Image
-import girlonswing from "../../public/girlonwing.png"; // Placeholder Image
-import { Target, Lightbulb, Heart, Sparkles } from "lucide-react";
-import boyonbucket from "../../public/boywithcup.png"; // Placeholder Image
-import AboutHeaderSimple from "@/components/AboutHeader";
-import { Titan_One, Nunito, Caveat } from 'next/font/google';
+import Admissionheader from "@/components/AdmissioHeader";
+import Ctasection from "@/components/HomeCta";
+import { 
+  Home, 
+  ChevronRight, 
+  User, 
+  Mail, 
+  Phone, 
+  MessageSquare, 
+  Send,
+  FileText,
+  CalendarCheck,
+  School,
+  CheckCircle,
+  Baby,
+  Smile,
+  BookOpen,
+  GraduationCap,
+  Camera,     // CCTV
+  Rocket,     // Play Arena
+  Wind,       // AC
+  Clock,      // Daycare
+  Shapes,     // Montessori
+  Library,    // Library (using Book or Library if avail, else BookOpen)
+  Armchair,   // Interiors
+  UserCheck,  // Trained Staff
+  BadgeCheck, // Verification
+  Building2   // Infrastructure
+} from "lucide-react";
+import { Titan_One, Nunito } from 'next/font/google';
 
-// --- REUSABLE WAVE COMPONENT ---
-interface WaveSeparatorProps {
-  position: "top" | "bottom";
-  color?: string; // Allow changing wave color if needed
-}
-
+// --- FONTS ---
 const titleFont = Titan_One({ 
   weight: '400', 
   subsets: ['latin'],
@@ -29,13 +46,13 @@ const bodyFont = Nunito({
   display: 'swap',
 });
 
-const handwritingFont = Caveat({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  display: 'swap',
-});
+// --- REUSABLE WAVE COMPONENT ---
+interface WaveSeparatorProps {
+  position: "top" | "bottom";
+  color: string; 
+}
 
-const WaveSeparator: React.FC<WaveSeparatorProps> = ({ position, color = "text-white" }) => {
+const WaveSeparator: React.FC<WaveSeparatorProps> = ({ position, color }) => {
   const viewBoxWidth = 2000;
   const viewBoxHeight = 100;
 
@@ -75,7 +92,7 @@ const WaveSeparator: React.FC<WaveSeparatorProps> = ({ position, color = "text-w
   );
 
   return (
-    <div className={`absolute left-0 w-full h-[60px] sm:h-[100px] overflow-hidden z-20 ${position === "top" ? "top-0" : "bottom-0"}`}>
+    <div className={`absolute left-0 w-full h-[60px] md:h-[100px] overflow-hidden z-20 ${position === "top" ? "top-0" : "bottom-0"}`}>
       <div className="block md:hidden w-full h-full absolute inset-0">
         <WaveLayer pathD={mobilePath} opacityClass="opacity-40" duration={20} />
         <WaveLayer pathD={mobilePath} opacityClass="opacity-100" duration={15} />
@@ -88,215 +105,296 @@ const WaveSeparator: React.FC<WaveSeparatorProps> = ({ position, color = "text-w
   );
 };
 
-const AboutUsSegmented: React.FC = () => {
-  return (
-    <div className="w-full flex flex-col">
 
-      <AboutHeaderSimple />
+// --- HEADER COMPONENT ---
+
+
+
+// --- MAIN PAGE COMPONENT ---
+const AdmissionPage: React.FC = () => {
+  return (
+    <div className={`w-full flex flex-col ${bodyFont.className}`}>
       
+      <Admissionheader />
+
       {/* =========================================
-          SECTION 1: OUR AIM (Wavy Background)
+          SECTION 1: ENQUIRY FORM (Violet Theme)
       ========================================= */}
-      <section className="relative w-full bg-amber-200 pt-32 pb-32 overflow-hidden">
-        <WaveSeparator position="top" color="text-white" />
+      <section className="relative w-full bg-violet-300 pt-20 pb-32 overflow-hidden">
+         <WaveSeparator position="top" color="text-white" />
         
-        {/* Background Doodle */}
-        <div className="absolute inset-0 pointer-events-none opacity-10 top-20">
+        <div className="absolute inset-0 pointer-events-none opacity-20 top-20">
              <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M0,0 Q50,100 100,0" fill="none" stroke="#f59e0b" strokeWidth="0.5" strokeDasharray="2,2"/>
+                <path d="M10,10 Q50,50 90,10" fill="none" stroke="#8b5cf6" strokeWidth="0.5" strokeDasharray="2,2"/>
              </svg>
         </div>
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            
-            {/* TEXT (Left) */}
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="w-full lg:w-1/2 text-left"
-            >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-amber-200 rounded-full flex items-center justify-center">
-                    <Target className="w-6 h-6 text-amber-700" />
-                </div>
-                <h2 className={`text-4xl md:text-5xl font-black text-amber-900 uppercase tracking-tight" ${titleFont.className}`}>
-                  Our Aim
-                </h2>
-              </div>
-              
-              <p className="text-lg md:text-xl text-amber-800 font-medium leading-relaxed mb-6">
-                At <strong>Little Dreamers at Cambridge</strong>, we are committed to nurturing young minds through quality early education for children aged 2 to 6 years.
+        <div className=" mx-auto px-6 relative z-10">
+           <div className="text-center mb-12">
+              <h2 className={`text-3xl md:text-5xl font-black text-violet-900 mb-4 ${titleFont.className}`}>
+                Enquiry Form
+              </h2>
+              <p className="text-violet-800 text-lg">
+                Fill out the form below and our admissions team will contact you shortly.
               </p>
-              <p className="text-lg md:text-xl text-amber-800 font-medium leading-relaxed">
-                Our programs focus on creativity, curiosity, and confidence — helping every child discover their unique potential. We don’t just teach — we inspire future leaders.
-              </p>
-            </motion.div>
+           </div>
 
-            {/* IMAGE (Right) */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="w-full lg:w-1/2 flex justify-center"
-            >
-              <div className="relative w-[300px] h-[300px] md:w-[450px] md:h-[400px]">
-                 {/* No Card, just image with shape */}
-                 <Image 
-                   src={Boywithbrush} 
-                   alt="Our Aim" 
-                   width={500}
-                   height={500}
-                   className="object-contain drop-shadow-2xl"
-                 />
-                 {/* Floating Element */}
-                 <div className="absolute top-0 right-10 animate-bounce">
-                    <Sparkles className="w-10 h-10 text-amber-400" />
+           {/* FORM CARD */}
+           <motion.div 
+             initial={{ opacity: 0, y: 30 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true }}
+             className="max-w-4xl mx-auto bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl border-4 border-white relative"
+           >
+              <div className="absolute -top-6 -right-6 w-16 h-16 bg-fuchsia-400 rounded-full flex items-center justify-center shadow-lg animate-bounce">
+                 <Mail className="w-8 h-8 text-white" />
+              </div>
+
+              <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 {/* Fields... (Kept same as before) */}
+                 <div className="flex flex-col gap-2">
+                    <label className="font-bold text-slate-700 ml-2">Parent's Name</label>
+                    <div className="relative">
+                       <User className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+                       <input type="text" placeholder="John Doe" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors" />
+                    </div>
                  </div>
-              </div>
-            </motion.div>
-
-          </div>
+                 <div className="flex flex-col gap-2">
+                    <label className="font-bold text-slate-700 ml-2">Child's Name</label>
+                    <div className="relative">
+                       <Baby className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+                       <input type="text" placeholder="Jane Doe" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors" />
+                    </div>
+                 </div>
+                 <div className="flex flex-col gap-2">
+                    <label className="font-bold text-slate-700 ml-2">Phone Number</label>
+                    <div className="relative">
+                       <Phone className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+                       <input type="tel" placeholder="+1 234 567 890" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors" />
+                    </div>
+                 </div>
+                 <div className="flex flex-col gap-2">
+                    <label className="font-bold text-slate-700 ml-2">Email Address</label>
+                    <div className="relative">
+                       <Mail className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+                       <input type="email" placeholder="example@mail.com" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors" />
+                    </div>
+                 </div>
+                 <div className="flex flex-col gap-2 md:col-span-2">
+                    <label className="font-bold text-slate-700 ml-2">Seeking Admission For</label>
+                    <div className="relative">
+                       <select className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 px-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors appearance-none">
+                          <option>Playgroup (2 - 3 Years)</option>
+                          <option>Nursery (3 - 4 Years)</option>
+                          <option>Junior KG (4 - 5 Years)</option>
+                          <option>Senior KG (5 - 6 Years)</option>
+                          <option>Daycare</option>
+                       </select>
+                       <ChevronRight className="absolute right-4 top-3.5 w-5 h-5 text-slate-400 rotate-90 pointer-events-none" />
+                    </div>
+                 </div>
+                 <div className="flex flex-col gap-2 md:col-span-2">
+                    <label className="font-bold text-slate-700 ml-2">Message (Optional)</label>
+                    <div className="relative">
+                       <MessageSquare className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+                       <textarea rows={4} placeholder="Any specific questions?" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors resize-none" />
+                    </div>
+                 </div>
+                 <div className="md:col-span-2 mt-4">
+                    <button className="w-full bg-violet-500 hover:bg-violet-600 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 text-lg">
+                       Submit Enquiry
+                       <Send className="w-5 h-5" />
+                    </button>
+                 </div>
+              </form>
+           </motion.div>
         </div>
 
+        {/* Bottom Wave: Transitions to White */}
         <WaveSeparator position="bottom" color="text-white" />
       </section>
 
 
       {/* =========================================
-          SECTION 2: OUR VISION (White Background - Clean)
+          SECTION 2: ADMISSION PROCESS (White Theme)
       ========================================= */}
       <section className="w-full bg-white py-20 lg:py-32 overflow-hidden">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col lg:flex-row-reverse items-center gap-16">
-            
-            {/* TEXT (Right) */}
-            <motion.div 
-               initial={{ opacity: 0, x: 50 }}
-               whileInView={{ opacity: 1, x: 0 }}
-               viewport={{ once: true }}
-               className="w-full lg:w-1/2 text-left lg:text-right"
-            >
-              <div className="flex items-center gap-4 mb-6 justify-start lg:justify-end">
-                 <h2 className={`text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tight order-2 lg:order-1 ${titleFont.className}`}>
-                  Our Vision
-                </h2>
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center order-1 lg:order-2">
-                    <Lightbulb className="w-6 h-6 text-purple-600" />
-                </div>
-              </div>
+          <div className="text-center mb-16">
+              <h2 className={`text-4xl md:text-5xl font-black text-slate-900 mb-4 ${titleFont.className}`}>
+                Admission <span className="text-violet-500">Process</span>
+              </h2>
+              <div className="w-24 h-2 bg-violet-200 rounded-full mx-auto"></div>
+          </div>
 
-              <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed mb-6">
-                We strive to create a joyful, safe, and stimulating environment where children learn through exploration, imagination, and purposeful play.
-              </p>
-              <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed">
-                With a strong focus on holistic development — intellectual, emotional, social, and physical — we aspire to empower every child to become an independent thinker and a future-ready leader.
-              </p>
-            </motion.div>
-
-            {/* IMAGE (Left) */}
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="w-full lg:w-1/2 flex justify-center lg:justify-start"
-            >
-               <div className="relative">
-                 {/* Simple Blob Background behind image */}
-                 <div className="absolute inset-0 bg-purple-100 rounded-full blur-3xl opacity-50 -z-10 transform scale-110"></div>
-                 <Image 
-                   src={girlonswing} 
-                   alt="Our Vision" 
-                   width={500}
-                   height={500}
-                   className="object-contain"
-                 />
-               </div>
-            </motion.div>
-
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+             {[
+               { icon: FileText, title: "1. Online Inquiry", desc: "Fill out the form above to express your interest." },
+               { icon: School, title: "2. Campus Visit", desc: "Schedule a tour to see our vibrant environment." },
+               { icon: CalendarCheck, title: "3. Interaction", desc: "A friendly interaction with the child and parents." },
+               { icon: CheckCircle, title: "4. Enrollment", desc: "Complete documentation and welcome to the family!" }
+             ].map((step, index) => (
+                <motion.div 
+                   key={index}
+                   initial={{ opacity: 0, y: 20 }}
+                   whileInView={{ opacity: 1, y: 0 }}
+                   transition={{ delay: index * 0.2 }}
+                   viewport={{ once: true }}
+                   className="flex flex-col items-center text-center group"
+                >
+                   <div className="w-24 h-24 bg-slate-50 border-4 border-violet-100 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-violet-500 group-hover:border-violet-200 transition-all duration-300 shadow-lg">
+                      <step.icon className="w-10 h-10 text-violet-500 group-hover:text-white transition-colors" />
+                   </div>
+                   <h3 className="text-xl font-bold text-slate-800 mb-2">{step.title}</h3>
+                   <p className="text-slate-500 leading-relaxed">{step.desc}</p>
+                </motion.div>
+             ))}
           </div>
         </div>
       </section>
 
 
       {/* =========================================
-          SECTION 3: WHY US (Wavy Background)
+          SECTION 3: AGE CRITERIA (Sky Blue Theme)
       ========================================= */}
-      <section className="relative w-full bg-rose-400 pt-32 pb-40 overflow-hidden">
-        <WaveSeparator position="top" color="text-white" />
+      <section className="relative w-full bg-sky-300 pt-32 pb-32 overflow-hidden">
         
-        {/* Background Doodle */}
-         <div className="absolute inset-0 pointer-events-none opacity-10 top-20">
+        {/* Top Wave: White to match previous section */}
+        <WaveSeparator position="top" color="text-white" />
+
+        <div className="container mx-auto px-6 relative z-10">
+           <div className="text-center mb-16">
+              <h2 className={`text-4xl md:text-5xl font-black text-sky-900 mb-4 ${titleFont.className}`}>
+                Age Criteria
+              </h2>
+              <p className="text-sky-800 text-lg">Age eligibility as of June 1st, 2025</p>
+           </div>
+
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { title: "Playgroup", age: "2 - 3 Years", icon: Baby, color: "bg-rose-400" },
+                { title: "Nursery", age: "3 - 4 Years", icon: Smile, color: "bg-amber-400" },
+                { title: "Junior KG", age: "4 - 5 Years", icon: BookOpen, color: "bg-emerald-400" },
+                { title: "Senior KG", age: "5 - 6 Years", icon: GraduationCap, color: "bg-indigo-400" },
+              ].map((item, index) => (
+                 <motion.div
+                    key={index}
+                    whileHover={{ y: -10 }}
+                    className="bg-white rounded-[2rem] p-8 shadow-xl text-center border-b-8 border-sky-200"
+                 >
+                    <div className={`w-16 h-16 ${item.color} rounded-2xl mx-auto flex items-center justify-center mb-6 shadow-md rotate-3`}>
+                       <item.icon className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-black text-slate-800 mb-2">{item.title}</h3>
+                    <p className="text-sky-600 font-bold bg-sky-50 py-2 rounded-full inline-block px-6">
+                      {item.age}
+                    </p>
+                 </motion.div>
+              ))}
+           </div>
+        </div>
+
+        {/* Bottom Wave: Transitions to next section (white) */}
+        <WaveSeparator position="bottom" color="text-white" />
+      </section>
+
+
+      {/* =========================================
+          SECTION 4: FACILITIES (Orange Theme)
+      ========================================= */}
+      <section className="relative w-full bg-orange-100 pt-32 pb-32 overflow-hidden">
+        
+        {/* Top Wave: White to mask the top of the orange section */}
+        <WaveSeparator position="top" color="text-white" />
+
+        <div className="absolute inset-0 pointer-events-none opacity-10 top-20">
              <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M100,0 Q50,100 0,0" fill="none" stroke="#e11d48" strokeWidth="0.5" strokeDasharray="2,2"/>
+                <path d="M0,0 Q50,100 100,0" fill="none" stroke="#f97316" strokeWidth="0.5" strokeDasharray="2,2"/>
              </svg>
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            
-            {/* TEXT (Left) */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="w-full lg:w-1/2 text-left"
-            >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-rose-200 rounded-full flex items-center justify-center">
-                    <Heart className="w-6 h-6 text-rose-600" />
-                </div>
-                <h2 className={`text-4xl md:text-5xl font-black text-rose-900 uppercase tracking-tight ${titleFont.className}`}>
-                  Why Choose Us
-                </h2>
-              </div>
-              
-              <p className="text-lg md:text-xl text-rose-800 font-medium leading-relaxed mb-6">
-                Parents choose <strong>Little Dreamers</strong> because we blend care, creativity, and high-quality education to create a warm, nurturing environment.
-              </p>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 mt-2.5 bg-rose-500 rounded-full shrink-0" />
-                  <span className="text-lg text-rose-800 font-medium">Curriculum that balances play with purposeful learning.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 mt-2.5 bg-rose-500 rounded-full shrink-0" />
-                  <span className="text-lg text-rose-800 font-medium">Compassionate educators focusing on unique strengths.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 mt-2.5 bg-rose-500 rounded-full shrink-0" />
-                  <span className="text-lg text-rose-800 font-medium">Holistic development for life, not just school.</span>
-                </li>
-              </ul>
-            </motion.div>
+           <div className="text-center mb-16">
+              <h2 className={`text-4xl md:text-5xl font-black text-orange-900 mb-4 ${titleFont.className}`}>
+                Facilities
+              </h2>
+              <div className="w-24 h-2 bg-orange-300 rounded-full mx-auto mb-4"></div>
+              <p className="text-orange-800 text-lg">World-class amenities for your child and you.</p>
+           </div>
 
-            {/* IMAGE (Right) */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="w-full lg:w-1/2 flex justify-center"
-            >
-               <div className="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px]">
-                 <Image 
-                   src={boyonbucket} 
-                   alt="Why Choose Us" 
-                   width={500}
-                   height={500}
-                   className="object-contain drop-shadow-2xl"
-                 />
-               </div>
-            </motion.div>
-
-          </div>
+           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+              {[
+                { title: "Safe Campus", icon: Camera },
+                { title: "Play Arena", icon: Rocket },
+                { title: "AC Rooms", icon: Wind },
+                { title: "Daycare", icon: Clock },
+                { title: "Montessori", icon: Shapes },
+                { title: "Library", icon: BookOpen },
+                { title: "Safe Interiors", icon: Armchair },
+                { title: "Trained Staff", icon: UserCheck },
+                { title: "Verification", icon: BadgeCheck },
+                { title: "Infrastructure", icon: Building2 },
+              ].map((item, index) => (
+                 <motion.div
+                    key={index}
+                    whileHover={{ scale: 1.05 }}
+                    className="bg-white rounded-3xl p-6 shadow-md text-center flex flex-col items-center gap-3 border-b-4 border-orange-200"
+                 >
+                    <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                       <item.icon className="w-6 h-6 text-orange-600" />
+                    </div>
+                    <span className="font-bold text-slate-700 text-sm md:text-base leading-tight">
+                      {item.title}
+                    </span>
+                 </motion.div>
+              ))}
+           </div>
         </div>
 
+        {/* Bottom Wave: Transitions to White */}
         <WaveSeparator position="bottom" color="text-white" />
+      </section>
+
+
+      {/* =========================================
+          SECTION 5: DOCUMENTS REQUIRED (White Theme)
+      ========================================= */}
+      <section className="w-full bg-white py-20 lg:py-32 overflow-hidden">
+        <div className="container mx-auto px-6">
+           <div className="max-w-4xl mx-auto bg-rose-50 rounded-[3rem] p-10 md:p-16 border-4 border-rose-100 shadow-sm relative overflow-hidden">
+              {/* Background Doodle inside card */}
+              <div className="absolute -right-20 -bottom-20 opacity-10">
+                 <FileText className="w-96 h-96 text-rose-500" />
+              </div>
+
+              <h2 className={`text-3xl md:text-4xl font-black text-rose-900 mb-8 text-center ${titleFont.className}`}>
+                 Documents Required
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
+                 {[
+                   "Birth Certificate of the Child",
+                   "Passport Size Photos (Child & Parents)",
+                   "Aadhar Card of Parents",
+                   "Residence Proof",
+                   "Medical Fitness Certificate",
+                   "Transfer Certificate (if applicable)"
+                 ].map((doc, i) => (
+                    <div key={i} className="flex items-center gap-3 bg-white p-4 rounded-xl shadow-sm">
+                       <div className="w-6 h-6 bg-rose-100 rounded-full flex items-center justify-center shrink-0">
+                          <CheckCircle className="w-4 h-4 text-rose-500" />
+                       </div>
+                       <span className="text-slate-700 font-medium">{doc}</span>
+                    </div>
+                 ))}
+              </div>
+           </div>
+        </div>
+        <Ctasection />
       </section>
 
     </div>
   );
 };
 
-export default AboutUsSegmented;
+export default AdmissionPage;

@@ -6,7 +6,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, User, Tag, Heart } from 'lucide-react';
-
+import blog1 from '@/public/blog1.png';
+import blog2 from '@/public/blog4.png';
+import blog3 from '@/public/blog3.png'; 
 // --- MOCK DATA (In a real app, fetch this from a CMS or API) ---
 const blogPosts = [
   {
@@ -17,6 +19,7 @@ const blogPosts = [
     author: 'Ms. Sarah',
     color: 'bg-yellow-100', // Theme color for this post
     accent: 'border-yellow-400',
+    image: blog1,
     content: (
       <>
         <p className="mb-6 text-lg text-gray-700 leading-relaxed">
@@ -32,7 +35,7 @@ const blogPosts = [
            {/* Replace src with your character image */}
            <div className="relative w-64 h-64 mb-4">
              <Image 
-               src="/api/placeholder/400/400" 
+               src={blog1} 
                alt="Little Dreamers Character Playing" 
                fill
                className="object-contain"
@@ -56,6 +59,7 @@ const blogPosts = [
     author: 'Chef Mike',
     color: 'bg-green-100',
     accent: 'border-green-400',
+    image: blog2,
     content: (
       <>
         <p className="mb-6 text-lg text-gray-700 leading-relaxed">
@@ -71,7 +75,7 @@ const blogPosts = [
            {/* Replace src with your character image */}
            <div className="relative w-64 h-64 mb-4">
              <Image 
-               src="/api/placeholder/400/400" 
+               src={blog2} 
                alt="Little Dreamers Character Eating" 
                fill
                className="object-contain"
@@ -94,6 +98,7 @@ const blogPosts = [
     date: 'November 20, 2025',
     author: 'Dr. Emily',
     color: 'bg-blue-100',
+    image: blog3,
     accent: 'border-blue-400',
     content: (
       <>
@@ -110,7 +115,7 @@ const blogPosts = [
            {/* Replace src with your character image */}
            <div className="relative w-64 h-64 mb-4">
              <Image 
-               src="/api/placeholder/400/400" 
+               src={blog3}
                alt="Little Dreamers Characters Sharing" 
                fill
                className="object-contain"
@@ -206,7 +211,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             {/* Featured Image Box (Top of Content) */}
             <div className={`w-full h-64 md:h-96 relative mb-12 rounded-3xl overflow-hidden border-4 ${post.accent} shadow-[8px_8px_0px_0px_rgba(0,0,0,0.1)]`}>
                 <Image 
-                    src="/api/placeholder/800/600" // Replace with thumbnail
+                    src={post.image}
                     alt={post.title}
                     fill
                     className="object-cover"
