@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Menu, X, ArrowRight, Sparkles } from "lucide-react";
+import { Menu, X, ArrowRight, Sparkles, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Titan_One, Nunito, Caveat } from 'next/font/google';
-import logo from "../../public/logo.png"; // Ensure this path is correct for your project structure
+import logo from "../../public/logo.png"; 
 
 // --- FONTS ---
 const titleFont = Titan_One({ weight: '400', subsets: ['latin'] });
@@ -17,14 +17,13 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const [hoveredLink, setHoveredLink] = useState(null);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 
   // Scroll Effect & Active Section Detection
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      // Simple logic to highlight sections based on scroll position
       const sections = ["about", "programs", "gallery"];
       let current = "";
       
@@ -47,11 +46,30 @@ const Navbar = () => {
   const navLinks = [
     { href: "/about", label: "About Us" },
     { href: "/#programs", label: "Programs" },
-     { href: "/Whyus", label: "Why Us" },
+    { href: "/Whyus", label: "Why Us" },
     { href: "/admission", label: "Admissions" },
     { href: "/franchise", label: "Franchise" },
-       { href: "/Ourcenters", label: "Our Centers" },
+    { href: "/Ourcenters", label: "Our Centers" },
     { href: "/contact", label: "Contact Us" },
+  ];
+
+  // Social Links Data - UPDATED: Now permanently colored
+  const socialLinks = [
+    { 
+      icon: Facebook, 
+      href: "https://facebook.com", 
+      className: "text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-100" 
+    },
+    { 
+      icon: Instagram, 
+      href: "https://instagram.com", 
+      className: "text-pink-600 bg-pink-50 hover:bg-pink-100 border border-pink-100" 
+    },
+    { 
+      icon: Youtube, 
+      href: "https://youtube.com", 
+      className: "text-red-600 bg-red-50 hover:bg-red-100 border border-red-100" 
+    },
   ];
 
   return (
@@ -62,12 +80,12 @@ const Navbar = () => {
           : "bg-white py-2 md:py-2"
       }`}
     >
-      <div className="container mx-auto px-4 md:px-8">
+      <div className="container mx-auto px-4 md:px-2">
         <div className="flex items-center justify-between">
 
           {/* --- LOGO --- */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-40  group-hover:rotate-12 transition-transform duration-300">
+            <div className="relative w-40 group-hover:rotate-12 transition-transform duration-300">
               <Image 
                 src={logo} 
                 width={200}  
@@ -76,18 +94,10 @@ const Navbar = () => {
                 className="object-contain"
               />
             </div>
-            {/* <div className="flex flex-col">
-              <span className={`text-xl md:text-2xl text-slate-800 leading-none ${titleFont.className}`}>
-                Little<span className="text-rose-500">Dreamers</span>
-              </span>
-              <span className={`text-[10px] md:text-xs text-blue-400 font-bold tracking-widest uppercase ml-0.5 ${bodyFont.className}`}>
-                At Cambridge
-              </span>
-            </div> */}
           </Link>
 
           {/* --- DESKTOP MENU --- */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden xl:flex items-center gap-6">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href || hoveredLink === link.href;
 
@@ -95,23 +105,23 @@ const Navbar = () => {
                 <Link
                   key={link.href}
                   href={link.href}
-
+                  onMouseEnter={() => setHoveredLink(link.href)}
+                  onMouseLeave={() => setHoveredLink(null)}
                   className="relative group py-2"
                 >
-                  {/* The Handwritten Arrow (Shows on Hover or Active) */}
+                  {/* The Handwritten Sparkle (Shows on Hover or Active) */}
                     {isActive && (
                       <motion.div
                         initial={{ opacity: 0, y: -10, rotate: -10 }}
                         animate={{ opacity: 1, y: 0, rotate: 0 }}
                         exit={{ opacity: 0, y: -5 }}
-                        className="absolute -top-6 left-1/2 -translate-x-1/2 text-rose-500 w-6 h-6"
+                        className="absolute -top-4 left-1/2 -translate-x-1/2 text-rose-500"
                       >
-                         {/* Doodle Arrow SVG */}
-                      
+                         <Sparkles className="w-4 h-4 fill-rose-500" />
                       </motion.div>
                     )}
 
-                  <span className={`text-lg transition-colors duration-300 ${
+                  <span className={`text-base transition-colors duration-300 ${
                     isActive ? "text-rose-500 font-bold" : "text-slate-500 font-semibold"
                   } ${bodyFont.className}`}>
                     {link.label}
@@ -121,8 +131,12 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* --- RIGHT ACTIONS --- */}
-          <div className="flex items-center gap-3">
+          {/* --- RIGHT ACTIONS (Socials + Enroll) --- */}
+          <div className="flex items-center gap-8">
+            
+            {/* Social Icons (Always Colored Now) */}
+      
+
             {/* Desktop Enroll Button */}
             <Link href="/admission" className="hidden sm:block">
               <motion.button
@@ -133,10 +147,25 @@ const Navbar = () => {
                 Enroll Now <ArrowRight className="w-4 h-4" />
               </motion.button>
             </Link>
+              <div className="hidden md:flex items-center gap-3 border-l border-slate-200 pl-6 ml-1">
+                {socialLinks.map((social, i) => (
+                    <Link
+                        key={i} 
+                        href={social.href} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        // Removed 'text-slate-400', used social.className directly
+                        className={`p-2 rounded-full transition-all duration-300 hover:-translate-y-1 ${social.className}`}
+                    >
+                        <social.icon className="w-5 h-5" />
+                    </Link>
+                ))} 
+            </div>
+
 
             {/* Mobile Toggle */}
             <button
-              className="lg:hidden p-2 text-slate-600 hover:bg-rose-50 rounded-full transition-colors"
+              className="xl:hidden p-2 text-slate-600 hover:bg-rose-50 rounded-full transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -152,7 +181,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white border-t border-slate-100 shadow-xl overflow-hidden"
+            className="xl:hidden bg-white border-t border-slate-100 shadow-xl overflow-hidden absolute w-full left-0 top-full"
           >
             <div className="container mx-auto px-4 py-6 flex flex-col gap-2">
               {navLinks.map((link, i) => (
@@ -160,7 +189,7 @@ const Navbar = () => {
                   key={link.href}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: i * 0.05 }}
                 >
                   <Link
                     href={link.href}
@@ -172,7 +201,20 @@ const Navbar = () => {
                 </motion.div>
               ))}
               
-              <div className="mt-4 pt-4 border-t border-slate-100">
+              {/* Mobile Socials (Also Colored) */}
+              <div className="flex justify-center gap-6 py-4 border-t border-slate-100 mt-2">
+                 {socialLinks.map((social, i) => (
+                    <Link
+                        key={i} 
+                        href={social.href} 
+                        className={`p-3 rounded-full ${social.className}`}
+                    >
+                        <social.icon className="w-6 h-6" />
+                    </Link>
+                ))}
+              </div>
+
+              <div className="mt-2">
                 <Link href="/enroll" onClick={() => setMobileMenuOpen(false)}>
                   <button className={`w-full bg-rose-500 text-white py-3 rounded-xl font-bold shadow-md flex justify-center items-center gap-2 ${bodyFont.className}`}>
                     Enroll Now <ArrowRight className="w-5 h-5" />
