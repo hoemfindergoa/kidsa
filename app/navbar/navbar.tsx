@@ -5,6 +5,7 @@ import { Menu, X, ArrowRight, Sparkles, Facebook, Instagram, Twitter, Youtube } 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation"; // <--- 1. Import this
 import { Titan_One, Nunito, Caveat } from 'next/font/google';
 import logo from "../../public/logo.png"; 
 
@@ -14,34 +15,41 @@ const bodyFont = Nunito({ subsets: ['latin'], weight: ['400', '600', '700', '800
 const handwritingFont = Caveat({ subsets: ['latin'], weight: ['400', '700'] });
 
 const Navbar = () => {
+  const pathname = usePathname(); // <--- 2. Get current path
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 
-  // Scroll Effect & Active Section Detection
+  // Scroll Effect & Active Section Detection (For Home Page Sections)
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      const sections = ["about", "programs", "gallery"];
-      let current = "";
-      
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom >= 150) {
-            current = `/#${section}`;
+      // Only check for sections if we are on the home page
+      if (pathname === "/") {
+        const sections = ["about", "programs", "gallery"];
+        let current = "";
+        
+        for (const section of sections) {
+          const element = document.getElementById(section);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            // Check if element is roughly in view
+            if (rect.top <= 150 && rect.bottom >= 150) {
+              current = `/#${section}`;
+            }
           }
         }
+        if (current) setActiveSection(current);
+      } else {
+        setActiveSection(""); // Reset if not on home page
       }
-      if (current) setActiveSection(current);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
   const navLinks = [
     { href: "/about", label: "About Us" },
@@ -53,7 +61,6 @@ const Navbar = () => {
     { href: "/contact", label: "Contact Us" },
   ];
 
-  // Social Links Data - UPDATED: Now permanently colored
   const socialLinks = [
     { 
       icon: Facebook, 
@@ -99,7 +106,15 @@ const Navbar = () => {
           {/* --- DESKTOP MENU --- */}
           <div className="hidden xl:flex items-center gap-6">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.href || hoveredLink === link.href;
+              // 3. UPDATED LOGIC: 
+              // Active if: 
+              // A. User is hovering OR
+              // B. The current URL exactly matches the link (e.g. /admission) OR
+              // C. We are scrolling on home page and hit a section anchor
+              const isActive = 
+                hoveredLink === link.href || 
+                pathname === link.href || 
+                (pathname === "/" && activeSection === link.href);
 
               return (
                 <Link
@@ -109,7 +124,7 @@ const Navbar = () => {
                   onMouseLeave={() => setHoveredLink(null)}
                   className="relative group py-2"
                 >
-                  {/* The Handwritten Sparkle (Shows on Hover or Active) */}
+                  {/* The Handwritten Sparkle */}
                     {isActive && (
                       <motion.div
                         initial={{ opacity: 0, y: -10, rotate: -10 }}
@@ -131,10 +146,9 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* --- RIGHT ACTIONS (Socials + Enroll) --- */}
-          <div className="flex items-center gap-8">
+          {/* --- RIGHT ACTIONS --- */}
+          <div className="flex items-center gap-4">
             
-            {/* Social Icons (Always Colored Now) */}
       
 
             {/* Desktop Enroll Button */}
@@ -147,21 +161,21 @@ const Navbar = () => {
                 Enroll Now <ArrowRight className="w-4 h-4" />
               </motion.button>
             </Link>
-              <div className="hidden md:flex items-center gap-3 border-l border-slate-200 pl-6 ml-1">
+
+                  {/* Social Icons */}
+            <div className="hidden md:flex items-center gap-3 border-l border-slate-200 pl-6 mr-1">
                 {socialLinks.map((social, i) => (
-                    <Link
+                    <a 
                         key={i} 
                         href={social.href} 
                         target="_blank" 
                         rel="noreferrer"
-                        // Removed 'text-slate-400', used social.className directly
                         className={`p-2 rounded-full transition-all duration-300 hover:-translate-y-1 ${social.className}`}
                     >
                         <social.icon className="w-5 h-5" />
-                    </Link>
-                ))} 
+                    </a>
+                ))}
             </div>
-
 
             {/* Mobile Toggle */}
             <button
@@ -184,35 +198,32 @@ const Navbar = () => {
             className="xl:hidden bg-white border-t border-slate-100 shadow-xl overflow-hidden absolute w-full left-0 top-full"
           >
             <div className="container mx-auto px-4 py-6 flex flex-col gap-2">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`block px-4 py-3 rounded-xl text-lg font-bold text-slate-600 hover:bg-rose-50 hover:text-rose-500 transition-all ${bodyFont.className}`}
+              {navLinks.map((link, i) => {
+                 const isActive = pathname === link.href || (pathname === "/" && activeSection === link.href);
+                 
+                 return (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
                   >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
-              
-              {/* Mobile Socials (Also Colored) */}
-              <div className="flex justify-center gap-6 py-4 border-t border-slate-100 mt-2">
-                 {socialLinks.map((social, i) => (
                     <Link
-                        key={i} 
-                        href={social.href} 
-                        className={`p-3 rounded-full ${social.className}`}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`block px-4 py-3 rounded-xl text-lg font-bold transition-all ${bodyFont.className} ${
+                        isActive 
+                          ? "text-rose-500 bg-rose-50" 
+                          : "text-slate-600 hover:bg-slate-50"
+                      }`}
                     >
-                        <social.icon className="w-6 h-6" />
+                      {link.label}
                     </Link>
-                ))}
-              </div>
+                  </motion.div>
+                 );
+              })}
+              
+           
 
               <div className="mt-2">
                 <Link href="/enroll" onClick={() => setMobileMenuOpen(false)}>
@@ -220,6 +231,18 @@ const Navbar = () => {
                     Enroll Now <ArrowRight className="w-5 h-5" />
                   </button>
                 </Link>
+              </div>
+
+                 <div className="flex justify-center gap-6 py-4 border-t border-slate-100 mt-2">
+                 {socialLinks.map((social, i) => (
+                    <a 
+                        key={i} 
+                        href={social.href} 
+                        className={`p-3 rounded-full ${social.className}`}
+                    >
+                        <social.icon className="w-6 h-6" />
+                    </a>
+                ))}
               </div>
             </div>
           </motion.div>
