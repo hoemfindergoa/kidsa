@@ -58,7 +58,7 @@ const programs: Program[] = [
   {
     id: 1,
     title: "Little Explorers",
-    subtitle: "Play Group – Age 2–3 Years",
+    subtitle: "Play Group (2–3 Years)",
     description: "At Little Dreamers, our Little Explorers begin their joyful learning journey through play and imagination.",
     fullDescription: "Activities are thoughtfully designed to build sensory awareness, strengthen motor skills, and encourage social interaction. Children learn to adapt, express themselves freely, and gain early confidence.",
     theme: "rose", 
@@ -68,7 +68,7 @@ const programs: Program[] = [
   {
     id: 2,
     title: "Curious Learners",
-    subtitle: "Nursery – Age 3–4 Years",
+    subtitle: "Nursery (3–4 Years)",
     description: "Our Curious Learners explore the world of colors, numbers, and letters through fun, interactive activities.",
     fullDescription: "This stage builds imagination, communication, and growing independence. Children learn to observe, question, express, and share their ideas.",
     theme: "sky",
@@ -78,7 +78,7 @@ const programs: Program[] = [
   {
     id: 3,
     title: "Creative Thinkers",
-    subtitle: "LKG – Age 4–5 Years",
+    subtitle: "LKG (4–5 Years)",
     description: "Children strengthen early academic skills while exploring creativity, imagination, and expression.",
     fullDescription: "Through phonics, storytelling, art, and group play, they build confidence. Each day encourages children to think creatively and communicate confidently.",
     theme: "purple",
@@ -88,22 +88,12 @@ const programs: Program[] = [
   {
     id: 4,
     title: "Future Leaders",
-    subtitle: "UKG – Age 5–6 Years",
+    subtitle: "UKG (5–6 Years)",
     description: "Prepares children for formal schooling by building a strong foundation in academics and life skills.",
     fullDescription: "With structured learning in language, math, and environmental studies, children develop clarity in concepts and confidence in application.",
     theme: "teal",
     image : girlonswing,
     ids: "/Programs/#leaders"
-  },
-  {
-    id: 5,
-    title: "Day Care Service",
-    subtitle: "Flexible Hours – 2 Years+",
-    description: "A home away from home where your child is cared for in a safe, engaging, and loving environment.",
-    fullDescription: "Our Day Care program offers structured relaxation, nutritious snacks, and supervised play activities giving parents peace of mind.",
-    theme: "amber",
-    image : boywithbrush,
-    ids: "/Programs/#daycare"
   }
 ];
 
@@ -121,12 +111,12 @@ const ProgramSection: React.FC = () => {
   };
 
   return (
-    <section id='programs' className={`py-16   relative overflow-hidden ${bodyFont.className}`}>
+    <section id='programs' className={`py-6 relative overflow-hidden ${bodyFont.className}`}>
       
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6">
+      <div className="max-w-[2000px] mx-auto px-4 sm:px-2">
         
         {/* --- HEADER --- */}
-        <div className="text-center mb-16 relative z-10">
+        <div className="text-center mb-8 relative z-10">
 
 
    <div className="text-center mb-16">
@@ -138,52 +128,12 @@ const ProgramSection: React.FC = () => {
             {/* <span className="text-sky-500 font-bold tracking-wider text-sm uppercase bg-sky-100 px-4 py-1 rounded-full">
               Our Programs
             </span> */}
-          <h2 className={`text-5xl pt-4 md:text-7xl uppercase leading-tight ${titleFont.className}`}>
+          <h2 className={`text-5xl pt-2 md:text-7xl uppercase leading-tight ${titleFont.className}`}>
               <span className="text-rose-500">Our </span>{' '}
               <span className="text-black">Programs</span>
             </h2>
           </motion.div>
         </div>
-
-
-
-
-          {/* <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="inline-block"
-          >
-            <h2 className={`text-5xl md:text-7xl uppercase leading-tight ${titleFont.className}`}>
-              <span className="text-rose-500">Spreading</span>{' '}
-              <span className="text-black">Love</span>
-            </h2>
-          </motion.div> */}
-          
-          {/* <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className={`text-4xl md:text-6xl text-rose-500 mt-3 flex items-center justify-center gap-3 ${titleFont.className}`}
-          >
-            <span className="uppercase">Since</span>
-            <span className="relative inline-block">
-               <span className="relative z-10">30+ Years</span>
-               <svg 
-                 className="absolute -bottom-2 left-0 w-full h-4" 
-                 viewBox="0 0 200 15" 
-                 preserveAspectRatio="none"
-               >
-                 <path 
-                   d="M5 10 Q 50 5, 100 8 T 195 10" 
-                   stroke="#fb7185" 
-                   strokeWidth="4" 
-                   fill="none" 
-                   strokeLinecap="round"
-                 />
-               </svg>
-            </span>
-          </motion.div> */}
-
           {/* Decorative bird */}
           <div className="hidden md:block absolute -top-4 right-10 text-6xl animate-bounce" style={{ animationDuration: '3s' }}>
              🐦
@@ -191,31 +141,14 @@ const ProgramSection: React.FC = () => {
         </div>
 
         {/* --- DESKTOP CAROUSEL BUTTONS --- */}
-        <div className="hidden md:flex justify-end gap-3 mb-6">
-           <motion.button 
-             whileHover={{ scale: 1.1 }}
-             whileTap={{ scale: 0.95 }}
-             onClick={() => scroll('left')} 
-             className="p-3 rounded-full bg-white border-2 border-rose-200 hover:bg-rose-50 hover:border-rose-300 transition-all shadow-md"
-           >
-             <ChevronLeft className="w-6 h-6 text-rose-500" />
-           </motion.button>
-           <motion.button 
-             whileHover={{ scale: 1.1 }}
-             whileTap={{ scale: 0.95 }}
-             onClick={() => scroll('right')} 
-             className="p-3 rounded-full bg-white border-2 border-rose-200 hover:bg-rose-50 hover:border-rose-300 transition-all shadow-md"
-           >
-             <ChevronRight className="w-6 h-6 text-rose-500" />
-           </motion.button>
-        </div>
+        
 
         {/* --- PROGRAM LIST / CAROUSEL --- */}
         <div 
           ref={scrollRef}
           className="
             flex flex-col gap-8 
-            md:flex-row md:overflow-x-auto md:snap-x md:snap-mandatory md:pb-12 md:px-4
+            md:flex-row justify-between md:mx-[40px] mx-[20px] md:overflow-x-auto md:snap-x md:snap-mandatory md:pb-12 md:px-4
             scrollbar-hide
           "
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
@@ -253,7 +186,7 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ data, index }) => {
     <motion.div
       className={`
         shrink-0 snap-center
-        w-full md:w-[450px] 
+        w-full md:w-[400px] 
         relative flex flex-col items-center gap-6 
         p-8 md:p-10
         bg-white border-[3px] ${theme.border} 

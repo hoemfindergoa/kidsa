@@ -4,6 +4,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import Admissionheader from "@/components/AdmissioHeader";
 import Ctasection from "@/components/HomeCta";
+import boysitting from "../../public/boysitting.png"
+import Image from "next/image";
 import { 
   Home, 
   ChevronRight, 
@@ -124,89 +126,115 @@ const AdmissionPage: React.FC = () => {
          <WaveSeparator position="top" color="text-white" />
         
         <div className="absolute inset-0 pointer-events-none opacity-20 top-20">
-             <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M10,10 Q50,50 90,10" fill="none" stroke="#8b5cf6" strokeWidth="0.5" strokeDasharray="2,2"/>
-             </svg>
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+             <path d="M10,10 Q50,50 90,10" fill="none" stroke="#8b5cf6" strokeWidth="0.5" strokeDasharray="2,2"/>
+          </svg>
         </div>
 
         <div className=" mx-auto px-6 relative z-10">
            <div className="text-center mb-12">
-              <h2 className={`text-3xl md:text-5xl font-black text-violet-900 mb-4 ${titleFont.className}`}>
-                Enquiry Form
-              </h2>
-              <p className="text-violet-800 text-lg">
-                Fill out the form below and our admissions team will contact you shortly.
-              </p>
+           <h2 className={`text-3xl md:text-5xl font-black text-violet-900 mb-4 ${titleFont.className}`}>
+             Enquiry Form
+           </h2>
+           <p className="text-violet-800 text-lg">
+             Fill out the form below and our admissions team will contact you shortly.
+           </p>
            </div>
 
            {/* FORM CARD */}
            <motion.div 
-             initial={{ opacity: 0, y: 30 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true }}
-             className="max-w-4xl mx-auto bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl border-4 border-white relative"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl border-4 border-white relative"
            >
-              <div className="absolute -top-6 -right-6 w-16 h-16 bg-fuchsia-400 rounded-full flex items-center justify-center shadow-lg animate-bounce">
-                 <Mail className="w-8 h-8 text-white" />
+           <div className="absolute -top-12 mb-6 -right-6 w-[94px] h-[94px] flex items-center justify-center ">
+                       <Image src={boysitting} alt="Boy Sitting" />
+
+           </div>
+
+           <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Name */}
+              <div className="flex flex-col gap-2">
+              <label className="font-bold text-slate-700 ml-2">Name</label>
+              <div className="relative">
+                 <User className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+                 <input type="text" placeholder="John Doe" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors" />
+              </div>
               </div>
 
-              <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                 {/* Fields... (Kept same as before) */}
-                 <div className="flex flex-col gap-2">
-                    <label className="font-bold text-slate-700 ml-2">Parent's Name</label>
-                    <div className="relative">
-                       <User className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
-                       <input type="text" placeholder="John Doe" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors" />
-                    </div>
-                 </div>
-                 <div className="flex flex-col gap-2">
-                    <label className="font-bold text-slate-700 ml-2">Child's Name</label>
-                    <div className="relative">
-                       <Baby className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
-                       <input type="text" placeholder="Jane Doe" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors" />
-                    </div>
-                 </div>
-                 <div className="flex flex-col gap-2">
-                    <label className="font-bold text-slate-700 ml-2">Phone Number</label>
-                    <div className="relative">
-                       <Phone className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
-                       <input type="tel" placeholder="+1 234 567 890" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors" />
-                    </div>
-                 </div>
-                 <div className="flex flex-col gap-2">
-                    <label className="font-bold text-slate-700 ml-2">Email Address</label>
-                    <div className="relative">
-                       <Mail className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
-                       <input type="email" placeholder="example@mail.com" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors" />
-                    </div>
-                 </div>
-                 <div className="flex flex-col gap-2 md:col-span-2">
-                    <label className="font-bold text-slate-700 ml-2">Seeking Admission For</label>
-                    <div className="relative">
-                       <select className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 px-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors appearance-none">
-                          <option>Playgroup (2 - 3 Years)</option>
-                          <option>Nursery (3 - 4 Years)</option>
-                          <option>Junior KG (4 - 5 Years)</option>
-                          <option>Senior KG (5 - 6 Years)</option>
-                          <option>Daycare</option>
-                       </select>
-                       <ChevronRight className="absolute right-4 top-3.5 w-5 h-5 text-slate-400 rotate-90 pointer-events-none" />
-                    </div>
-                 </div>
-                 <div className="flex flex-col gap-2 md:col-span-2">
-                    <label className="font-bold text-slate-700 ml-2">Message (Optional)</label>
-                    <div className="relative">
-                       <MessageSquare className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
-                       <textarea rows={4} placeholder="Any specific questions?" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors resize-none" />
-                    </div>
-                 </div>
-                 <div className="md:col-span-2 mt-4">
-                    <button className="w-full bg-violet-500 hover:bg-violet-600 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 text-lg">
-                       Submit Enquiry
-                       <Send className="w-5 h-5" />
-                    </button>
-                 </div>
-              </form>
+              {/* Country */}
+              <div className="flex flex-col gap-2">
+              <label className="font-bold text-slate-700 ml-2">Country</label>
+              <div className="relative">
+                 <Building2 className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+                 <input type="text" placeholder="Country" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors" />
+              </div>
+              </div>
+
+              {/* Phone Number */}
+              <div className="flex flex-col gap-2">
+              <label className="font-bold text-slate-700 ml-2">Phone Number</label>
+              <div className="relative">
+                 <Phone className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+                 <input type="tel" placeholder="+1 234 567 890" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors" />
+              </div>
+              </div>
+
+              {/* Email Address */}
+              <div className="flex flex-col gap-2">
+              <label className="font-bold text-slate-700 ml-2">Email Address</label>
+              <div className="relative">
+                 <Mail className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+                 <input type="email" placeholder="example@mail.com" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors" />
+              </div>
+              </div>
+
+              {/* City */}
+              <div className="flex flex-col gap-2">
+              <label className="font-bold text-slate-700 ml-2">City</label>
+              <div className="relative">
+                 <Building2 className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+                 <input type="text" placeholder="City" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors" />
+              </div>
+              </div>
+
+              {/* State */}
+              <div className="flex flex-col gap-2">
+              <label className="font-bold text-slate-700 ml-2">State</label>
+              <div className="relative">
+                 <Building2 className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+                 <input type="text" placeholder="State" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors" />
+              </div>
+              </div>
+
+              <div className="flex flex-col gap-2 md:col-span-2">
+              <label className="font-bold text-slate-700 ml-2">Seeking Admission For</label>
+              <div className="relative">
+                 <select className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 px-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors appearance-none">
+                 <option>Playgroup (2 - 3 Years)</option>
+                 <option>Nursery (3 - 4 Years)</option>
+                 <option>Junior Kindergarten (4 - 5 Years)</option>
+                 <option>Senior Kindergarten (5 - 6 Years)</option>
+                 <option>Daycare</option>
+                 </select>
+                 <ChevronRight className="absolute right-4 top-3.5 w-5 h-5 text-slate-400 rotate-90 pointer-events-none" />
+              </div>
+              </div>
+              <div className="flex flex-col gap-2 md:col-span-2">
+              <label className="font-bold text-slate-700 ml-2">Message (Optional)</label>
+              <div className="relative">
+                 <MessageSquare className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+                 <textarea rows={4} placeholder="Any specific questions?" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 pl-12 pr-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors resize-none" />
+              </div>
+              </div>
+              <div className="md:col-span-2 mt-4">
+              <button className="w-full bg-violet-500 hover:bg-violet-600 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 text-lg">
+                 Submit Enquiry
+                 <Send className="w-5 h-5" />
+              </button>
+              </div>
+           </form>
            </motion.div>
         </div>
 
@@ -274,8 +302,8 @@ const AdmissionPage: React.FC = () => {
               {[
                 { title: "Playgroup", age: "2 - 3 Years", icon: Baby, color: "bg-rose-400" },
                 { title: "Nursery", age: "3 - 4 Years", icon: Smile, color: "bg-amber-400" },
-                { title: "Junior KG", age: "4 - 5 Years", icon: BookOpen, color: "bg-emerald-400" },
-                { title: "Senior KG", age: "5 - 6 Years", icon: GraduationCap, color: "bg-indigo-400" },
+                { title: "Junior kindergarten", age: "4 - 5 Years", icon: BookOpen, color: "bg-emerald-400" },
+                { title: "Senior kindergarten", age: "5 - 6 Years", icon: GraduationCap, color: "bg-indigo-400" },
               ].map((item, index) => (
                  <motion.div
                     key={index}
@@ -359,7 +387,7 @@ const AdmissionPage: React.FC = () => {
       {/* =========================================
           SECTION 5: DOCUMENTS REQUIRED (White Theme)
       ========================================= */}
-      <section className="w-full bg-white py-20 lg:py-32 overflow-hidden">
+      <section className="w-full bg-white py-20 lg:py-12 overflow-hidden">
         <div className="container mx-auto px-6">
            <div className="max-w-4xl mx-auto bg-rose-50 rounded-[3rem] p-10 md:p-16 border-4 border-rose-100 shadow-sm relative overflow-hidden">
               {/* Background Doodle inside card */}
@@ -390,8 +418,9 @@ const AdmissionPage: React.FC = () => {
               </div>
            </div>
         </div>
-        <Ctasection />
+      
       </section>
+        <Ctasection />
 
     </div>
   );

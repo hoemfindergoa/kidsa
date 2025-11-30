@@ -70,13 +70,7 @@ const AboutHeader = () => {
 
 
       {/* Heart Sticker */}
-      <motion.div 
-        animate={{ scale: [1, 1.1, 1] }}
-        transition={{ duration: 3, repeat: Infinity }}
-        className="absolute bottom-[30%] left-[10%] hidden md:block z-20"
-      >
-        <Heart className="w-10 h-10 text-[#D33060] drop-shadow-lg" fill="currentColor" strokeWidth={3} stroke="white" />
-      </motion.div>
+   
 
       {/* --- MAIN CONTENT CONTAINER (Grid layout) --- */}
       <div className="relative z-10 w-full max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">

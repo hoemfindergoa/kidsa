@@ -30,7 +30,7 @@ const handwritingFont = Caveat({
 const LittleDreamersBanner = () => {
   return (
     <section 
-      className={`relative w-full min-h-[700px] lg:h-[80vh] md:my-[100px] my-[30px]  overflow-hidden bg-[#FCECE6] flex items-center ${bodyFont.className}`}
+      className={`relative w-full min-h-[700px] lg:h-[80vh] md:my-[10px] my-[30px]  overflow-hidden bg-[#FCECE6] flex items-center ${bodyFont.className}`}
     >
       
       {/* --- TOP CLOUD WAVE --- */}

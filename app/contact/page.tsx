@@ -139,6 +139,69 @@ const ContactPage: React.FC = () => {
       
       <ContactHeader />
 
+
+        <section className="w-full bg-white py-20 lg:py-32 overflow-hidden">
+        <div className="container mx-auto px-6">
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              
+              {/* LEFT: Google Map */}
+              <motion.div 
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="w-full h-[400px] rounded-[3rem] overflow-hidden border-8 border-blue-50 shadow-2xl relative"
+              >
+                 <iframe 
+                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.2233913121413!2d77.40516037617656!3d28.502925975735742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sGeeksforGeeks!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                   width="100%" 
+                   height="100%" 
+                   style={{ border: 0 }} 
+                   allowFullScreen={true} 
+                   loading="lazy" 
+                   referrerPolicy="no-referrer-when-downgrade"
+                   className="grayscale hover:grayscale-0 transition-all duration-500"
+                 ></iframe>
+                 {/* Floating Location Pin Overlay */}
+                 <div className="absolute top-4 right-4 bg-white p-3 rounded-2xl shadow-lg animate-bounce">
+                    <MapPin className="w-8 h-8 text-rose-500" />
+                 </div>
+              </motion.div>
+
+              {/* RIGHT: WhatsApp CTA */}
+              <motion.div 
+                 initial={{ opacity: 0, x: 50 }}
+                 whileInView={{ opacity: 1, x: 0 }}
+                 viewport={{ once: true }}
+                 className="flex flex-col items-start"
+              >
+                 <span className="text-emerald-500 font-bold tracking-widest uppercase text-sm bg-emerald-50 px-4 py-2 rounded-full mb-4">
+                    Quick Chat
+                 </span>
+                 <h2 className={`text-4xl md:text-5xl font-black text-slate-900 mb-6 leading-tight ${titleFont.className}`}>
+                    Questions? <br/>
+                    <span className="text-emerald-500">Chat with us!</span>
+                 </h2>
+                 <p className="text-slate-600 text-lg mb-8 leading-relaxed">
+                    Prefer instant messaging? Connect with our admissions team directly on WhatsApp for quick answers regarding fees, availability, and campus tours.
+                 </p>
+                 
+                 <button 
+                    onClick={() => window.open('https://wa.me/919876543210', '_blank')}
+                    className="group flex items-center gap-3 bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-emerald-200 transition-all hover:-translate-y-1"
+                 >
+                    <MessageCircle className="w-6 h-6 fill-white" />
+                    Chat on WhatsApp
+                 </button>
+
+                 <p className="mt-4 text-sm text-slate-400 font-semibold">
+                    *Available Mon-Sat, 9am - 6pm
+                 </p>
+              </motion.div>
+
+           </div>
+        </div>
+      </section>
+
       {/* =========================================
           SECTION 1: CONTACT CARDS (Blue Theme)
       ========================================= */}
@@ -233,67 +296,7 @@ const ContactPage: React.FC = () => {
       {/* =========================================
           SECTION 2: MAP & WHATSAPP (White Theme)
       ========================================= */}
-      <section className="w-full bg-white py-20 lg:py-32 overflow-hidden">
-        <div className="container mx-auto px-6">
-           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              
-              {/* LEFT: Google Map */}
-              <motion.div 
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="w-full h-[400px] rounded-[3rem] overflow-hidden border-8 border-blue-50 shadow-2xl relative"
-              >
-                 <iframe 
-                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.2233913121413!2d77.40516037617656!3d28.502925975735742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sGeeksforGeeks!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
-                   width="100%" 
-                   height="100%" 
-                   style={{ border: 0 }} 
-                   allowFullScreen={true} 
-                   loading="lazy" 
-                   referrerPolicy="no-referrer-when-downgrade"
-                   className="grayscale hover:grayscale-0 transition-all duration-500"
-                 ></iframe>
-                 {/* Floating Location Pin Overlay */}
-                 <div className="absolute top-4 right-4 bg-white p-3 rounded-2xl shadow-lg animate-bounce">
-                    <MapPin className="w-8 h-8 text-rose-500" />
-                 </div>
-              </motion.div>
-
-              {/* RIGHT: WhatsApp CTA */}
-              <motion.div 
-                 initial={{ opacity: 0, x: 50 }}
-                 whileInView={{ opacity: 1, x: 0 }}
-                 viewport={{ once: true }}
-                 className="flex flex-col items-start"
-              >
-                 <span className="text-emerald-500 font-bold tracking-widest uppercase text-sm bg-emerald-50 px-4 py-2 rounded-full mb-4">
-                    Quick Chat
-                 </span>
-                 <h2 className={`text-4xl md:text-5xl font-black text-slate-900 mb-6 leading-tight ${titleFont.className}`}>
-                    Questions? <br/>
-                    <span className="text-emerald-500">Chat with us!</span>
-                 </h2>
-                 <p className="text-slate-600 text-lg mb-8 leading-relaxed">
-                    Prefer instant messaging? Connect with our admissions team directly on WhatsApp for quick answers regarding fees, availability, and campus tours.
-                 </p>
-                 
-                 <button 
-                    onClick={() => window.open('https://wa.me/919876543210', '_blank')}
-                    className="group flex items-center gap-3 bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-emerald-200 transition-all hover:-translate-y-1"
-                 >
-                    <MessageCircle className="w-6 h-6 fill-white" />
-                    Chat on WhatsApp
-                 </button>
-
-                 <p className="mt-4 text-sm text-slate-400 font-semibold">
-                    *Available Mon-Sat, 9am - 6pm
-                 </p>
-              </motion.div>
-
-           </div>
-        </div>
-      </section>
+    
 
 
       {/* =========================================

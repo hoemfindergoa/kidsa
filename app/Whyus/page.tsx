@@ -12,6 +12,7 @@ import Boywithbrush from "../../public/boywithbrush.png";
 import girlonswing from "../../public/girlonwing.png"; 
 import boyonbucket from "../../public/boywithcup.png"; 
 import Whyheader from "@/components/WhyusHeader";
+import boywithelephant from "../../public/boywithelephent.png";
 
 // --- FONTS ---
 const titleFont = Titan_One({ 
@@ -202,7 +203,7 @@ const WhyChooseUsPage: React.FC = () => {
       {/* =========================================
           SECTION 2: HEALTH & HYGIENE (White Theme)
       ========================================= */}
-      <section className="w-full bg-white py-20 lg:py-32 overflow-hidden">
+      <section className="w-full bg-white py-20 lg:py-2 overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row-reverse items-center gap-16">
             <motion.div 
@@ -311,7 +312,7 @@ const WhyChooseUsPage: React.FC = () => {
       {/* =========================================
           SECTION 4: OUR APPROACH (White Theme)
       ========================================= */}
-      <section className="w-full bg-white py-20 lg:py-32 overflow-hidden">
+      <section className="w-full bg-white py-20 lg:py-2 overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row-reverse items-center gap-16">
             <motion.div 
@@ -343,12 +344,12 @@ const WhyChooseUsPage: React.FC = () => {
               className="w-full lg:w-1/2 flex justify-center lg:justify-start"
             >
                <div className="relative">
-                 <div className="absolute inset-0 bg-indigo-100 rounded-full blur-3xl opacity-50 -z-10 transform scale-110"></div>
+                 <div className="absolute inset-0 bg-indigo-100 rounded-full blur-3xl opacity-50 -z-10 transform scale-90"></div>
                  <Image 
-                   src={Boywithbrush} 
+                   src={boywithelephant} 
                    alt="Our Approach" 
-                   width={500}
-                   height={500}
+                   width={400}
+                   height={400}
                    className="object-contain"
                  />
                </div>
@@ -361,7 +362,7 @@ const WhyChooseUsPage: React.FC = () => {
       {/* =========================================
           SECTION 5: QUALIFIED TEACHERS (Orange Theme)
       ========================================= */}
-      <section className="relative w-full bg-orange-300 pt-32 pb-40 overflow-hidden">
+      <section className="relative w-full bg-orange-300 pt-32 pb-22 overflow-hidden">
         
         {/* FIX: Top Wave color set to WHITE to mask the top of the orange box against the previous white section */}
         <WaveSeparator position="top" color="text-white" />

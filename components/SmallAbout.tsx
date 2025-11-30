@@ -65,7 +65,7 @@ const WaveSeparator = ({ position }: { position: "top" | "bottom" }) => {
   );
 
   return (
-    <div className={`absolute left-0 w-full h-[80px] sm:h-[120px] overflow-hidden z-20 ${position === "top" ? "top-0" : "bottom-0"}`}>
+    <div className={`absolute left-0 w-full h-[90px] sm:h-[120px] overflow-hidden z-20 ${position === "top" ? "top-0" : "bottom-0"}`}>
       <div className="block md:hidden w-full h-full absolute inset-0">
         <WaveLayer pathD={mobilePath} opacityClass="opacity-40" duration={20} />
         <WaveLayer pathD={mobilePath} opacityClass="opacity-100" duration={15} />
@@ -115,7 +115,7 @@ const features = [
 const SpreadingLoveSection = () => {
   return (
   <div className="bg-gradient-to-b from-orange-50 to-white">
-      <section className={`relative w-full bg-rose-200 pt-40 pb-48 overflow-hidden ${bodyFont.className}`}>
+      <section className={`relative w-full bg-rose-200 mt-0 pt-[80px] md:pt-40 pb-28 md:pb-40 overflow-hidden ${bodyFont.className}`}>
       
       {/* Top Moving Wave */}
       <WaveSeparator position="top" />
@@ -125,7 +125,7 @@ const SpreadingLoveSection = () => {
          <motion.div 
             animate={{ rotate: [0, 5, 0] }}
             transition={{ duration: 3, repeat: Infinity }}
-            className="absolute top-32 right-[15%] text-[#3E3431]"
+            className="absolute top-32 right-[22%] text-[#3E3431]"
          >
              <Bird className="w-12 h-12 md:w-16 md:h-16" fill="black" />
          </motion.div>
@@ -137,10 +137,8 @@ const SpreadingLoveSection = () => {
         <div className="text-center mb-16">
             <h2 className={`${titleFont.className} text-4xl md:text-6xl lg:text-7xl leading-tight drop-shadow-sm`}>
                 <span className="text-[#D33060]">SPREADING </span> 
-                <span className="text-[#3E3431]">LOVE </span> 
-                <span className="text-[#D33060] inline-block relative">
-                   SINCE 30+ YEARS
-                   {/* Underline Doodle */}
+                <span className="text-[#3E3431]">LOVE & Joy</span> 
+                <span className="text-[#D33060] inline-block relative">                   {/* Underline Doodle */}
                    <svg className="absolute w-full h-4 -bottom-2 left-0 text-[#9BC6C0]" viewBox="0 0 100 10" preserveAspectRatio="none">
                        <path d="M0,5 Q50,10 100,5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
                    </svg>

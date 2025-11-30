@@ -10,6 +10,7 @@ import { Target, Lightbulb, Heart, Sparkles } from "lucide-react";
 import boyonbucket from "../../public/boywithcup.png"; // Placeholder Image
 import AboutHeaderSimple from "@/components/AboutHeader";
 import { Titan_One, Nunito, Caveat } from 'next/font/google';
+import girlwithbook from "../../public/girlwithbook.png"
 
 // --- REUSABLE WAVE COMPONENT ---
 interface WaveSeparatorProps {
@@ -107,7 +108,7 @@ const AboutUsSegmented: React.FC = () => {
              </svg>
         </div>
 
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-2 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             
             {/* TEXT (Left) */}
@@ -167,9 +168,9 @@ const AboutUsSegmented: React.FC = () => {
       {/* =========================================
           SECTION 2: OUR VISION (White Background - Clean)
       ========================================= */}
-      <section className="w-full bg-white py-20 lg:py-32 overflow-hidden">
+      <section className="w-full bg-white py-20 lg:py-2 overflow-hidden">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col lg:flex-row-reverse items-center gap-16">
+          <div className="flex flex-col lg:flex-row-reverse items-center md:gap-16 gap-8">
             
             {/* TEXT (Right) */}
             <motion.div 
@@ -206,7 +207,7 @@ const AboutUsSegmented: React.FC = () => {
                  {/* Simple Blob Background behind image */}
                  <div className="absolute inset-0 bg-purple-100 rounded-full blur-3xl opacity-50 -z-10 transform scale-110"></div>
                  <Image 
-                   src={girlonswing} 
+                   src={girlwithbook} 
                    alt="Our Vision" 
                    width={500}
                    height={500}
@@ -223,7 +224,7 @@ const AboutUsSegmented: React.FC = () => {
       {/* =========================================
           SECTION 3: WHY US (Wavy Background)
       ========================================= */}
-      <section className="relative w-full bg-rose-400 pt-32 pb-40 overflow-hidden">
+      <section className="relative w-full bg-rose-400 pt-14 pb-14 overflow-hidden">
         <WaveSeparator position="top" color="text-white" />
         
         {/* Background Doodle */}

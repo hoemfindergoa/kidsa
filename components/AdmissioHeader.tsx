@@ -69,17 +69,6 @@ const Admissionheader = () => {
         </motion.div>
       </div>
 
-
-
-      {/* Heart Sticker */}
-      <motion.div 
-        animate={{ scale: [1, 1.1, 1] }}
-        transition={{ duration: 3, repeat: Infinity }}
-        className="absolute bottom-[30%] left-[10%] hidden md:block z-20"
-      >
-        <Heart className="w-10 h-10 text-[#D33060] drop-shadow-lg" fill="currentColor" strokeWidth={3} stroke="white" />
-      </motion.div>
-
       {/* --- MAIN CONTENT CONTAINER (Grid layout) --- */}
       <div className="relative z-10 w-full max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         
@@ -96,7 +85,7 @@ const Admissionheader = () => {
                 <Home className="w-4 h-4 text-[#D33060]" />
                 <span className="text-[#3E3431] font-bold text-sm hover:text-[#D33060] transition-colors cursor-pointer">Home</span>
                 <ChevronRight className="w-4 h-4 text-[#9BC6C0]" />
-                <span className="text-[#D33060] font-bold text-sm">admission</span>
+                <span className="text-[#D33060] font-bold text-sm">Admission</span>
             </motion.div>
 
             {/* Title */}
@@ -104,7 +93,7 @@ const Admissionheader = () => {
                 initial={{ opacity: 0, scale: 0.9, x: -50 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 transition={{ duration: 0.5, type: "spring" }}
-                className={`text-6xl lg:text-7xl text-[#3E3431] mb-2 drop-shadow-sm leading-tight ${titleFont.className}`}
+                className={`text-6xl lg:text-7xl text-black mb-2 drop-shadow-sm leading-tight ${titleFont.className}`}
             >
            Join Our
             <span className="text-[#D33060] inline-block ml-4 relative">
@@ -118,7 +107,7 @@ const Admissionheader = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
                 // Adjusted max-width and margin for left alignment
-                className="text-lg lg:text-3xl text-[#3E3431]/90 font-medium max-w-xl mx-auto md:mx-0 leading-relaxed mt-4"
+                className="text-lg lg:text-3xl text-black font-medium max-w-xl mx-auto md:mx-0 leading-relaxed mt-4"
                 style={{ fontFamily: '"Baloo 2", cursive' }}
             >
            Admissions are now open for the 2025-2026 Academic Session.

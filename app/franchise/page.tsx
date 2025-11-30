@@ -330,10 +330,8 @@ const FranchisePage: React.FC = () => {
                  <div className="flex flex-col gap-2">
                     <label className="font-bold text-slate-700 ml-2">Investment Budget</label>
                     <select className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 px-4 text-slate-700 focus:outline-none focus:border-emerald-400 transition-colors">
-                        <option>10 - 15 Lakhs</option>
-                        <option>15 - 20 Lakhs</option>
-                        <option>20 - 25 Lakhs</option>
-                        <option>25+ Lakhs</option>
+                        <option>Plaway (5 to 6 lakh)</option>
+                        <option>Montessori ( 6-7 lakh)</option>                      
                     </select>
                  </div>
 
