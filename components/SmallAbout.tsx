@@ -154,21 +154,21 @@ const SpreadingLoveSection = () => {
             <span className="inline-block px-4 py-2 rounded-full bg-white border-2 border-slate-100 shadow-sm text-sm font-bold text-slate-500 mb-4 tracking-widest uppercase">
           Our Core Values
             </span>
-            <h2 className={`${titleFont.className}  text-5xl md:text-7xl leading-tight`}>
+            <h2 className={`${titleFont.className}  text-5xl md:text-6xl leading-tight`}>
           <span className="text-[#3E3431]">Nurturing </span> 
           <span className="text-rose-500  relative inline-block">
-             Little Dreamers
+             Little Dreamers 
               <svg className="absolute w-full h-6 -bottom-4 left-0 text-amber-300" viewBox="0 0 100 10" preserveAspectRatio="none">
             <path d="M0,5 Q50,15 100,5" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
               </svg>
               {/* <span className="text-sm text-slate-600 block">At Cambridge</span> */}
           </span>
-            {/* <span className="text-[#3E3431] mt-8"> At Cambridge </span>  */}
+            <span className="text-[#3E3431] mt-8"> At Cambridge </span> 
             </h2>
         </div>
 
         {/* --- VERTICAL CARDS GRID --- */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-end">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 pt-4 items-end">
             {features.map((feature, index) => (
                 <Link href={`about/${feature.ids}`} key={feature.id} className="w-full h-full">
                     <motion.div 

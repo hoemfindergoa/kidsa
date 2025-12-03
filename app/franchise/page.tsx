@@ -309,17 +309,17 @@ const FranchisePage: React.FC = () => {
                  
                  <div className="flex flex-col gap-2">
                     <label className="font-bold text-slate-700 ml-2">Full Name</label>
-                    <input type="text" placeholder="John Doe" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 px-4 text-slate-700 focus:outline-none focus:border-emerald-400 transition-colors" />
+                    <input type="text" placeholder="Your name" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 px-4 text-slate-700 focus:outline-none focus:border-emerald-400 transition-colors" />
                  </div>
 
                  <div className="flex flex-col gap-2">
                     <label className="font-bold text-slate-700 ml-2">Phone Number</label>
-                    <input type="tel" placeholder="+91 98765 43210" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 px-4 text-slate-700 focus:outline-none focus:border-emerald-400 transition-colors" />
+                    <input type="tel" placeholder="Your Number" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 px-4 text-slate-700 focus:outline-none focus:border-emerald-400 transition-colors" />
                  </div>
 
                  <div className="flex flex-col gap-2">
                     <label className="font-bold text-slate-700 ml-2">Email Address</label>
-                    <input type="email" placeholder="john@example.com" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 px-4 text-slate-700 focus:outline-none focus:border-emerald-400 transition-colors" />
+                    <input type="email" placeholder="email@example.com" className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 px-4 text-slate-700 focus:outline-none focus:border-emerald-400 transition-colors" />
                  </div>
 
                  <div className="flex flex-col gap-2">

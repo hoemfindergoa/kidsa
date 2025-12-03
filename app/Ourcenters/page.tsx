@@ -151,7 +151,7 @@ const WaveSeparator = ({ position, color }: { position: "top" | "bottom", color:
 // --- HEADER COMPONENT ---
 const CentersHeader = () => {
   return (
-    <header className="relative w-full h-[54vh] min-h-[470px] bg-gradient-to-r from-teal-400 via-emerald-400 to-green-400 flex items-center justify-center overflow-hidden">
+    <header className="relative w-full h-[60vh] min-h-[490px] bg-gradient-to-r from-teal-400 via-emerald-400 to-green-400 flex items-center justify-center overflow-hidden">
       
       {/* Background Doodles */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
