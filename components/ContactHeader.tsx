@@ -28,7 +28,7 @@ const bodyFont = Nunito({
 const ContactHeader = () => {
   return (
     // Adjusted min-h for better spacing on desktop
-    <header className="relative w-full h-auto md:h-[70vh] min-h-[600px] bg-teal-400 flex items-center justify-center overflow-hidden pt-20 pb-32 md:py-0">
+    <header className="relative w-full h-auto md:h-[60vh] min-h-[500px] bg-teal-400 flex items-center justify-center overflow-hidden pt-20 pb-32 md:py-0">
       
       {/* --- BACKGROUND DECORATIONS --- */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">

@@ -203,7 +203,7 @@ const WhyChooseUsPage: React.FC = () => {
       {/* =========================================
           SECTION 2: HEALTH & HYGIENE (White Theme)
       ========================================= */}
-      <section className="w-full bg-white py-20 lg:py-2 overflow-hidden">
+      <section className="w-full bg-white py-2 lg:py-2 overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row-reverse items-center gap-16">
             <motion.div 
@@ -239,8 +239,8 @@ const WhyChooseUsPage: React.FC = () => {
                  <Image 
                    src={boyonbucket} 
                    alt="Health and Hygiene" 
-                   width={500}
-                   height={500}
+                   width={400}
+                   height={400}
                    className="object-contain"
                  />
                </div>
@@ -253,7 +253,7 @@ const WhyChooseUsPage: React.FC = () => {
       {/* =========================================
           SECTION 3: ENVIRONMENT (Lime Theme)
       ========================================= */}
-      <section className="relative w-full bg-lime-300 pt-32 pb-32 overflow-hidden">
+      <section className="relative w-full bg-lime-300  py-10 md:py-16 overflow-hidden">
         
         {/* FIX: Top Wave color set to WHITE to mask the top of the lime box against the previous white section */}
         <WaveSeparator position="top" color="text-white" />
@@ -295,8 +295,8 @@ const WhyChooseUsPage: React.FC = () => {
                  <Image 
                    src={girlonswing} 
                    alt="Environment" 
-                   width={500}
-                   height={500}
+                   width={400}
+                   height={400}
                    className="object-contain drop-shadow-xl"
                  />
               </div>
@@ -312,7 +312,7 @@ const WhyChooseUsPage: React.FC = () => {
       {/* =========================================
           SECTION 4: OUR APPROACH (White Theme)
       ========================================= */}
-      <section className="w-full bg-white py-20 lg:py-2 overflow-hidden">
+      <section className="w-full bg-white py-2 lg:py-2 overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row-reverse items-center gap-16">
             <motion.div 
@@ -348,8 +348,8 @@ const WhyChooseUsPage: React.FC = () => {
                  <Image 
                    src={boywithelephant} 
                    alt="Our Approach" 
-                   width={400}
-                   height={400}
+                   width={300}
+                   height={300}
                    className="object-contain"
                  />
                </div>
@@ -362,7 +362,7 @@ const WhyChooseUsPage: React.FC = () => {
       {/* =========================================
           SECTION 5: QUALIFIED TEACHERS (Orange Theme)
       ========================================= */}
-      <section className="relative w-full bg-orange-300 pt-32 pb-22 overflow-hidden">
+      <section className="relative w-full bg-orange-300 md:py-8 py-12 overflow-hidden">
         
         {/* FIX: Top Wave color set to WHITE to mask the top of the orange box against the previous white section */}
         <WaveSeparator position="top" color="text-white" />
@@ -407,8 +407,8 @@ const WhyChooseUsPage: React.FC = () => {
                  <Image 
                    src={GirlHead} 
                    alt="Qualified Teachers" 
-                   width={500}
-                   height={500}
+                   width={400}
+                   height={400}
                    className="object-contain drop-shadow-2xl"
                  />
                  <div className="absolute top-0 right-10 animate-bounce">

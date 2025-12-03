@@ -140,9 +140,9 @@ const ContactPage: React.FC = () => {
       <ContactHeader />
 
 
-        <section className="w-full bg-white py-20 lg:py-32 overflow-hidden">
+        <section className="w-full bg-white py-20 lg:py-8 overflow-hidden">
         <div className="container mx-auto px-6">
-           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
               
               {/* LEFT: Google Map */}
               <motion.div 

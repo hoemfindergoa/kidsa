@@ -152,16 +152,18 @@ const SpreadingLoveSection = () => {
         {/* --- HEADER --- */}
         <div className="text-center mb-24">
             <span className="inline-block px-4 py-2 rounded-full bg-white border-2 border-slate-100 shadow-sm text-sm font-bold text-slate-500 mb-4 tracking-widest uppercase">
-                Our Core Values
+          Our Core Values
             </span>
-            <h2 className={`${titleFont.className} text-5xl md:text-7xl leading-tight`}>
-                <span className="text-[#3E3431]">Nurturing </span> 
-                <span className="text-rose-500 relative inline-block">
-                   Little Hearts
-                    <svg className="absolute w-full h-6 -bottom-4 left-0 text-amber-300" viewBox="0 0 100 10" preserveAspectRatio="none">
-                        <path d="M0,5 Q50,15 100,5" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
-                    </svg>
-                </span>
+            <h2 className={`${titleFont.className}  text-5xl md:text-7xl leading-tight`}>
+          <span className="text-[#3E3431]">Nurturing </span> 
+          <span className="text-rose-500  relative inline-block">
+             Little Dreamers
+              <svg className="absolute w-full h-6 -bottom-4 left-0 text-amber-300" viewBox="0 0 100 10" preserveAspectRatio="none">
+            <path d="M0,5 Q50,15 100,5" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+              </svg>
+              {/* <span className="text-sm text-slate-600 block">At Cambridge</span> */}
+          </span>
+            {/* <span className="text-[#3E3431] mt-8"> At Cambridge </span>  */}
             </h2>
         </div>
 

@@ -151,7 +151,7 @@ const WaveSeparator = ({ position, color }: { position: "top" | "bottom", color:
 // --- HEADER COMPONENT ---
 const CentersHeader = () => {
   return (
-    <header className="relative w-full h-[50vh] min-h-[550px] bg-gradient-to-r from-teal-400 via-emerald-400 to-green-400 flex items-center justify-center overflow-hidden">
+    <header className="relative w-full h-[54vh] min-h-[470px] bg-gradient-to-r from-teal-400 via-emerald-400 to-green-400 flex items-center justify-center overflow-hidden">
       
       {/* Background Doodles */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
@@ -258,7 +258,7 @@ const CentersPage: React.FC = () => {
       {/* =========================================
           SECTION: FILTER & LIST (Teal Theme)
       ========================================= */}
-      <section className="relative w-full bg-teal-50 pt-20 pb-32 overflow-hidden">
+      <section className="relative w-full bg-teal-50 pt-4 pb-32 overflow-hidden">
         
         {/* Background Doodle */}
         <div className="absolute inset-0 pointer-events-none opacity-10 top-20">
@@ -335,10 +335,10 @@ const CentersPage: React.FC = () => {
 
            {/* --- RESULTS SECTION --- */}
            {centerList.length > 0 ? (
-               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start h-auto lg:h-[700px]">
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start h-auto lg:h-[500px]">
                   
                   {/* LEFT: SCROLLABLE LIST */}
-                  <div className="flex flex-col gap-6 h-full lg:overflow-y-auto pr-0 lg:pr-4 scrollbar-hide pb-10">
+                  <div className="flex flex-col gap-6 h-full lg:overflow-y-auto pr-0 lg:pr-4 scrollbar-hide pb-2">
                      <AnimatePresence mode="wait">
                         {centerList.map((center, index) => (
                            <motion.div
