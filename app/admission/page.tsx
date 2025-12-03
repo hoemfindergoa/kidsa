@@ -212,10 +212,10 @@ const AdmissionPage: React.FC = () => {
               <label className="font-bold text-slate-700 ml-2">Seeking Admission For</label>
               <div className="relative">
                  <select className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 px-4 text-slate-700 focus:outline-none focus:border-violet-400 transition-colors appearance-none">
-                 <option>Playgroup (2 - 3 Years)</option>
-                 <option>Nursery (3 - 4 Years)</option>
-                 <option>Junior Kindergarten (4 - 5 Years)</option>
-                 <option>Senior Kindergarten (5 - 6 Years)</option>
+                 <option>Little Explorers - Playgroup (2 - 3 Years)</option>
+                 <option>Curious Learners - Nursery (3 - 4 Years)</option>
+                 <option>Creative Thinkers - Junior Kindergarten (4 - 5 Years)</option>
+                 <option>Future Leaders - Senior Kindergarten (5 - 6 Years)</option>
                  <option>Daycare</option>
                  </select>
                  <ChevronRight className="absolute right-4 top-3.5 w-5 h-5 text-slate-400 rotate-90 pointer-events-none" />
@@ -300,10 +300,10 @@ const AdmissionPage: React.FC = () => {
 
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { title: "Playgroup", age: "2 - 3 Years", icon: Baby, color: "bg-rose-400" },
-                { title: "Nursery", age: "3 - 4 Years", icon: Smile, color: "bg-amber-400" },
-                { title: "Junior kindergarten", age: "4 - 5 Years", icon: BookOpen, color: "bg-emerald-400" },
-                { title: "Senior kindergarten", age: "5 - 6 Years", icon: GraduationCap, color: "bg-indigo-400" },
+                { title: "Little Explorers  Playgroup", age: "2 - 3 Years", icon: Baby, color: "bg-rose-400" },
+                { title: "Curious Learners  Nursery", age: "3 - 4 Years", icon: Smile, color: "bg-amber-400" },
+                { title: "Creative Thinkers  Junior kindergarten", age: "4 - 5 Years", icon: BookOpen, color: "bg-emerald-400" },
+                { title: "Future Leaders      Senior kindergarten", age: "5 - 6 Years", icon: GraduationCap, color: "bg-indigo-400" },
               ].map((item, index) => (
                  <motion.div
                     key={index}
