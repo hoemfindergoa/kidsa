@@ -10,7 +10,6 @@ import {
   MapPin, 
   Facebook, 
   Instagram, 
-  Twitter, 
   Send, 
   Heart,
   ArrowRight,
@@ -109,7 +108,7 @@ const Footer = () => {
             </p>
             
             {/* Social Icons - Colorful on hover */}
-            <div className="flex gap-3">
+            <div className="flex gap-6">
                {/* Facebook */}
                 <button className="w-10 h-10 rounded-full  bg-[#1877F2] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:-translate-y-1 hover:scale-110 border border-white/10 group">
                   <Facebook className="w-5 h-5 group-hover:text-white" />
@@ -117,10 +116,6 @@ const Footer = () => {
                 {/* Instagram */}
                 <button className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#fdf497] via-[#fd5949] to-[#d6249f] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:-translate-y-1 hover:scale-110 border border-white/10 group">
                   <Instagram className="w-5 h-5 group-hover:text-white" />
-                </button>
-                {/* Twitter */}
-                <button className="w-10 h-10 rounded-full bg-[#1DA1F2] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:-translate-y-1 hover:scale-110 border border-white/10 group">
-                  <Twitter className="w-5 h-5 group-hover:text-white" />
                 </button>
                 {/* Youtube */}
                 <button className="w-10 h-10 rounded-full bg-[#FF0000] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:-translate-y-1 hover:scale-110 border border-white/10 group">
