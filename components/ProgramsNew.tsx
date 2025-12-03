@@ -1,16 +1,17 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Play, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Play, ArrowRight } from 'lucide-react'; // Removed unused Chevron imports
 import { Titan_One, Nunito, Caveat } from 'next/font/google';
 import boywithcup from "../public/boywithcup.png";
 import girlwithbook from "../public/girlwithbook 1.svg"
 import boywithelephant from "../public/boywithelephent.png"
 import girlonswing from "../public/girlonwing.png"
-import boywithbrush from "../public/boywithbrush.png"
+import boywithbrush from "../public/boywithbrush.png" // Kept import, though not currently used in array
 import Image from 'next/image';
 import Link from 'next/link';
+
 // --- TYPES & INTERFACES ---
 
 type ThemeColor = 'rose' | 'sky' | 'purple' | 'teal' | 'amber';
@@ -60,7 +61,7 @@ const programs: Program[] = [
     title: "Little Explorers",
     subtitle: "Play Group (2–3 Years)",
     description: "At Little Dreamers, our Little Explorers begin their joyful learning journey through play and imagination.",
-    fullDescription: "Activities are thoughtfully designed to build sensory awareness, strengthen motor skills, and encourage social interaction. Children learn to adapt, express themselves freely, and gain early confidence.",
+    fullDescription: "Activities are thoughtfully designed to build sensory awareness, strengthen motor skills, and encourage social interaction.",
     theme: "rose", 
     image : boywithcup,
     ids: "#explorers"
@@ -70,7 +71,7 @@ const programs: Program[] = [
     title: "Curious Learners",
     subtitle: "Nursery (3–4 Years)",
     description: "Our Curious Learners explore the world of colors, numbers, and letters through fun, interactive activities.",
-    fullDescription: "This stage builds imagination, communication, and growing independence. Children learn to observe, question, express, and share their ideas.",
+    fullDescription: "This stage builds imagination, communication, and growing independence. Children learn to observe and question.",
     theme: "sky",
     image : girlwithbook,
     ids: "learners"
@@ -80,7 +81,7 @@ const programs: Program[] = [
     title: "Creative Thinkers",
     subtitle: "LKG (4–5 Years)",
     description: "Children strengthen early academic skills while exploring creativity, imagination, and expression.",
-    fullDescription: "Through phonics, storytelling, art, and group play, they build confidence. Each day encourages children to think creatively and communicate confidently.",
+    fullDescription: "Through phonics, storytelling, art, and group play, they build confidence to think creatively.",
     theme: "purple",
     image : boywithelephant,
     ids: "thinkers"
@@ -90,7 +91,7 @@ const programs: Program[] = [
     title: "Future Leaders",
     subtitle: "UKG (5–6 Years)",
     description: "Prepares children for formal schooling by building a strong foundation in academics and life skills.",
-    fullDescription: "With structured learning in language, math, and environmental studies, children develop clarity in concepts and confidence in application.",
+    fullDescription: "With structured learning in language, math, and environmental studies, children develop clarity.",
     theme: "teal",
     image : girlonswing,
     ids: "/Programs/#leaders"
@@ -100,58 +101,42 @@ const programs: Program[] = [
 // --- COMPONENTS ---
 
 const ProgramSection: React.FC = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (direction: 'left' | 'right') => {
-    if(scrollRef.current) {
-      const { current } = scrollRef;
-      const scrollAmount = direction === 'left' ? -400 : 400;
-      current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
+  // Removed scrollRef and scroll function as they are not needed for Grid layout
 
   return (
     <section id='programs' className={`py-6 relative overflow-hidden ${bodyFont.className}`}>
       
-      <div className="max-w-[2000px] mx-auto px-4 sm:px-2">
+      <div className="max-w-[2000px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* --- HEADER --- */}
-        <div className="text-center mb-8 relative z-10">
-
-
-   <div className="text-center mb-16">
+        <div className="text-center mb-16 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            {/* <span className="text-sky-500 font-bold tracking-wider text-sm uppercase bg-sky-100 px-4 py-1 rounded-full">
-              Our Programs
-            </span> */}
-          <h2 className={`text-5xl pt-2 md:text-7xl uppercase leading-tight ${titleFont.className}`}>
+            <h2 className={`text-5xl pt-2 md:text-7xl uppercase leading-tight ${titleFont.className}`}>
               <span className="text-rose-500">Our </span>{' '}
               <span className="text-black">Programs</span>
             </h2>
           </motion.div>
-        </div>
+          
           {/* Decorative bird */}
           <div className="hidden md:block absolute -top-4 right-10 text-6xl animate-bounce" style={{ animationDuration: '3s' }}>
              🐦
           </div>
         </div>
 
-        {/* --- DESKTOP CAROUSEL BUTTONS --- */}
-        
-
-        {/* --- PROGRAM LIST / CAROUSEL --- */}
+        {/* --- PROGRAM GRID --- */}
         <div 
-          ref={scrollRef}
           className="
-            flex flex-col gap-8 
-            md:flex-row justify-between md:mx-[40px] mx-[20px] md:overflow-x-auto md:snap-x md:snap-mandatory md:pb-12 md:px-4
-            scrollbar-hide
+            grid 
+            grid-cols-1        
+            md:grid-cols-2     
+            xl:grid-cols-4     
+            gap-8
+            pb-12
           "
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {programs.map((program, index) => (
             <ProgramCard key={program.id} data={program} index={index} />
@@ -185,10 +170,9 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ data, index }) => {
   return (
     <motion.div
       className={`
-        shrink-0 snap-center
-        w-full md:w-[400px] 
-        relative flex flex-col items-center gap-6 
-        p-8 md:p-10
+        w-full h-full
+        flex flex-col items-center gap-6 
+        p-8 md:p-8
         bg-white border-[3px] ${theme.border} 
         rounded-[50px]
         shadow-xl hover:shadow-2xl transition-all duration-300
@@ -200,8 +184,8 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ data, index }) => {
       viewport={{ once: true }}
     >
       {/* --- CHARACTER IMAGE --- */}
-      <div className="relative mb-4">
-        <div className="w-40 h-40 sm:w-48 sm:h-48  overflow-hidden flex items-center justify-center relative z-10">
+      <div className="relative mb-2">
+        <div className="w-40 h-40 sm:w-48 sm:h-48 overflow-hidden flex items-center justify-center relative z-10">
           <Image 
             src={data.image} 
             alt={data.title} 
@@ -215,42 +199,42 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ data, index }) => {
       </div>
 
       {/* --- CONTENT --- */}
-      <div className="flex-1 text-center space-y-4 w-full">
+      <div className="flex-1 text-center space-y-4 w-full flex flex-col justify-between">
         <div>
-          <h3 className={`text-3xl sm:text-4xl ${theme.text} mb-2 ${handwritingFont.className} font-bold tracking-wide`}>
+          <h3 className={`text-2xl lg:text-3xl ${theme.text} mb-2 ${handwritingFont.className} font-bold tracking-wide`}>
             {data.title}
           </h3>
-          <p className={`text-gray-700 font-extrabold text-sm uppercase tracking-widest ${bodyFont.className}`}>
+          <p className={`text-gray-700 font-extrabold text-xs uppercase tracking-widest ${bodyFont.className}`}>
             {data.subtitle}
           </p>
+          
+          <p className={`text-gray-700 text-sm sm:text-base leading-relaxed font-semibold px-2 mt-4 ${bodyFont.className}`}>
+            {data.description}
+            <span className="inline"> {data.fullDescription}</span>
+          </p>
         </div>
-        
-        <p className={`text-gray-700 text-base leading-relaxed font-semibold px-4 ${bodyFont.className}`}>
-          {data.description}
-          <span className="hidden md:inline"> {data.fullDescription}</span>
-        </p>
 
         {/* --- ACTION BUTTONS --- */}
-        <Link href={`Programs/#${data.ids}`}>
-        <div className="pt-6 flex items-center justify-center gap-4">
-          <motion.button 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`px-6 py-3 rounded-full bg-gradient-to-r from-gray-800 to-black text-white font-bold text-sm flex items-center gap-2 shadow-lg hover:shadow-xl transition-all ${bodyFont.className}`}
+        <Link href={`Programs/#${data.ids}`} className="w-full">
+          <div className="pt-6 flex items-center justify-center gap-4">
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`px-6 py-3 rounded-full bg-gradient-to-r from-gray-800 to-black text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-lg hover:shadow-xl transition-all ${bodyFont.className}`}
             >
-            Know More 
-            <ArrowRight className="w-4 h-4" />
-          </motion.button>
+              Know More 
+              <ArrowRight className="w-4 h-4" />
+            </motion.button>
 
-          <motion.button 
-            whileHover={{ scale: 1.15, rotate: 15 }}
-            whileTap={{ scale: 0.9 }}
-            className="w-14 h-14 rounded-full bg-amber-400 hover:bg-amber-500 flex items-center justify-center shadow-lg hover:shadow-xl border-4 border-white transition-all"
+            <motion.button 
+              whileHover={{ scale: 1.15, rotate: 15 }}
+              whileTap={{ scale: 0.9 }}
+              className="w-12 h-12 rounded-full bg-amber-400 hover:bg-amber-500 flex items-center justify-center shadow-lg hover:shadow-xl border-4 border-white transition-all"
             >
-            <Play className="w-5 h-5 fill-white text-white ml-1" />
-          </motion.button>
-        </div>
-            </Link>
+              <Play className="w-4 h-4 fill-white text-white ml-1" />
+            </motion.button>
+          </div>
+        </Link>
       </div>
     </motion.div>
   );

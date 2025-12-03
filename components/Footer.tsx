@@ -14,11 +14,11 @@ import {
   Send, 
   Heart,
   ArrowRight,
-  Youtube
+  Youtube,
+  Globe
 } from "lucide-react";
 import { Titan_One, Nunito, Caveat } from 'next/font/google';
 
-// Placeholder for logo - ensure you have this file
 import logo from "../public/logo.png"; 
 
 // --- FONTS ---
@@ -66,7 +66,7 @@ const Footer = () => {
   return (
     <footer className={`relative bg-gradient-to-br from-violet-900 via-purple-900 to-fuchsia-900 pt-32 pb-10 overflow-hidden text-white ${bodyFont.className}`}>
       
-      {/* 0. DECORATIVE TOP WAVE (SVG) - Smooth transition from white section above */}
+      {/* 0. DECORATIVE TOP WAVE (SVG) */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-[0] z-20">
         <svg 
             className="relative block w-[calc(100%+1.3px)] h-[60px] md:h-[100px]" 
@@ -95,16 +95,12 @@ const Footer = () => {
           <motion.div variants={itemVariants} className="space-y-6">
             <Link href="/" className="flex items-center gap-3 group">
               {/* Logo Icon Container */}
-              <div className="relative w-[200px] h-16 flex items-center justify-center bg-white rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.3)] rotate-0 group-hover:rotate-6 transition-transform duration-300">
+              <div className="relative w-auto h-auto flex items-center justify-center bg-white rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.3)] rotate-0 group-hover:rotate-6 transition-transform duration-300 p-2">
                 <Image 
                   src={logo} 
                   alt="Little Dreamers Logo" 
-                  className="w-[170px] h-16 object-contain"
+                  className="w-[150px] h-auto object-contain"
                 />
-              </div>
-              {/* Logo Text */}
-              <div>
-
               </div>
             </Link>
             
@@ -112,16 +108,24 @@ const Footer = () => {
               Creating a foundation for lifelong learning through play, creativity, and exploration in a safe, loving environment.
             </p>
             
-            {/* Social Icons */}
+            {/* Social Icons - Colorful on hover */}
             <div className="flex gap-3">
-              {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
-                <button 
-                  key={i} 
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#fad06e] text-white hover:text-purple-900 flex items-center justify-center transition-all duration-300 shadow-lg hover:-translate-y-1 hover:scale-110 border border-white/10"
-                >
-                  <Icon className="w-5 h-5" />
+               {/* Facebook */}
+                <button className="w-10 h-10 rounded-full  bg-[#1877F2] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:-translate-y-1 hover:scale-110 border border-white/10 group">
+                  <Facebook className="w-5 h-5 group-hover:text-white" />
                 </button>
-              ))}
+                {/* Instagram */}
+                <button className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#fdf497] via-[#fd5949] to-[#d6249f] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:-translate-y-1 hover:scale-110 border border-white/10 group">
+                  <Instagram className="w-5 h-5 group-hover:text-white" />
+                </button>
+                {/* Twitter */}
+                <button className="w-10 h-10 rounded-full bg-[#1DA1F2] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:-translate-y-1 hover:scale-110 border border-white/10 group">
+                  <Twitter className="w-5 h-5 group-hover:text-white" />
+                </button>
+                {/* Youtube */}
+                <button className="w-10 h-10 rounded-full bg-[#FF0000] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:-translate-y-1 hover:scale-110 border border-white/10 group">
+                  <Youtube className="w-5 h-5 group-hover:text-white" />
+                </button>
             </div>
           </motion.div>
 
@@ -131,13 +135,19 @@ const Footer = () => {
                Quick Links
             </h3>
             <ul className="space-y-3">
-              {['About Us', 'Our Programs', 'Admissions', 'Franchise', 'Contact'].map((item) => (
-                <li key={item}>
-                  <Link href={`/${item.toLowerCase().replace(' ', '-')}`} className="text-purple-100/80 hover:text-white hover:translate-x-2 transition-all duration-300 inline-flex items-center gap-2 text-sm font-bold group">
+              {[
+                { name: 'About Us', href: '/about' },
+                { name: 'Our Programs', href: '/#programs' }, // Assuming this scrolls to a section
+                { name: 'Admissions', href: '/admission' },
+                { name: 'Franchise', href: '/franchise' },
+                { name: 'Contact', href: '/contact' }
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="text-purple-100/80 hover:text-white hover:translate-x-2 transition-all duration-300 inline-flex items-center gap-2 text-sm font-bold group">
                     <span className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#9dcedc] group-hover:text-purple-900 transition-colors">
                         <ArrowRight className="w-3 h-3" />
                     </span>
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -152,24 +162,29 @@ const Footer = () => {
             <ul className="space-y-5">
               <li className="flex items-start gap-4 text-sm group cursor-pointer">
                 <div className="w-10 h-10 rounded-xl bg-[#f7a7b4] text-white flex items-center justify-center shrink-0 shadow-md group-hover:rotate-12 transition-transform">
-                  <MapPin className="w-5 h-5" />
+                  <Globe className="w-5 h-5" />
                 </div>
-                <span className="mt-1 font-bold text-purple-100 group-hover:text-white transition-colors leading-relaxed">
-                    123 Learning Lane,<br/>
-                    Kidsville, KS 12345
-                </span>
+                <a href="https://www.littledreamersatcambridge.com" target="_blank" rel="noopener noreferrer" className="mt-1 font-bold text-purple-100 group-hover:text-white transition-colors leading-relaxed break-words max-w-[200px]">
+                    www.littledreamersatcambridge.com
+                </a>
               </li>
-              <li className="flex items-center gap-4 text-sm group cursor-pointer">
-                <div className="w-10 h-10 rounded-xl bg-[#fad06e] text-[#5c4d26] flex items-center justify-center shrink-0 shadow-md group-hover:-rotate-12 transition-transform">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <span className="font-bold text-purple-100 group-hover:text-white transition-colors">+91 9999996266</span>
-              </li>
+              
               <li className="flex items-center gap-4 text-sm group cursor-pointer">
                  <div className="w-10 h-10 rounded-xl bg-[#06D6A0] text-white flex items-center justify-center shrink-0 shadow-md group-hover:rotate-12 transition-transform">
                   <Mail className="w-5 h-5" />
                 </div>
-                <span className="font-bold text-purple-100 group-hover:text-white transition-colors">info@littledreamersatcambridge.com</span>
+                <a href="mailto:info@littledreamersatcambridge.com" className="font-bold text-purple-100 group-hover:text-white transition-colors break-words max-w-[200px]">
+                    info@littledreamersatcambridge.com
+                </a>
+              </li>
+
+              <li className="flex items-center gap-4 text-sm group cursor-pointer">
+                <div className="w-10 h-10 rounded-xl bg-[#fad06e] text-[#5c4d26] flex items-center justify-center shrink-0 shadow-md group-hover:-rotate-12 transition-transform">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <a href="tel:+919999996266" className="font-bold text-purple-100 group-hover:text-white transition-colors">
+                    +91-999 999 6266
+                </a>
               </li>
             </ul>
           </motion.div>

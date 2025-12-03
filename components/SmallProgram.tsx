@@ -254,8 +254,8 @@ const UniqueFeatures: React.FC = () => {
           {/* --- RIGHT SIDE: Improved Carousel UI --- */}
           <div className="w-full lg:w-2/3 relative">
              {/* Gradient fade overlay for carousel edges */}
-             <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#9BC6C0] to-transparent z-10 hidden md:block"></div>
-             <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#9BC6C0] to-transparent z-10 hidden md:block"></div>
+             <div className="absolute left-0 top-0 bottom-0 w-12   hidden md:block"></div>
+             <div className="absolute right-0 top-0 bottom-0 w-12  z-10 hidden md:block"></div>
 
              <div className="overflow-hidden p-4 -m-4" ref={carouselRef}>
                 <motion.div 

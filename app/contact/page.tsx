@@ -250,8 +250,7 @@ const ContactPage: React.FC = () => {
                  </div>
                  <h3 className="text-xl font-black text-slate-800 mb-2">Call Us</h3>
                  <p className="text-slate-600 font-medium">
-                   +91 98765 43210<br/>
-                   +91 12345 67890
+                   +91 9999996266<br/>
                  </p>
               </motion.div>
 
@@ -265,8 +264,8 @@ const ContactPage: React.FC = () => {
                  </div>
                  <h3 className="text-xl font-black text-slate-800 mb-2">Email Us</h3>
                  <p className="text-slate-600 font-medium break-words">
-                   admissions@littledreamers.com<br/>
-                   info@littledreamers.com
+                   info@littledreamersatcambridge.com
+<br/>
                  </p>
               </motion.div>
 
