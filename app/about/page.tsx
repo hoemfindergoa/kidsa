@@ -102,7 +102,7 @@ const AboutUsSegmented: React.FC = () => {
         <WaveSeparator position="top" color="text-white" />
         
         {/* Background Doodle */}
-        <div className="absolute inset-0 pointer-events-none opacity-10 top-20">
+        <div className="absolute inset-0 pointer-events-none opacity-10 top-2">
              <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <path d="M0,0 Q50,100 100,0" fill="none" stroke="#f59e0b" strokeWidth="0.5" strokeDasharray="2,2"/>
              </svg>
@@ -168,9 +168,9 @@ const AboutUsSegmented: React.FC = () => {
       {/* =========================================
           SECTION 2: OUR VISION (White Background - Clean)
       ========================================= */}
-      <section className="w-full bg-white py-2 lg:py-2 overflow-hidden">
+      <section className="w-full bg-white py-2 lg:py-0 overflow-hidden">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col lg:flex-row-reverse items-center md:gap-16 gap-8">
+          <div className="flex flex-col lg:flex-row-reverse items-center md:gap-8 gap-8">
             
             {/* TEXT (Right) */}
             <motion.div 
@@ -205,12 +205,12 @@ const AboutUsSegmented: React.FC = () => {
             >
                <div className="relative">
                  {/* Simple Blob Background behind image */}
-                 <div className="absolute inset-0 bg-purple-100 rounded-full blur-3xl opacity-50 -z-10 transform scale-110"></div>
+                 <div className=" inset-0 bg-purple-100 rounded-full blur-3xl opacity-50 -z-10 transform scale-100"></div>
                  <Image 
                    src={girlwithbook} 
                    alt="Our Vision" 
-                   width={500}
-                   height={500}
+                   width={350}
+                   height={350}
                    className="object-contain"
                  />
                </div>
@@ -228,7 +228,7 @@ const AboutUsSegmented: React.FC = () => {
         <WaveSeparator position="top" color="text-white" />
         
         {/* Background Doodle */}
-         <div className="absolute inset-0 pointer-events-none opacity-10 top-20">
+         <div className="absolute inset-0 pointer-events-none opacity-10 top-4">
              <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <path d="M100,0 Q50,100 0,0" fill="none" stroke="#e11d48" strokeWidth="0.5" strokeDasharray="2,2"/>
              </svg>

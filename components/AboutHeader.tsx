@@ -28,7 +28,7 @@ const bodyFont = Nunito({
 const AboutHeader = () => {
   return (
     // Adjusted min-h for better spacing on desktop
-    <header className="relative w-full h-auto md:h-[70vh] min-h-[600px] bg-rose-300 flex items-center justify-center overflow-hidden pt-20 pb-32 md:py-0">
+    <header className="relative w-full h-auto md:h-[50vh] min-h-[500px] bg-rose-300 flex items-center justify-center overflow-hidden pt-20 pb-12 md:py-0">
       
       {/* --- BACKGROUND DECORATIONS --- */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -111,7 +111,7 @@ const AboutHeader = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
                 // Adjusted max-width and margin for left alignment
-                className="text-lg lg:text-3xl text-[#3E3431]/90 font-medium max-w-xl mx-auto md:mx-0 leading-relaxed mt-4"
+                className="text-lg lg:text-3xl text-[#3E3431]/90 font-medium max-w-xl mx-auto md:mx-0 leading-relaxed mt-2"
                 style={{ fontFamily: '"Baloo 2", cursive' }}
             >
             A place where imagination has no limits and every child is a star.
