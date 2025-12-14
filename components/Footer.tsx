@@ -110,17 +110,26 @@ const Footer = () => {
             {/* Social Icons - Colorful on hover */}
             <div className="flex gap-6">
                {/* Facebook */}
+               <Link target="_blank" href={"https://www.facebook.com/littledreamersatcambridge/"}>
                 <button className="w-10 h-10 rounded-full  bg-[#1877F2] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:-translate-y-1 hover:scale-110 border border-white/10 group">
                   <Facebook className="w-5 h-5 group-hover:text-white" />
                 </button>
+               </Link>
                 {/* Instagram */}
+                <Link target="_blank" href={"https://www.instagram.com/little_dreamers_at_cambridge/"}>
                 <button className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#fdf497] via-[#fd5949] to-[#d6249f] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:-translate-y-1 hover:scale-110 border border-white/10 group">
                   <Instagram className="w-5 h-5 group-hover:text-white" />
                 </button>
                 {/* Youtube */}
+                </Link>
+
+
+                <Link target="_blank" href={"https://www.youtube.com/@LittleDreamersAtCambridge"}>
+                
                 <button className="w-10 h-10 rounded-full bg-[#FF0000] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:-translate-y-1 hover:scale-110 border border-white/10 group">
                   <Youtube className="w-5 h-5 group-hover:text-white" />
                 </button>
+                </Link>
             </div>
           </motion.div>
 

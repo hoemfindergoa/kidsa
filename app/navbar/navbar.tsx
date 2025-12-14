@@ -64,17 +64,17 @@ const Navbar = () => {
   const socialLinks = [
     { 
       icon: Facebook, 
-      href: "https://facebook.com", 
+      href: "https://www.facebook.com/littledreamersatcambridge/", 
       className: "text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-100" 
     },
     { 
       icon: Instagram, 
-      href: "https://instagram.com", 
+      href: "https://www.instagram.com/little_dreamers_at_cambridge/", 
       className: "text-pink-600 bg-pink-50 hover:bg-pink-100 border border-pink-100" 
     },
     { 
       icon: Youtube, 
-      href: "https://youtube.com", 
+      href: "https://www.youtube.com/@LittleDreamersAtCambridge", 
       className: "text-red-600 bg-red-50 hover:bg-red-100 border border-red-100" 
     },
   ];
