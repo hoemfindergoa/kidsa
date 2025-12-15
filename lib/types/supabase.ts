@@ -101,34 +101,37 @@ export type Database = {
           }
         ]
       }
-      emaildata: {
+      admissions: {
         Row: {
-         name: string;
-          email: string;
-          phone: string;
-          service: string;
-          date: string;
-          time: string;
-          message: string;
-    
+	name: string,
+    email: string,
+    phone: string,
+	state:string
+	city:string
+	admission_seeking:string
+    message: string
+	country:string
         }
         Insert: {
-          name: string;
-          email: string;
-          phone: string;
-          service: string;
-          date: string;
-          time: string;
-          message: string;
+	name: string,
+    email: string,
+    phone: string,
+	state:string
+	city:string
+	admission_seeking:string
+    message: string
+	country:string
         }
         Update: {
-          name: string;
-          email: string;
-          phone: string;
-          service: string;
-          date: string;
-          time: string;
-          message: string;
+         id: string;
+	name: string,
+    email: string,
+    phone: string,
+	state:string
+	city:string
+	admission_seeking:string
+    message: string
+	country:string
         }
         Relationships: []
       }

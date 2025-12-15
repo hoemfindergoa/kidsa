@@ -97,12 +97,11 @@ export const defaultEmail: IEmaildetail = {
 	name: '',
     email: '',
     phone: '',
-    service: '',
-    date: '',
-    time: '',
-    message: ''
-	
-
+    state: '',
+    city: '',
+    message: '',
+    admission_seeking: '',
+	country: '',
 };
 export const defaultlesson: IchapterDetails = {
 	catagory_id: 1,

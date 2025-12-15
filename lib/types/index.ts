@@ -30,15 +30,19 @@ export type IBlogDetial = {
 };
 
 
+	
+
+
 export type IEmaildetail = {
 	id: string;
 	name: string,
     email: string,
     phone: string,
-    service: string,
-    date: string,
-    time: string,
+	state:string
+	city:string
+	admission_seeking:string
     message: string
+	country:string
 };
 export type IchapterDetails = {
 	catagory_id: number
