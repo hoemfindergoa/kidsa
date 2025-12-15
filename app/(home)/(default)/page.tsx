@@ -17,7 +17,6 @@ export default function Page() {
               <Programs/>
         <Homecta/>  
       <BlogSection/>
- 
     </div>
   );
 }

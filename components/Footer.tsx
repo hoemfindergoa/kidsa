@@ -86,12 +86,12 @@ const Footer = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="container mx-auto px-6 relative z-10"
+        className="container mx-auto px-2 relative z-10"
       >
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
           
           {/* --- BRAND / ABOUT --- */}
-          <motion.div variants={itemVariants} className="space-y-6">
+          <motion.div variants={itemVariants} className="space-y-8">
             <Link href="/" className="flex items-center gap-3 group">
               {/* Logo Icon Container */}
               <div className="relative w-auto h-auto flex items-center justify-center bg-white rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.3)] rotate-0 group-hover:rotate-6 transition-transform duration-300 p-2">
@@ -168,7 +168,7 @@ const Footer = () => {
                 <div className="w-10 h-10 rounded-xl bg-[#f7a7b4] text-white flex items-center justify-center shrink-0 shadow-md group-hover:rotate-12 transition-transform">
                   <Globe className="w-5 h-5" />
                 </div>
-                <a href="https://www.littledreamersatcambridge.com" target="_blank" rel="noopener noreferrer" className="mt-1 font-bold text-purple-100 group-hover:text-white transition-colors leading-relaxed break-words max-w-[200px]">
+                <a href="https://www.littledreamersatcambridge.com" target="_blank" rel="noopener noreferrer" className="mt-1 font-bold text-purple-100 group-hover:text-white transition-colors  max-w-[200px]">
                     www.littledreamersatcambridge.com
                 </a>
               </li>
@@ -177,7 +177,7 @@ const Footer = () => {
                  <div className="w-10 h-10 rounded-xl bg-[#06D6A0] text-white flex items-center justify-center shrink-0 shadow-md group-hover:rotate-12 transition-transform">
                   <Mail className="w-5 h-5" />
                 </div>
-                <a href="mailto:info@littledreamersatcambridge.com" className="font-bold text-purple-100 group-hover:text-white transition-colors break-words max-w-[200px]">
+                <a href="mailto:info@littledreamersatcambridge.com" className="font-bold text-purple-100 group-hover:text-white transition-colors -w-[200px]">
                     info@littledreamersatcambridge.com
                 </a>
               </li>
@@ -227,9 +227,9 @@ const Footer = () => {
           className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4"
         >
           <p className="text-sm text-purple-200 font-bold flex flex-wrap justify-center items-center gap-1">
-              © 2025 Little Dreamers. Made with <Heart className="w-4 h-4 text-[#f7a7b4] fill-[#f7a7b4] animate-bounce mx-1"/> by 
+              © 2025 Little Dreamers At Cambridge. Made with <Heart className="w-4 h-4 text-[#f7a7b4] fill-[#f7a7b4] animate-bounce mx-1"/> by 
               <a href="https://scalesaas.ashishrohilla.co.in/" target="_blank" rel="noreferrer" className={`ml-1 text-[#fad06e] hover:text-white transition-colors underline decoration-dotted underline-offset-4 ${handwritingFont.className} text-xl`}>
-                 scalesaas
+                 BEST PRESCHOOL AND DAY CARE PRIVATE LIMITED
               </a>
           </p>
           <div className="flex gap-6 text-xs font-black text-purple-300 uppercase tracking-widest">
