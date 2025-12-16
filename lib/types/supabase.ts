@@ -101,6 +101,42 @@ export type Database = {
           }
         ]
       }
+
+
+      franchises: {
+        Row: {
+          id: number;
+          created_at: string;
+          name: string;
+          email: string;
+          phone: string;
+          city: string;
+          budget: string;
+          property: string;
+        };
+        Insert: {
+          id?: number;
+          created_at?: string;
+          name: string;
+          email: string;
+          phone: string;
+          city: string;
+          budget: string;
+          property: string;
+        };
+        Update: {
+          id?: number;
+          created_at?: string;
+          name?: string;
+          email?: string;
+          phone?: string;
+          city?: string;
+          budget?: string;
+          property?: string;
+        };
+        Relationships: [];
+      };
+
       admissions: {
         Row: {
 	name: string,

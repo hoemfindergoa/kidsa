@@ -44,6 +44,21 @@ export type IEmaildetail = {
     message: string
 	country:string
 };
+
+export type IFranchiseDetail = {
+    id?: string;
+    created_at?: string;
+    name: string;
+    email: string;
+    phone: string;
+    city: string;
+    budget: string;
+    property: string;
+};
+
+
+
+
 export type IchapterDetails = {
 	catagory_id: number
 	chapter_name: string | null

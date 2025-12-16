@@ -8,7 +8,6 @@ import Image from "next/image";
 import { EmailFormschemaType } from "@/lib/schema";
 import { IEmaildetail } from "@/lib/types";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
 import {
   User,
   Mail,

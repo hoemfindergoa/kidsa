@@ -1,4 +1,4 @@
-import { IBlogDetial , Icourse, IchapterDetails, IEmaildetail } from "./types";
+import { IBlogDetial , Icourse, IchapterDetails, IEmaildetail , IFranchiseDetail } from "./types";
 import { Coments } from "./types";
 export const blogDeafultValue = `
 ## Serendipity Chronicles: Tales from a Random Blog
@@ -102,6 +102,17 @@ export const defaultEmail: IEmaildetail = {
     message: '',
     admission_seeking: '',
 	country: '',
+};
+
+
+export const defaultFranchise: IFranchiseDetail = {
+    id: "",
+    name: "",
+    email: "",
+    phone: "",
+    city: "",
+    budget: "Playway (5 to 6 lakh)", // Matches the default select option
+    property: "Yes, I own commercial property", // Matches the default select option
 };
 export const defaultlesson: IchapterDetails = {
 	catagory_id: 1,
