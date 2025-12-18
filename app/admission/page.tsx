@@ -75,7 +75,7 @@ export default function Page() {
   };
 
   return (
-    <div className="bg-neutral-950">
+    <div className="">
       <AdmissionPage  onHandleSubmit={onHandleSubmit} 
           defaultEmail={defaultEmail} 
           isLoading={isLoading}  />
