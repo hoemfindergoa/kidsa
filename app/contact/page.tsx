@@ -224,7 +224,7 @@ const ContactPage: React.FC = () => {
               <div className="w-24 h-2 bg-blue-300 rounded-full mx-auto"></div>
            </div>
 
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Card 1: Address */}
               <motion.div 
                  whileHover={{ y: -10 }}
@@ -235,8 +235,7 @@ const ContactPage: React.FC = () => {
                  </div>
                  <h3 className="text-xl font-black text-slate-800 mb-2">Visit Us</h3>
                  <p className="text-slate-600 font-medium">
-                   123, Little Dreamers Lane,<br/>
-                   Sunshine City, State - 400001
+                   Corporate Office: Pitampura, Delhi<br/>
                  </p>
               </motion.div>
 
@@ -266,21 +265,6 @@ const ContactPage: React.FC = () => {
                  <p className="text-slate-600 font-medium break-words">
                    info@littledreamersatcambridge.com
 <br/>
-                 </p>
-              </motion.div>
-
-               {/* Card 4: Hours */}
-               <motion.div 
-                 whileHover={{ y: -10 }}
-                 className="bg-white rounded-[2rem] p-8 shadow-xl text-center border-b-8 border-emerald-400 group"
-              >
-                 <div className="w-16 h-16 bg-emerald-100 rounded-full mx-auto flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
-                    <Clock className="w-8 h-8 text-emerald-600" />
-                 </div>
-                 <h3 className="text-xl font-black text-slate-800 mb-2">Working Hours</h3>
-                 <p className="text-slate-600 font-medium">
-                   Mon - Sat: 8:00 AM - 6:00 PM<br/>
-                   Sunday: Closed
                  </p>
               </motion.div>
            </div>

@@ -12,7 +12,9 @@ import {
   Search,
   ArrowRight,
   School,
-  Globe
+  Globe,
+  Sparkles,
+  Timer
 } from "lucide-react";
 import { Titan_One, Nunito } from 'next/font/google';
 import Link from "next/link";
@@ -41,7 +43,6 @@ type Center = {
   slug: string;
 };
 
-// Hierarchical Data: Country -> State -> City -> Centers[]
 type LocationData = {
   [country: string]: {
     [state: string]: {
@@ -50,82 +51,157 @@ type LocationData = {
   };
 };
 
-// --- MOCK DATA ---
-const locationsDB: LocationData = {
-  "USA": {
-    "New York": {
-      "Brooklyn": [
+// --- DATASETS ---
+
+// 1. Admission Open (Currently Empty)
+const admissionOpenDB: LocationData = {};
+
+// 2. Opening Shortly (Data from Image)
+const openingShortlyDB: LocationData = {
+  "India": {
+    "Delhi": {
+      "Patel Nagar": [
         {
-          id: "ny-bk-1",
-          name: "Little Dreamers Brooklyn",
-          address: "123 Park Slope, Brooklyn, NY",
-          phone: "+1 (555) 123-4567",
-          hours: "8:00 AM - 6:00 PM",
-          slug: "brooklyn-campus",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.2233913121413!2d77.40516037617656!3d28.502925975735742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sGeeksforGeeks!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+          id: "dl-patel-nagar",
+          name: "Little Dreamers at Cambridge Patel Nagar",
+          address: "Patel Nagar, Delhi",
+          phone: "+91 98765 43210",
+          hours: "Opening Soon",
+          slug: "patel-nagar",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14008.114688942263!2d77.16109965!3d28.64936355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d029c5f402c8b%3A0x4a4d468f3e5f5b0!2sPatel%20Nagar%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
         }
       ],
-      "Manhattan": [
+      "Tagore Garden": [
         {
-          id: "ny-mn-1",
-          name: "Little Dreamers Chelsea",
-          address: "45 W 25th St, New York, NY",
-          phone: "+1 (555) 987-6543",
-          hours: "7:30 AM - 6:30 PM",
-          slug: "chelsea-campus",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.2233913121413!2d77.40516037617656!3d28.502925975735742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sGeeksforGeeks!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+          id: "dl-tagore-garden",
+          name: "Little Dreamers at Cambridge Tagore Garden",
+          address: "Tagore Garden, Delhi",
+          phone: "+91 98765 43211",
+          hours: "Opening Soon",
+          slug: "tagore-garden",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.678456834!2d77.106584!3d28.647567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d036e5f5f5b0%3A0x4a4d468f3e5f5b0!2sTagore%20Garden%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
         }
       ]
     },
-    "California": {
-      "Los Angeles": [
+    "Haryana": {
+      "Karnal": [
         {
-          id: "ca-la-1",
-          name: "Little Dreamers Santa Monica",
-          address: "88 Ocean Ave, Santa Monica, CA",
-          phone: "+1 (310) 555-0199",
-          hours: "8:00 AM - 5:30 PM",
-          slug: "santa-monica-campus",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.2233913121413!2d77.40516037617656!3d28.502925975735742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sGeeksforGeeks!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
-        }
-      ]
-    }
-  },
-  "India": {
-    "Maharashtra": {
-      "Mumbai": [
-        {
-          id: "in-mh-mum-1",
-          name: "Little Dreamers Bandra",
-          address: "Hill Road, Bandra West, Mumbai",
-          phone: "+91 98765 43210",
-          hours: "9:00 AM - 4:00 PM",
-          slug: "bandra-campus",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.2233913121413!2d77.40516037617656!3d28.502925975735742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sGeeksforGeeks!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+          id: "hr-karnal",
+          name: "Little Dreamers at Cambridge Karnal",
+          address: "Karnal, Haryana",
+          phone: "+91 98765 43212",
+          hours: "Opening Soon",
+          slug: "karnal",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d76.987654!3d29.685743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e386e5f5f5b0%3A0x4a4d468f3e5f5b0!2sKarnal%2C%20Haryana!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
         }
       ],
-      "Pune": [
+      "Ambala": [
         {
-          id: "in-mh-pun-1",
-          name: "Little Dreamers Koregaon Park",
-          address: "Lane 7, Koregaon Park, Pune",
-          phone: "+91 12345 67890",
-          hours: "8:30 AM - 5:00 PM",
-          slug: "koregaon-park-campus",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.2233913121413!2d77.40516037617656!3d28.502925975735742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sGeeksforGeeks!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+          id: "hr-ambala",
+          name: "Little Dreamers at Cambridge Ambala",
+          address: "Ambala, Haryana",
+          phone: "+91 98765 43213",
+          hours: "Opening Soon",
+          slug: "ambala",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d76.776543!3d30.378901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fb68e5f5f5b0%3A0x4a4d468f3e5f5b0!2sAmbala%2C%20Haryana!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
+        }
+      ]
+    },
+    "Jammu": {
+      "Kathua": [
+        {
+          id: "jm-kathua",
+          name: "Little Dreamers at Cambridge Kathua",
+          address: "Kathua, Jammu",
+          phone: "+91 98765 43214",
+          hours: "Opening Soon",
+          slug: "kathua",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d75.512345!3d32.376543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391c786e5f5f5b0%3A0x4a4d468f3e5f5b0!2sKathua%2C%20Jammu!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
+        }
+      ],
+      "Samba": [
+        {
+          id: "jm-samba",
+          name: "Little Dreamers at Cambridge Samba",
+          address: "Samba, Jammu",
+          phone: "+91 98765 43215",
+          hours: "Opening Soon",
+          slug: "samba",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d75.123456!3d32.567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391c686e5f5f5b0%3A0x4a4d468f3e5f5b0!2sSamba%2C%20Jammu!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
         }
       ]
     },
     "Karnataka": {
+      "Mysore": [
+        {
+          id: "ka-mysore",
+          name: "Little Dreamers at Cambridge Mysore",
+          address: "Mysore, Karnataka",
+          phone: "+91 98765 43216",
+          hours: "Opening Soon",
+          slug: "mysore",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d76.654321!3d12.295810!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf706e5f5f5b0%3A0x4a4d468f3e5f5b0!2sMysore%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
+        }
+      ],
       "Bangalore": [
         {
-          id: "in-ka-blr-1",
-          name: "Little Dreamers Indiranagar",
-          address: "100ft Road, Indiranagar, Bangalore",
-          phone: "+91 88888 99999",
-          hours: "9:00 AM - 6:00 PM",
-          slug: "indiranagar-campus",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.2233913121413!2d77.40516037617656!3d28.502925975735742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sGeeksforGeeks!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+          id: "ka-bangalore",
+          name: "Little Dreamers at Cambridge Bangalore",
+          address: "Bangalore, Karnataka",
+          phone: "+91 98765 43217",
+          hours: "Opening Soon",
+          slug: "bangalore",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d77.594563!3d12.971598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae166e5f5f5b0%3A0x4a4d468f3e5f5b0!2sBangalore%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
+        }
+      ]
+    },
+    "Kerala": {
+      "Cochin": [
+        {
+          id: "kl-cochin",
+          name: "Little Dreamers at Cambridge Cochin",
+          address: "Cochin, Kerala",
+          phone: "+91 98765 43218",
+          hours: "Opening Soon",
+          slug: "cochin",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d76.271083!3d9.931233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d6e5f5f5b0%3A0x4a4d468f3e5f5b0!2sCochin%2C%20Kerala!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
+        }
+      ]
+    },
+    "Maharashtra": {
+      "Pune": [
+        {
+          id: "mh-pune",
+          name: "Little Dreamers at Cambridge Pune",
+          address: "Pune, Maharashtra",
+          phone: "+91 98765 43219",
+          hours: "Opening Soon",
+          slug: "pune",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d73.856743!3d18.520430!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c06e5f5f5b0%3A0x4a4d468f3e5f5b0!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
+        }
+      ],
+      "Kharghar, Navi Mumbai": [
+        {
+          id: "mh-kharghar",
+          name: "Little Dreamers at Cambridge Kharghar",
+          address: "Kharghar, Navi Mumbai",
+          phone: "+91 98765 43220",
+          hours: "Opening Soon",
+          slug: "kharghar",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d73.076543!3d19.033456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c16e5f5f5b0%3A0x4a4d468f3e5f5b0!2sKharghar%2C%20Navi%20Mumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
+        }
+      ]
+    },
+    "Tamil Nadu": {
+      "Chennai": [
+        {
+          id: "tn-chennai",
+          name: "Little Dreamers at Cambridge Chennai",
+          address: "Chennai, Tamil Nadu",
+          phone: "+91 98765 43221",
+          hours: "Opening Soon",
+          slug: "chennai",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d80.270718!3d13.082680!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52656e5f5f5b0%3A0x4a4d468f3e5f5b0!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
         }
       ]
     }
@@ -146,7 +222,6 @@ const WaveSeparator = ({ position, color }: { position: "top" | "bottom", color:
     </div>
   );
 };
-
 
 // --- HEADER COMPONENT ---
 const CentersHeader = () => {
@@ -177,7 +252,7 @@ const CentersHeader = () => {
         </h1>
         
         <p className="text-xl text-white/95 max-w-2xl mx-auto font-bold">
-          Explore our vibrant campuses across the globe.
+          Explore our vibrant campuses across India.
         </p>
       </div>
 
@@ -187,29 +262,54 @@ const CentersHeader = () => {
   );
 };
 
-
 // --- MAIN PAGE COMPONENT ---
 const CentersPage: React.FC = () => {
-  // State for Dropdowns
-  const [selectedCountry, setSelectedCountry] = useState<string>("USA");
-  const [selectedState, setSelectedState] = useState<string>("New York");
-  const [selectedCity, setSelectedCity] = useState<string>("Brooklyn");
   
-  // State for List & Map
+  // TAB STATE: 'open' | 'shortly'
+  // Default to 'shortly' since 'open' is empty, or you can default to 'open' to show empty state.
+  const [activeTab, setActiveTab] = useState<'open' | 'shortly'>('shortly');
+
+  // Filter States
+  const [selectedCountry, setSelectedCountry] = useState<string>("");
+  const [selectedState, setSelectedState] = useState<string>("");
+  const [selectedCity, setSelectedCity] = useState<string>("");
+  
+  // Result States
   const [centerList, setCenterList] = useState<Center[]>([]);
   const [activeCenter, setActiveCenter] = useState<Center | null>(null);
 
+  // Helper to get the correct DB based on tab
+  const activeDB = activeTab === 'open' ? admissionOpenDB : openingShortlyDB;
+
   // --- HANDLERS ---
 
-  // 1. Initial Load & Country Change
+  // 1. Reset Filters when Tab changes
   useEffect(() => {
+    // If we have data in this tab, select the first available
+    const countries = Object.keys(activeDB);
+    if (countries.length > 0) {
+      setSelectedCountry(countries[0]!); // Default to first country (e.g. India)
+    } else {
+      // Empty DB
+      setSelectedCountry("");
+      setSelectedState("");
+      setSelectedCity("");
+      setCenterList([]);
+      setActiveCenter(null);
+    }
+  }, [activeTab]);
+
+  // 2. Initial Load & Country Change
+  useEffect(() => {
+    if (!selectedCountry) return;
+
     // Default to first available state/city when country changes
-    const states = Object.keys(locationsDB[selectedCountry] || {});
+    const states = Object.keys(activeDB[selectedCountry] || {});
     if (states.length > 0) {
       const firstState = states[0];
       setSelectedState(firstState!);
       
-      const cities = Object.keys(locationsDB[selectedCountry]?.[firstState!] || {});
+      const cities = Object.keys(activeDB[selectedCountry]?.[firstState!] || {});
       if (cities.length > 0) {
         setSelectedCity(cities[0] ?? "");
       } else {
@@ -219,24 +319,24 @@ const CentersPage: React.FC = () => {
       setSelectedState("");
       setSelectedCity("");
     }
-  }, [selectedCountry]);
+  }, [selectedCountry, activeDB]);
 
-  // 2. State Change
+  // 3. State Change
   useEffect(() => {
     if (selectedCountry && selectedState) {
-        const cities = Object.keys(locationsDB[selectedCountry]?.[selectedState] || {});
+        const cities = Object.keys(activeDB[selectedCountry]?.[selectedState] || {});
         if (cities.length > 0) {
             setSelectedCity(cities[0] ?? "");
         } else {
             setSelectedCity("");
         }
     }
-  }, [selectedState, selectedCountry]);
+  }, [selectedState, selectedCountry, activeDB]);
 
-  // 3. City Change -> Update List
+  // 4. City Change -> Update List
   useEffect(() => {
     if (selectedCountry && selectedState && selectedCity) {
-        const centers = locationsDB[selectedCountry]?.[selectedState]?.[selectedCity] || [];
+        const centers = activeDB[selectedCountry]?.[selectedState]?.[selectedCity] || [];
         setCenterList(centers);
         if (centers.length > 0) {
             setActiveCenter(centers[0]!);
@@ -247,7 +347,7 @@ const CentersPage: React.FC = () => {
         setCenterList([]);
         setActiveCenter(null);
     }
-  }, [selectedCity, selectedState, selectedCountry]);
+  }, [selectedCity, selectedState, selectedCountry, activeDB]);
 
 
   return (
@@ -258,7 +358,7 @@ const CentersPage: React.FC = () => {
       {/* =========================================
           SECTION: FILTER & LIST (Teal Theme)
       ========================================= */}
-      <section className="relative w-full bg-teal-50 pt-4 pb-32 overflow-hidden">
+      <section className="relative w-full bg-teal-50 pt-8 pb-32 overflow-hidden">
         
         {/* Background Doodle */}
         <div className="absolute inset-0 pointer-events-none opacity-10 top-20">
@@ -269,68 +369,105 @@ const CentersPage: React.FC = () => {
 
         <div className="container mx-auto px-6 relative z-10">
            
-           {/* --- 3-STEP DROPDOWN FILTER BAR --- */}
-           <div className="max-w-5xl mx-auto mb-16 relative z-20">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white p-6 rounded-[2rem] shadow-xl border-4 border-teal-100">
-                  
-                  {/* 1. Country Dropdown */}
-                  <div className="relative">
-                      <label className="block text-teal-800 font-bold mb-2 ml-2 text-sm uppercase tracking-wide">Country</label>
-                      <div className="relative">
-                          <Globe className="absolute left-4 top-3.5 h-5 w-5 text-teal-500" />
-                          <select 
-                            value={selectedCountry}
-                            onChange={(e) => setSelectedCountry(e.target.value)}
-                            className="block w-full pl-12 pr-10 py-3 text-base border-2 border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200 appearance-none font-bold cursor-pointer transition-all"
-                          >
-                            {Object.keys(locationsDB).map((country) => (
-                                <option key={country} value={country}>{country}</option>
-                            ))}
-                          </select>
-                          <ChevronRight className="absolute right-4 top-3.5 h-5 w-5 text-teal-400 rotate-90 pointer-events-none" />
-                      </div>
-                  </div>
+           {/* --- TAB SWITCHER --- */}
+           <div className="flex justify-center mb-10">
+             <div className="bg-white p-2 rounded-full shadow-lg border-4 border-teal-100 inline-flex gap-2">
+               
+               <button 
+                 onClick={() => setActiveTab('open')}
+                 className={`
+                   px-6 py-3 rounded-full text-base font-bold transition-all duration-300 flex items-center gap-2
+                   ${activeTab === 'open' 
+                     ? 'bg-teal-500 text-white shadow-md' 
+                     : 'bg-transparent text-slate-500 hover:bg-slate-100'
+                   }
+                 `}
+               >
+                 <Sparkles className="w-5 h-5" />
+                 Admission Open
+               </button>
 
-                  {/* 2. State Dropdown */}
-                  <div className="relative">
-                      <label className="block text-teal-800 font-bold mb-2 ml-2 text-sm uppercase tracking-wide">State</label>
-                      <div className="relative">
-                          <MapPin className="absolute left-4 top-3.5 h-5 w-5 text-teal-500" />
-                          <select 
-                            value={selectedState}
-                            onChange={(e) => setSelectedState(e.target.value)}
-                            disabled={!selectedCountry}
-                            className="block w-full pl-12 pr-10 py-3 text-base border-2 border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200 appearance-none font-bold cursor-pointer transition-all disabled:opacity-50"
-                          >
-                            {selectedCountry && Object.keys(locationsDB[selectedCountry] || {}).map((state) => (
-                                <option key={state} value={state}>{state}</option>
-                            ))}
-                          </select>
-                          <ChevronRight className="absolute right-4 top-3.5 h-5 w-5 text-teal-400 rotate-90 pointer-events-none" />
-                      </div>
-                  </div>
+               <button 
+                 onClick={() => setActiveTab('shortly')}
+                 className={`
+                   px-6 py-3 rounded-full text-base font-bold transition-all duration-300 flex items-center gap-2
+                   ${activeTab === 'shortly' 
+                     ? 'bg-rose-500 text-white shadow-md' 
+                     : 'bg-transparent text-slate-500 hover:bg-slate-100'
+                   }
+                 `}
+               >
+                 <Timer className="w-5 h-5" />
+                 Opening Shortly
+               </button>
 
-                  {/* 3. City Dropdown */}
-                  <div className="relative">
-                      <label className="block text-teal-800 font-bold mb-2 ml-2 text-sm uppercase tracking-wide">City</label>
-                      <div className="relative">
-                          <Navigation className="absolute left-4 top-3.5 h-5 w-5 text-teal-500" />
-                          <select 
-                            value={selectedCity}
-                            onChange={(e) => setSelectedCity(e.target.value)}
-                            disabled={!selectedState}
-                            className="block w-full pl-12 pr-10 py-3 text-base border-2 border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200 appearance-none font-bold cursor-pointer transition-all disabled:opacity-50"
-                          >
-                            {selectedCountry && selectedState && Object.keys(locationsDB[selectedCountry]?.[selectedState] || {}).map((city) => (
-                                <option key={city} value={city}>{city}</option>
-                            ))}
-                          </select>
-                          <ChevronRight className="absolute right-4 top-3.5 h-5 w-5 text-teal-400 rotate-90 pointer-events-none" />
-                      </div>
-                  </div>
-
-              </div>
+             </div>
            </div>
+
+           {/* --- 3-STEP DROPDOWN FILTER BAR (Only if Data Exists) --- */}
+           {Object.keys(activeDB).length > 0 ? (
+             <div className="max-w-5xl mx-auto mb-16 relative z-20">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white p-6 rounded-[2rem] shadow-xl border-4 border-teal-100">
+                    
+                    {/* 1. Country Dropdown */}
+                    <div className="relative">
+                        <label className="block text-teal-800 font-bold mb-2 ml-2 text-sm uppercase tracking-wide">Country</label>
+                        <div className="relative">
+                            <Globe className="absolute left-4 top-3.5 h-5 w-5 text-teal-500" />
+                            <select 
+                              value={selectedCountry}
+                              onChange={(e) => setSelectedCountry(e.target.value)}
+                              className="block w-full pl-12 pr-10 py-3 text-base border-2 border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200 appearance-none font-bold cursor-pointer transition-all"
+                            >
+                              {Object.keys(activeDB).map((country) => (
+                                  <option key={country} value={country}>{country}</option>
+                              ))}
+                            </select>
+                            <ChevronRight className="absolute right-4 top-3.5 h-5 w-5 text-teal-400 rotate-90 pointer-events-none" />
+                        </div>
+                    </div>
+
+                    {/* 2. State Dropdown */}
+                    <div className="relative">
+                        <label className="block text-teal-800 font-bold mb-2 ml-2 text-sm uppercase tracking-wide">State</label>
+                        <div className="relative">
+                            <MapPin className="absolute left-4 top-3.5 h-5 w-5 text-teal-500" />
+                            <select 
+                              value={selectedState}
+                              onChange={(e) => setSelectedState(e.target.value)}
+                              disabled={!selectedCountry}
+                              className="block w-full pl-12 pr-10 py-3 text-base border-2 border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200 appearance-none font-bold cursor-pointer transition-all disabled:opacity-50"
+                            >
+                              {selectedCountry && Object.keys(activeDB[selectedCountry] || {}).map((state) => (
+                                  <option key={state} value={state}>{state}</option>
+                              ))}
+                            </select>
+                            <ChevronRight className="absolute right-4 top-3.5 h-5 w-5 text-teal-400 rotate-90 pointer-events-none" />
+                        </div>
+                    </div>
+
+                    {/* 3. City Dropdown */}
+                    <div className="relative">
+                        <label className="block text-teal-800 font-bold mb-2 ml-2 text-sm uppercase tracking-wide">City</label>
+                        <div className="relative">
+                            <Navigation className="absolute left-4 top-3.5 h-5 w-5 text-teal-500" />
+                            <select 
+                              value={selectedCity}
+                              onChange={(e) => setSelectedCity(e.target.value)}
+                              disabled={!selectedState}
+                              className="block w-full pl-12 pr-10 py-3 text-base border-2 border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200 appearance-none font-bold cursor-pointer transition-all disabled:opacity-50"
+                            >
+                              {selectedCountry && selectedState && Object.keys(activeDB[selectedCountry]?.[selectedState] || {}).map((city) => (
+                                  <option key={city} value={city}>{city}</option>
+                              ))}
+                            </select>
+                            <ChevronRight className="absolute right-4 top-3.5 h-5 w-5 text-teal-400 rotate-90 pointer-events-none" />
+                        </div>
+                    </div>
+
+                </div>
+             </div>
+           ) : null}
 
 
            {/* --- RESULTS SECTION --- */}
@@ -342,19 +479,19 @@ const CentersPage: React.FC = () => {
                      <AnimatePresence mode="wait">
                         {centerList.map((center, index) => (
                            <motion.div
-                              key={center.id}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              exit={{ opacity: 0, x: -20 }}
-                              transition={{ delay: index * 0.1 }}
-                              onClick={() => setActiveCenter(center)}
-                              className={`
-                                relative rounded-[2rem] p-8 cursor-pointer transition-all duration-300 border-4
-                                ${activeCenter?.id === center.id 
-                                   ? 'bg-white border-teal-400 shadow-2xl scale-[1.02]' 
-                                   : 'bg-white/60 border-transparent hover:bg-white hover:border-teal-200 hover:shadow-lg'
-                                }
-                              `}
+                             key={center.id}
+                             initial={{ opacity: 0, x: -20 }}
+                             animate={{ opacity: 1, x: 0 }}
+                             exit={{ opacity: 0, x: -20 }}
+                             transition={{ delay: index * 0.1 }}
+                             onClick={() => setActiveCenter(center)}
+                             className={`
+                               relative rounded-[2rem] p-8 cursor-pointer transition-all duration-300 border-4
+                               ${activeCenter?.id === center.id 
+                                 ? 'bg-white border-teal-400 shadow-2xl scale-[1.02]' 
+                                 : 'bg-white/60 border-transparent hover:bg-white hover:border-teal-200 hover:shadow-lg'
+                               }
+                             `}
                            >
                               <div className="flex items-start justify-between mb-4">
                                  <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center shrink-0">
@@ -362,13 +499,13 @@ const CentersPage: React.FC = () => {
                                  </div>
                                  {activeCenter?.id === center.id && (
                                     <span className="bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                                       Selected
+                                        Selected
                                     </span>
                                  )}
                               </div>
 
                               <h3 className={`text-2xl font-black text-slate-800 mb-2 ${titleFont.className}`}>
-                                 {center.name}
+                                  {center.name}
                               </h3>
                               
                               <div className="space-y-3 text-slate-600 font-medium">
@@ -434,11 +571,29 @@ const CentersPage: React.FC = () => {
            ) : (
                /* EMPTY STATE */
                <div className="text-center py-20 bg-white/50 rounded-[3rem] border-4 border-dashed border-teal-200">
-                   <div className="w-20 h-20 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                       <Search className="w-10 h-10 text-teal-400" />
+                   <div className="w-24 h-24 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                       <School className="w-10 h-10 text-teal-500" />
                    </div>
-                   <h3 className="text-xl font-bold text-slate-600">No centers found</h3>
-                   <p className="text-slate-500">Please select a location above to see our centers.</p>
+                   
+                   {activeTab === 'open' ? (
+                     <>
+                        <h3 className={`text-3xl font-black text-slate-700 mb-2 ${titleFont.className}`}>No Centers Available</h3>
+                        <p className="text-slate-500 text-lg max-w-md mx-auto">
+                          Currently, there are no centers accepting admissions. Please check back later or view our upcoming centers.
+                        </p>
+                        <button 
+                           onClick={() => setActiveTab('shortly')}
+                           className="mt-6 bg-rose-500 text-white px-8 py-3 rounded-xl font-bold hover:bg-rose-600 transition-colors shadow-lg"
+                        >
+                          View Upcoming Centers
+                        </button>
+                     </>
+                   ) : (
+                     <>
+                        <h3 className="text-xl font-bold text-slate-600">No upcoming centers found</h3>
+                        <p className="text-slate-500">Please select a location above to see where we are opening next.</p>
+                     </>
+                   )}
                </div>
            )}
 

@@ -6,6 +6,7 @@ import ProgramsSection from '@/components/ProgramsNew';
 import BlogSection from '@/components/BlogComponents';
 import Homecta from '@/components/HomeCta';
 import Daycare from '@/components/Daycare';
+import Faqsection from '@/components/Faqsection';
 
 export default function Page() {
   return (
@@ -17,6 +18,8 @@ export default function Page() {
               <Programs/>
         <Homecta/>  
       <BlogSection/>
+      <Faqsection/>
+
     </div>
   );
 }

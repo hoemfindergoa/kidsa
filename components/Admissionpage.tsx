@@ -282,8 +282,8 @@ export default function AdmissionPage({
                   >
                     <option value="Little Explorers - Playgroup (2 - 3 Years)">Little Explorers - Playgroup (2 - 3 Years)</option>
                     <option value="Curious Learners - Nursery (3 - 4 Years)">Curious Learners - Nursery (3 - 4 Years)</option>
-                    <option value="Creative Thinkers - Junior Kindergarten (4 - 5 Years)">Creative Thinkers - Junior Kindergarten (4 - 5 Years)</option>
-                    <option value="Future Leaders - Senior Kindergarten (5 - 6 Years)">Future Leaders - Senior Kindergarten (5 - 6 Years)</option>
+                    <option value="Creative Thinkers - Junior Kindergarten (4 - 5 Years)">Creative Thinkers - Lower Kindergarten (4 - 5 Years)</option>
+                    <option value="Future Leaders - Senior Kindergarten (5 - 6 Years)">Future Leaders - Upper Kindergarten (5 - 6 Years)</option>
                     <option value="Daycare">Daycare</option>
                   </select>
                   <ChevronRight className="absolute right-4 top-3.5 w-5 h-5 text-slate-400 rotate-90 pointer-events-none" />
@@ -386,7 +386,6 @@ export default function AdmissionPage({
             <h2 className={`text-4xl md:text-5xl font-black text-sky-900 mb-2 ${titleFont.className}`}>
               Age Criteria
             </h2>
-            <p className="text-sky-800 text-lg">Age eligibility as of June 1st, 2025</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

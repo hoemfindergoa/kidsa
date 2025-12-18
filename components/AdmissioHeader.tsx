@@ -3,14 +3,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Home, ChevronRight, Star, Heart, Cloud } from "lucide-react";
-import Image from "next/image"; // 1. Import Next.js Image component
-import Girlonwing from "../public/boywithelephent.png"; // Ensure path is correct for your project structure
+import Image from "next/image"; 
+import Girlonwing from "../public/boywithelephent.png"; 
 import { Titan_One, Nunito } from 'next/font/google';
-
-
-// Ensure you have these fonts in your layout or globals.css
-// @import url('https://fonts.googleapis.com/css2?family=Chewy&family=Baloo+2:wght@400;700&display=swap');
-
 
 const titleFont = Titan_One({ 
   weight: '400', 
@@ -24,13 +19,9 @@ const bodyFont = Nunito({
   display: 'swap',
 });
 
-// Ensure you have these fonts in your layout or globals.css
-// @import url('https://fonts.googleapis.com/css2?family=Chewy&family=Baloo+2:wght@400;700&display=swap');
-
 const Admissionheader = () => {
   return (
-    // Adjusted min-h for better spacing on desktop
-    <header className="relative w-full h-auto md:h-[60vh] min-h-[500px] bg-violet-700 flex items-center justify-center overflow-hidden pt-20 pb-32 md:py-0">
+    <header className={`relative w-full h-auto md:h-[60vh] min-h-[500px] bg-violet-600 flex items-center justify-center overflow-hidden pt-20 pb-32 md:py-0 ${bodyFont.className}`}>
       
       {/* --- BACKGROUND DECORATIONS --- */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -40,32 +31,32 @@ const Admissionheader = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1 }}
-            className="absolute -top-20 -left-20 w-96 h-96 bg-[#9BC6C0]/20 rounded-full blur-3xl"
+            className="absolute -top-20 -left-20 w-96 h-96 bg-teal-400/20 rounded-full blur-3xl"
         />
         
-        {/* Large Pink Circle - Shifted left slightly to avoid image overlap */}
+        {/* Large Pink Circle */}
         <motion.div 
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="absolute top-10 right-[20%] w-80 h-80 bg-[#D33060]/10 rounded-full blur-3xl"
+            className="absolute top-10 right-[20%] w-80 h-80 bg-rose-400/20 rounded-full blur-3xl"
         />
 
         {/* Floating Clouds */}
         <motion.div 
            animate={{ x: [0, 20, 0] }}
            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-           className="absolute top-[15%] left-[10%] text-white opacity-80"
+           className="absolute top-[15%] left-[10%] text-white opacity-20"
         >
-            <Cloud size={64} fill="white" className="drop-shadow-sm" />
+            <Cloud size={64} fill="white" />
         </motion.div>
 
         <motion.div 
            animate={{ x: [0, -30, 0] }}
            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-           className="absolute top-[25%] right-[35%] text-white opacity-60"
+           className="absolute top-[25%] right-[35%] text-white opacity-10"
         >
-            <Cloud size={48} fill="white" className="drop-shadow-sm" />
+            <Cloud size={48} fill="white" />
         </motion.div>
       </div>
 
@@ -79,13 +70,12 @@ const Admissionheader = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                // Removed center alignment for desktop
-                className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-sm border-2 border-white px-5 py-2 rounded-full mb-8 shadow-sm"
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-5 py-2 rounded-full mb-8 shadow-sm"
             >
-                <Home className="w-4 h-4 text-[#D33060]" />
-                <span className="text-[#3E3431] font-bold text-sm hover:text-[#D33060] transition-colors cursor-pointer">Home</span>
-                <ChevronRight className="w-4 h-4 text-[#9BC6C0]" />
-                <span className="text-[#D33060] font-bold text-sm">Admission</span>
+                <Home className="w-4 h-4 text-yellow-300" />
+                <span className="text-violet-100 font-bold text-sm hover:text-white transition-colors cursor-pointer">Home</span>
+                <ChevronRight className="w-4 h-4 text-white/50" />
+                <span className="text-white font-bold text-sm">Admission</span>
             </motion.div>
 
             {/* Title */}
@@ -93,12 +83,26 @@ const Admissionheader = () => {
                 initial={{ opacity: 0, scale: 0.9, x: -50 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 transition={{ duration: 0.5, type: "spring" }}
-                className={`text-6xl lg:text-7xl text-black mb-2 drop-shadow-sm leading-tight ${titleFont.className}`}
+                className={`text-6xl lg:text-7xl text-white mb-2 drop-shadow-md leading-tight ${titleFont.className}`}
             >
-           Join Our
-            <span className="text-[#D33060] inline-block ml-4 relative">
-                Family
-            </span>
+               Join Our
+               <div className="relative inline-block ml-4">
+                 <span className="text-yellow-300 relative z-10">Family</span>
+                 
+                 {/* Decorative Wavy Underline */}
+                 <svg className="absolute -bottom-2 left-0 w-full h-3 text-white/80 z-0" viewBox="0 0 100 10" preserveAspectRatio="none">
+                    <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="4" fill="none" />
+                 </svg>
+
+                 {/* Floating Heart Icon */}
+                 <motion.div 
+                   animate={{ y: [0, -5, 0], rotate: [0, 10, 0] }}
+                   transition={{ duration: 2, repeat: Infinity }}
+                   className="absolute -top-6 -right-6 text-rose-400"
+                 >
+                    <Heart fill="currentColor" size={32} />
+                 </motion.div>
+               </div>
             </motion.h1>
 
             {/* Subtitle */}
@@ -106,35 +110,32 @@ const Admissionheader = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                // Adjusted max-width and margin for left alignment
-                className="text-lg lg:text-3xl text-black font-medium max-w-xl mx-auto md:mx-0 leading-relaxed mt-4"
-                style={{ fontFamily: '"Baloo 2", cursive' }}
+                className="text-lg lg:text-2xl text-violet-100 font-semibold max-w-xl mx-auto md:mx-0 leading-relaxed mt-6"
             >
-           Admissions are now open for the 2025-2026 Academic Session.
+               Admissions are now open for the <span className="text-white font-bold">2025-2026</span> Academic Session.
             </motion.p>
         </div>
 
         {/* --- RIGHT COLUMN: IMAGE --- */}
-        {/* Hidden on small mobile, slides in on desktop */}
         <motion.div 
             initial={{ opacity: 0, x: 100 }}
             animate={{ 
                 opacity: 1, 
                 x: 0,
-                y: [0, -15, 0] // Adds a gentle floating effect to the girl
+                y: [0, -15, 0] 
             }}
             transition={{ 
                 opacity: { duration: 0.8, delay: 0.3 },
                 x: { type: "spring", stiffness: 50, delay: 0.3 },
-                y: { duration: 6, repeat: Infinity, ease: "easeInOut" } // Floating animation
+                y: { duration: 6, repeat: Infinity, ease: "easeInOut" } 
             }}
-            className=" md:block relative z-20 mt-10 md:mt-0"
+            className="md:block relative z-20 mt-10 md:mt-0"
         >
             <Image 
                 src={Girlonwing} 
                 alt="Little Dreamer Girl Flying"
-                priority // Loads image quickly as it's above the fold
-                className="w-full ml-[2px] md:ml-[200px] h-[250px] md:h-auto max-h-[500px] object-contain drop-shadow-xl transform rotate-3 hover:rotate-0 transition-transform duration-500"
+                priority 
+                className="w-full ml-[2px] md:ml-[200px] h-[250px] md:h-auto max-h-[500px] object-contain drop-shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500"
             />
         </motion.div>
 
@@ -149,9 +150,10 @@ const Admissionheader = () => {
             viewBox="0 0 1200 120" 
             preserveAspectRatio="none"
         >
+            {/* Changed fill to match the background color of the next section (violet-300 based on previous context) */}
             <path 
                 d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
-                className="fill-white"
+                className="fill-white" 
             ></path>
         </svg>
       </div>
