@@ -151,8 +151,9 @@ const ContactPage: React.FC = () => {
                 viewport={{ once: true }}
                 className="w-full h-[400px] rounded-[3rem] overflow-hidden border-8 border-blue-50 shadow-2xl relative"
               >
+
                  <iframe 
-                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.2233913121413!2d77.40516037617656!3d28.502925975735742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sGeeksforGeeks!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                   src="https://maps.google.com/maps?width=600&height=400&hl=en&q=pitampura%20delhi&t=p&z=14&ie=UTF8&iwloc=B&output=embed"
                    width="100%" 
                    height="100%" 
                    style={{ border: 0 }} 

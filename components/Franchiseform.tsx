@@ -203,7 +203,7 @@ export default function FranchisePage({
                 Why Franchise With Us?
               </span>
               <h2 className={`text-4xl md:text-5xl font-black text-slate-900 mb-6 mt-4 ${titleFont.className}`}>
-                The Little Dreamers <span className="text-emerald-500">Advantage</span>
+                The Little Dreamers At Cambridge <span className="text-emerald-500">Advantage</span>
               </h2>
               <p className="text-slate-500 text-lg max-w-2xl mx-auto">
                  We offer a proven business model designed for high profitability and long-term growth.

@@ -390,10 +390,10 @@ export default function AdmissionPage({
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { title: "Little Explorers  Playgroup", age: "2 - 3 Years", icon: Baby, color: "bg-rose-400" },
-              { title: "Curious Learners  Nursery", age: "3 - 4 Years", icon: Smile, color: "bg-amber-400" },
-              { title: "Creative Thinkers  Junior kindergarten", age: "4 - 5 Years", icon: BookOpen, color: "bg-emerald-400" },
-              { title: "Future Leaders      Senior kindergarten", age: "5 - 6 Years", icon: GraduationCap, color: "bg-indigo-400" },
+              { title: "Little Explorers", age: " (Playgroup # 2 - 3 Years)", icon: Baby, color: "bg-rose-400" },
+              { title: "Curious Learners  ", age: "(Nursery  # 3 - 4 Years)", icon: Smile, color: "bg-amber-400" },
+              { title: "Creative Thinkers ", age: "(Junior kindergarten # 4 - 5 Years)", icon: BookOpen, color: "bg-emerald-400" },
+              { title: "Future Leaders     ", age: "(Senior kindergarten # 5 - 6 Years)", icon: GraduationCap, color: "bg-indigo-400" },
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -422,7 +422,7 @@ export default function AdmissionPage({
           <div className="max-w-4xl mx-auto bg-rose-50 rounded-[3rem] p-8 md:p-12 border-4 border-rose-100 shadow-sm relative overflow-hidden">
             {/* Background Doodle inside card */}
             <div className="absolute -right-20 -bottom-20 opacity-10">
-              <FileText className="w-96 h-96 text-rose-500" />
+              {/* <FileText className="w-96 h-96 text-rose-500" /> */}
             </div>
 
             <h2 className={`text-3xl md:text-4xl font-black text-rose-900 mb-6 text-center ${titleFont.className}`}>
