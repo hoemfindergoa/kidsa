@@ -98,7 +98,7 @@ const Footer = () => {
                 <Image 
                   src={logo} 
                   alt="Little Dreamers Logo" 
-                  className="w-[150px] h-auto object-contain"
+                  className="w-[180px] h-auto object-contain"
                 />
               </div>
             </Link>
@@ -228,7 +228,7 @@ const Footer = () => {
         >
           <p className="text-sm text-purple-200 font-bold flex flex-wrap justify-center items-center gap-1">
               © 2026 Little Dreamers At Cambridge. Made with <Heart className="w-4 h-4 text-[#f7a7b4] fill-[#f7a7b4] animate-bounce mx-1"/> by 
-              <a href="https://scalesaas.ashishrohilla.co.in/" target="_blank" rel="noreferrer" className={`ml-1 text-[#fad06e] hover:text-white transition-colors underline decoration-dotted underline-offset-4 ${handwritingFont.className} text-xl`}>
+              <a href="https://saasscale.in/" target="_blank" rel="noreferrer" className={`ml-1 text-[#fad06e] hover:text-white transition-colors underline decoration-dotted underline-offset-4 ${handwritingFont.className} text-xl`}>
                 Scale saas
               </a>
           </p>

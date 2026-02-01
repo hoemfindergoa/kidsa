@@ -92,11 +92,11 @@ const Navbar = () => {
 
           {/* --- LOGO --- */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-40 group-hover:rotate-12 transition-transform duration-300">
+            <div className="relative w-[300px] group-hover:rotate-6 transition-transform duration-300">
               <Image 
                 src={logo} 
-                width={200}  
-                height={200}
+                width={240}  
+                height={240}
                 alt="Little Dreamers Logo"
                 className="object-contain"
               />
