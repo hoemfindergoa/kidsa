@@ -37,7 +37,6 @@ type Center = {
   id: string;
   name: string;
   address: string;
-  phone: string;
   hours: string;
   mapEmbed: string; 
   slug: string;
@@ -59,13 +58,24 @@ const admissionOpenDB: LocationData = {};
 // 2. Opening Shortly (Data from Image)
 const openingShortlyDB: LocationData = {
   "India": {
+    "Andhra Pradesh": {
+      "Vijayawada": [
+        {
+          id: "ap-vijayawada",
+          name: "Little Dreamers at Cambridge Vijayawada",
+          address: "Vijayawada, Andhra Pradesh",
+          hours: "Opening Soon",
+          slug: "vijayawada",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.678456834!2d77.106584!3d28.647567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d036e5f5f5b0%3A0x4a4d468f3e5f5b0!2sTagore%20Garden%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin2"
+        }
+      ]
+    },
     "Delhi": {
       "Patel Nagar": [
         {
           id: "dl-patel-nagar",
           name: "Little Dreamers at Cambridge Patel Nagar",
           address: "Patel Nagar, Delhi",
-          phone: "+91 98765 43210",
           hours: "Opening Soon",
           slug: "patel-nagar",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14008.114688942263!2d77.16109965!3d28.64936355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d029c5f402c8b%3A0x4a4d468f3e5f5b0!2sPatel%20Nagar%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
@@ -76,7 +86,7 @@ const openingShortlyDB: LocationData = {
           id: "dl-tagore-garden",
           name: "Little Dreamers at Cambridge Tagore Garden",
           address: "Tagore Garden, Delhi",
-          phone: "+91 98765 43211",
+          
           hours: "Opening Soon",
           slug: "tagore-garden",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.678456834!2d77.106584!3d28.647567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d036e5f5f5b0%3A0x4a4d468f3e5f5b0!2sTagore%20Garden%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
@@ -89,7 +99,6 @@ const openingShortlyDB: LocationData = {
           id: "hr-karnal",
           name: "Little Dreamers at Cambridge Karnal",
           address: "Karnal, Haryana",
-          phone: "+91 98765 43212",
           hours: "Opening Soon",
           slug: "karnal",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d76.987654!3d29.685743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e386e5f5f5b0%3A0x4a4d468f3e5f5b0!2sKarnal%2C%20Haryana!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
@@ -100,7 +109,6 @@ const openingShortlyDB: LocationData = {
           id: "hr-ambala",
           name: "Little Dreamers at Cambridge Ambala",
           address: "Ambala, Haryana",
-          phone: "+91 98765 43213",
           hours: "Opening Soon",
           slug: "ambala",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d76.776543!3d30.378901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fb68e5f5f5b0%3A0x4a4d468f3e5f5b0!2sAmbala%2C%20Haryana!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
@@ -113,7 +121,6 @@ const openingShortlyDB: LocationData = {
           id: "jm-kathua",
           name: "Little Dreamers at Cambridge Kathua",
           address: "Kathua, Jammu",
-          phone: "+91 98765 43214",
           hours: "Opening Soon",
           slug: "kathua",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d75.512345!3d32.376543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391c786e5f5f5b0%3A0x4a4d468f3e5f5b0!2sKathua%2C%20Jammu!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
@@ -124,7 +131,6 @@ const openingShortlyDB: LocationData = {
           id: "jm-samba",
           name: "Little Dreamers at Cambridge Samba",
           address: "Samba, Jammu",
-          phone: "+91 98765 43215",
           hours: "Opening Soon",
           slug: "samba",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d75.123456!3d32.567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391c686e5f5f5b0%3A0x4a4d468f3e5f5b0!2sSamba%2C%20Jammu!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
@@ -137,7 +143,6 @@ const openingShortlyDB: LocationData = {
           id: "ka-mysore",
           name: "Little Dreamers at Cambridge Mysore",
           address: "Mysore, Karnataka",
-          phone: "+91 98765 43216",
           hours: "Opening Soon",
           slug: "mysore",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d76.654321!3d12.295810!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf706e5f5f5b0%3A0x4a4d468f3e5f5b0!2sMysore%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
@@ -148,7 +153,6 @@ const openingShortlyDB: LocationData = {
           id: "ka-bangalore",
           name: "Little Dreamers at Cambridge Bangalore",
           address: "Bangalore, Karnataka",
-          phone: "+91 98765 43217",
           hours: "Opening Soon",
           slug: "bangalore",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d77.594563!3d12.971598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae166e5f5f5b0%3A0x4a4d468f3e5f5b0!2sBangalore%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
@@ -161,7 +165,6 @@ const openingShortlyDB: LocationData = {
           id: "kl-cochin",
           name: "Little Dreamers at Cambridge Cochin",
           address: "Cochin, Kerala",
-          phone: "+91 98765 43218",
           hours: "Opening Soon",
           slug: "cochin",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d76.271083!3d9.931233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d6e5f5f5b0%3A0x4a4d468f3e5f5b0!2sCochin%2C%20Kerala!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
@@ -174,21 +177,31 @@ const openingShortlyDB: LocationData = {
           id: "mh-pune",
           name: "Little Dreamers at Cambridge Pune",
           address: "Pune, Maharashtra",
-          phone: "+91 98765 43219",
           hours: "Opening Soon",
           slug: "pune",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d73.856743!3d18.520430!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c06e5f5f5b0%3A0x4a4d468f3e5f5b0!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
         }
       ],
-      "Kharghar, Navi Mumbai": [
+      "Navi Mumbai": [
         {
-          id: "mh-kharghar",
-          name: "Little Dreamers at Cambridge Kharghar",
-          address: "Kharghar, Navi Mumbai",
-          phone: "+91 98765 43220",
+          id: "mh-navi-mumbai",
+          name: "Little Dreamers at Cambridge Navi Mumbai",
+          address: "Navi Mumbai, Maharashtra",
           hours: "Opening Soon",
-          slug: "kharghar",
+          slug: "navi-mumbai",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d73.076543!3d19.033456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c16e5f5f5b0%3A0x4a4d468f3e5f5b0!2sKharghar%2C%20Navi%20Mumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
+        }
+      ]
+    },
+    "Punjab": {
+      "Tarn Taran": [
+        {
+          id: "pb-tarn-taran",
+          name: "Little Dreamers at Cambridge Tarn Taran",
+          address: "Tarn Taran, Punjab",
+          hours: "Opening Soon",
+          slug: "tarn-taran",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.678456834!2d77.106584!3d28.647567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d036e5f5f5b0%3A0x4a4d468f3e5f5b0!2sTagore%20Garden%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin3"
         }
       ]
     },
@@ -198,10 +211,21 @@ const openingShortlyDB: LocationData = {
           id: "tn-chennai",
           name: "Little Dreamers at Cambridge Chennai",
           address: "Chennai, Tamil Nadu",
-          phone: "+91 98765 43221",
           hours: "Opening Soon",
           slug: "chennai",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d80.270718!3d13.082680!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52656e5f5f5b0%3A0x4a4d468f3e5f5b0!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
+        }
+      ]
+    },
+    "West Bengal": {
+      "Bagnan": [
+        {
+          id: "wb-bagnan",
+          name: "Little Dreamers at Cambridge Bagnan",
+          address: "Bagnan, West Bengal",
+          hours: "Opening Soon",
+          slug: "bagnan",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.678456834!2d77.106584!3d28.647567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d036e5f5f5b0%3A0x4a4d468f3e5f5b0!2sTagore%20Garden%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin4"
         }
       ]
     }
@@ -514,10 +538,6 @@ const CentersPage: React.FC = () => {
                                     <span>{center.address}</span>
                                  </div>
                                  <div className="flex items-center gap-2">
-                                    <Phone className="w-5 h-5 text-teal-500 shrink-0" />
-                                    <span>{center.phone}</span>
-                                 </div>
-                                 <div className="flex items-center gap-2">
                                     <Clock className="w-5 h-5 text-teal-500 shrink-0" />
                                     <span>{center.hours}</span>
                                  </div>
@@ -526,11 +546,11 @@ const CentersPage: React.FC = () => {
                               <div className="mt-6 pt-6 border-t-2 border-slate-100 flex items-center justify-between">
                                  <span className="text-sm font-bold text-slate-400">Tap to see map 👉</span>
                                  
-                                 <Link href={`/centers/${center.slug}`}>
+                                 {/* <Link href={`/centers/${center.slug}`}>
                                    <button className="bg-slate-800 hover:bg-black text-white px-6 py-2 rounded-full font-bold text-sm flex items-center gap-2 transition-colors">
                                       Visit Page <ArrowRight className="w-4 h-4" />
                                    </button>
-                                 </Link>
+                                 </Link> */}
                               </div>
                            </motion.div>
                         ))}

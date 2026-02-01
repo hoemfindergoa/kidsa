@@ -20,7 +20,6 @@ export async function createEmail(data: {
 		.insert(data)
 		.single();
 
-	console.log("Email result:", admissionresult);
 
     return admissionresult;
 }

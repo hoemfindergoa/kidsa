@@ -7,6 +7,7 @@ import BlogSection from '@/components/BlogComponents';
 import Homecta from '@/components/HomeCta';
 import Daycare from '@/components/Daycare';
 import Faqsection from '@/components/Faqsection';
+import OurOffices from '@/components/OurOffices';
 
 export default function Page() {
   return (
@@ -17,6 +18,7 @@ export default function Page() {
         <Daycare/>
               <Programs/>
         <Homecta/>  
+        <OurOffices/>
       <BlogSection/>
       <Faqsection/>
 

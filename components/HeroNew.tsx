@@ -117,7 +117,7 @@ const Hero = () => {
             className="inline-flex  items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-1.5 rounded-full shadow-md mb-6"
           >
             <Sparkles className="w-4 h-4 text-yellow-200 fill-yellow-200" />
-            <span className={`text-xs font-bold text-white tracking-widest uppercase ${bodyFont.className}`}>Admissions Open 2025</span>
+            <span className={`text-xs font-bold text-white tracking-widest uppercase ${bodyFont.className}`}>Admissions Open 2026</span>
           </motion.div>
 
           {/* Heading */}

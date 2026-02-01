@@ -257,6 +257,59 @@ const centersDB: Record<string, CenterDetails> = {
     image: "bg-orange-200",
     theme: "from-orange-400 via-amber-400 to-yellow-400",
     status: "Opening Soon"
+  },
+  // --- ANDHRA PRADESH ---
+  "vijayawada": {
+    name: "Little Dreamers At Cambridge Vijayawada",
+    city: "Vijayawada",
+    state: "Andhra Pradesh",
+    address: "Vijayawada, Andhra Pradesh 520001",
+    phone: "+91 98765 43222",
+    email: "vijayawada@littledreamersatcambridge.com",
+    hours: "Opening Soon",
+    director: "Ms. Lakshmi Prasanna",
+    description: "Our upcoming Vijayawada center is set to provide a world-class learning experience with a focus on cognitive development and creative expression.",
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.2233913121413!2d77.40516037617656!3d28.502925975735742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sGeeksforGeeks!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
+    facilities: ["Cognitive Lab", "Creative Studio", "Play Zone", "CCTV", "AC Rooms"],
+    image: "bg-teal-200",
+    theme: "from-teal-400 via-cyan-400 to-blue-400",
+    status: "Opening Soon"
+  },
+
+  // --- PUNJAB ---
+  "tarn-taran": {
+    name: "Little Dreamers At Cambridge Tarn Taran",
+    city: "Tarn Taran",
+    state: "Punjab",
+    address: "Tarn Taran Sahib, Punjab 143401",
+    phone: "+91 98765 43223",
+    email: "tarntaran@littledreamersatcambridge.com",
+    hours: "Opening Soon",
+    director: "Mr. Gurpreet Singh",
+    description: "Bringing high-quality early childhood education to Tarn Taran. Our center emphasizes interactive learning and community values.",
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.2233913121413!2d77.40516037617656!3d28.502925975735742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sGeeksforGeeks!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
+    facilities: ["Activity Hub", "Community Hall", "Safe Play Area", "Digital Classroom", "Transport"],
+    image: "bg-orange-200",
+    theme: "from-orange-400 via-red-400 to-rose-400",
+    status: "Opening Soon"
+  },
+
+  // --- WEST BENGAL ---
+  "bagnan": {
+    name: "Little Dreamers At Cambridge Bagnan",
+    city: "Bagnan",
+    state: "West Bengal",
+    address: "Bagnan, Howrah, West Bengal 711303",
+    phone: "+91 98765 43224",
+    email: "bagnan@littledreamersatcambridge.com",
+    hours: "Opening Soon",
+    director: "Ms. Soma Mukherjee",
+    description: "Our Bagnan center offers a peaceful and engaging environment for children to explore and grow, featuring a lush garden and modern play equipment.",
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.2233913121413!2d77.40516037617656!3d28.502925975735742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sGeeksforGeeks!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
+    facilities: ["Garden Play Area", "Science Lab", "Art & Craft Room", "Secure Entry", "Daycare"],
+    image: "bg-emerald-200",
+    theme: "from-emerald-400 via-green-400 to-lime-400",
+    status: "Opening Soon"
   }
 };
 

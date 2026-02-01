@@ -227,7 +227,7 @@ const Footer = () => {
           className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4"
         >
           <p className="text-sm text-purple-200 font-bold flex flex-wrap justify-center items-center gap-1">
-              © 2025 Little Dreamers At Cambridge. Made with <Heart className="w-4 h-4 text-[#f7a7b4] fill-[#f7a7b4] animate-bounce mx-1"/> by 
+              © 2026 Little Dreamers At Cambridge. Made with <Heart className="w-4 h-4 text-[#f7a7b4] fill-[#f7a7b4] animate-bounce mx-1"/> by 
               <a href="https://scalesaas.ashishrohilla.co.in/" target="_blank" rel="noreferrer" className={`ml-1 text-[#fad06e] hover:text-white transition-colors underline decoration-dotted underline-offset-4 ${handwritingFont.className} text-xl`}>
                 Scale saas
               </a>
