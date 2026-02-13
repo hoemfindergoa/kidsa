@@ -42,6 +42,16 @@ type Center = {
   slug: string;
 };
 
+type Centeropened = {
+  id: string;
+  name: string;
+  address: string;
+  hours: string;
+  mapEmbed: string; 
+  phone: string;
+  slug: string;
+};
+
 type LocationData = {
   [country: string]: {
     [state: string]: {
@@ -50,11 +60,82 @@ type LocationData = {
   };
 };
 
+type LocationDataOPened = {
+  [country: string]: {
+    [state: string]: {
+      [city: string]: Centeropened[];
+    };
+  };
+};
+
 // --- DATASETS ---
 
 // 1. Admission Open (Currently Empty)
-const admissionOpenDB: LocationData = {};
-
+const admissionOpenDB: LocationDataOPened = {
+  "India": {
+    "Andhra Pradesh": {
+      "Vijayawada": [
+        {
+          id: "ap-kanuru-vijayawada",
+          name: "Little Dreamers at Cambridge Kanuru",
+          address: "D No. 14-11-219, Ashok Nagar, Kanuru, Vijayawada, Andhra Pradesh",
+          hours: "Admissions Open",
+          slug: "kanuru-vijayawada",
+          phone: "+91 9999 6060 90",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.4673392471!2d80.6865!3d16.4882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35fba2683070ff%3A0x671f2515096a60e9!2sAshok%20Nagar%2C%20Kanuru%2C%20Vijayawada!5e0!3m2!1sen!2sin!4v1700000000000"
+        }
+      ]
+    },
+    "Punjab": {
+      "Tarn Taran": [
+        {
+          id: "pb-tarn-taran-mohalla",
+          name: "Little Dreamers at Cambridge Mohalla Nanaksar",
+          address: "Rohi Kanda, Mohalla Nanaksar, Amritsar Road, Tarn Taran, Punjab - 143401",
+          hours: "Admissions Open",
+          slug: "mohalla-nanaksar-tarn-taran",
+          phone: "+91 9999 6060 90",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3408.0825310651!2d74.9185!3d31.4516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39190987f6517953%3A0x868c67c53d105a3e!2sMohalla%20Nanaksar%2C%20Tarn%20Taran!5e0!3m2!1sen!2sin!4v1700000000001"
+        }
+      ],
+      "Ferozepur": [
+        {
+          id: "pb-mallanwala",
+          name: "Little Dreamers at Cambridge Mallanwala",
+          address: "Ward No. 4, VPO Mallan Wala Khas, Ferozepur, Punjab",
+          hours: "Admissions Open",
+          slug: "mallanwala",
+          phone: "+91 9999 6060 90",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3412.3562!2d74.9452!3d31.1235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3919bb123456789%3A0xabcdef123456789!2sMallanwala%20Khas%2C%20Ferozepur!5e0!3m2!1sen!2sin!4v1700000000002"
+        }
+      ],
+      "Ludhiana": [
+        {
+          id: "pb-ludhiana-dugri",
+          name: "Little Dreamers at Cambridge Dugri",
+          address: "H. No. 2005, HIG Flats Road, Dugri Phase 2, Ludhiana, Punjab - 141003",
+          hours: "Admissions Open",
+          slug: "dugri-phase-2-ludhiana",
+          phone: "+91 9999 6060 90",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3424.4371!2d75.8342!3d30.8665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a82643714b9b7%3A0x7d97e20f038f4a13!2sDugri%20Phase%202%2C%20Ludhiana!5e0!3m2!1sen!2sin!4v1700000000003"
+        }
+      ]
+    },
+    "West Bengal": {
+      "Bagnan": [
+        {
+          id: "wb-bagnan-agunshi",
+          name: "Little Dreamers at Cambridge Bagnan",
+          address: "Village + PO - Agunshi, PS - Bagnan, District- Howrah, West Bengal - 711303",
+          hours: "Admissions Open",
+          slug: "bagnan-west-bengal",
+          phone: "+91 9999 6060 90",
+          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.2341!2d87.9542!3d22.4665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a029705a3967923%3A0xa97669359e19e07e!2sAgunshi%2C%20Bagnan%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1700000000004"
+        }
+      ]
+    }
+  }
+};
 // 2. Opening Shortly (Data from Image)
 const openingShortlyDB: LocationData = {
   "India": {
@@ -104,16 +185,6 @@ const openingShortlyDB: LocationData = {
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d76.987654!3d29.685743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e386e5f5f5b0%3A0x4a4d468f3e5f5b0!2sKarnal%2C%20Haryana!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
         }
       ],
-      "Ambala": [
-        {
-          id: "hr-ambala",
-          name: "Little Dreamers at Cambridge Ambala",
-          address: "Ambala, Haryana",
-          hours: "Opening Soon",
-          slug: "ambala",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d76.776543!3d30.378901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fb68e5f5f5b0%3A0x4a4d468f3e5f5b0!2sAmbala%2C%20Haryana!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
-        }
-      ]
     },
     "Jammu": {
       "Kathua": [
@@ -138,16 +209,6 @@ const openingShortlyDB: LocationData = {
       ]
     },
     "Karnataka": {
-      "Mysore": [
-        {
-          id: "ka-mysore",
-          name: "Little Dreamers at Cambridge Mysore",
-          address: "Mysore, Karnataka",
-          hours: "Opening Soon",
-          slug: "mysore",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d76.654321!3d12.295810!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf706e5f5f5b0%3A0x4a4d468f3e5f5b0!2sMysore%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
-        }
-      ],
       "Bangalore": [
         {
           id: "ka-bangalore",
@@ -156,18 +217,6 @@ const openingShortlyDB: LocationData = {
           hours: "Opening Soon",
           slug: "bangalore",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d77.594563!3d12.971598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae166e5f5f5b0%3A0x4a4d468f3e5f5b0!2sBangalore%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
-        }
-      ]
-    },
-    "Kerala": {
-      "Cochin": [
-        {
-          id: "kl-cochin",
-          name: "Little Dreamers at Cambridge Cochin",
-          address: "Cochin, Kerala",
-          hours: "Opening Soon",
-          slug: "cochin",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d76.271083!3d9.931233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d6e5f5f5b0%3A0x4a4d468f3e5f5b0!2sCochin%2C%20Kerala!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
         }
       ]
     },
@@ -182,28 +231,6 @@ const openingShortlyDB: LocationData = {
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d73.856743!3d18.520430!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c06e5f5f5b0%3A0x4a4d468f3e5f5b0!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
         }
       ],
-      "Navi Mumbai": [
-        {
-          id: "mh-navi-mumbai",
-          name: "Little Dreamers at Cambridge Navi Mumbai",
-          address: "Navi Mumbai, Maharashtra",
-          hours: "Opening Soon",
-          slug: "navi-mumbai",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d73.076543!3d19.033456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c16e5f5f5b0%3A0x4a4d468f3e5f5b0!2sKharghar%2C%20Navi%20Mumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
-        }
-      ]
-    },
-    "Punjab": {
-      "Tarn Taran": [
-        {
-          id: "pb-tarn-taran",
-          name: "Little Dreamers at Cambridge Tarn Taran",
-          address: "Tarn Taran, Punjab",
-          hours: "Opening Soon",
-          slug: "tarn-taran",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.678456834!2d77.106584!3d28.647567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d036e5f5f5b0%3A0x4a4d468f3e5f5b0!2sTagore%20Garden%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin3"
-        }
-      ]
     },
     "Tamil Nadu": {
       "Chennai": [
@@ -217,14 +244,14 @@ const openingShortlyDB: LocationData = {
         }
       ]
     },
-    "West Bengal": {
-      "Bagnan": [
+    "Bhadrak": {
+      "Odisha": [
         {
-          id: "wb-bagnan",
-          name: "Little Dreamers at Cambridge Bagnan",
-          address: "Bagnan, West Bengal",
+          id: "wb-Bhadrak",
+          name: "Little Dreamers at Cambridge Bhadrak",
+          address: "Bhadrak, Odisha",
           hours: "Opening Soon",
-          slug: "bagnan",
+          slug: "bhadrak",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.678456834!2d77.106584!3d28.647567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d036e5f5f5b0%3A0x4a4d468f3e5f5b0!2sTagore%20Garden%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin4"
         }
       ]
@@ -546,11 +573,11 @@ const CentersPage: React.FC = () => {
                               <div className="mt-6 pt-6 border-t-2 border-slate-100 flex items-center justify-between">
                                  <span className="text-sm font-bold text-slate-400">Tap to see map 👉</span>
                                  
-                                 {/* <Link href={`/centers/${center.slug}`}>
+                                 <Link href={`/centers/${center.slug}`}>
                                    <button className="bg-slate-800 hover:bg-black text-white px-6 py-2 rounded-full font-bold text-sm flex items-center gap-2 transition-colors">
                                       Visit Page <ArrowRight className="w-4 h-4" />
                                    </button>
-                                 </Link> */}
+                                 </Link>
                               </div>
                            </motion.div>
                         ))}

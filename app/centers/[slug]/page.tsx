@@ -48,7 +48,7 @@ type CenterDetails = {
   facilities: string[];
   image: string; // Placeholder color class
   theme: string; // Tailwind gradient class
-  status: "Open" | "Opening Soon";
+  status: "Open" | "Opening Soon" | "Admissions Open";
 };
 
 // --- MOCK DATABASE (Matches the data from the Centers List Page) ---
@@ -69,6 +69,95 @@ const centersDB: Record<string, CenterDetails> = {
     image: "bg-teal-200",
     theme: "from-teal-400 via-emerald-400 to-green-400",
     status: "Opening Soon"
+  },
+
+  "kanuru-vijayawada": {
+    name: "Little Dreamers At Cambridge Kanuru",
+    city: "Vijayawada",
+    state: "Andhra Pradesh",
+    address: "D No. 14-11-219, Ashok Nagar, Kanuru, Vijayawada, Andhra Pradesh",
+    phone: "+91 99996 06090",
+    email: "kanuru@littledreamersatcambridge.com",
+    hours: "09:00 AM - 02:00 PM",
+    director: "To Be Announced",
+    description: "Our Kanuru campus in Vijayawada offers a stimulating environment designed to foster curiosity and excellence in early childhood education.",
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.4673392471!2d80.6865!3d16.4882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35fba2683070ff%3A0x671f2515096a60e9!2sAshok%20Nagar%2C%20Kanuru%2C%20Vijayawada!5e0!3m2!1sen!2sin!4v1700000000000",
+
+    facilities: ["Smart Classrooms", "Play Area", "CCTV Surveillance", "Air Conditioned", "Transport"],
+    image: "bg-blue-200",
+    theme: "from-blue-400 via-cyan-400 to-teal-400",
+    status: "Admissions Open"
+  },
+
+  "mohalla-nanaksar-tarn-taran": {
+    name: "Little Dreamers At Cambridge Mohalla Nanaksar",
+    city: "Tarn Taran",
+    state: "Punjab",
+    address: "Rohi Kanda, Mohalla Nanaksar, Amritsar Road, Tarn Taran, Punjab - 143401",
+    phone: "+91 99996 06090",
+    email: "nanaksar@littledreamersatcambridge.com",
+    hours: "09:00 AM - 02:00 PM",
+    director: "To Be Announced",
+    description: "Located on Amritsar Road, our Mohalla Nanaksar center provides a safe and vibrant space for children to begin their learning journey.",
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3408.0825310651!2d74.9185!3d31.4516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39190987f6517953%3A0x868c67c53d105a3e!2sMohalla%20Nanaksar%2C%20Tarn%20Taran!5e0!3m2!1sen!2sin!4v1700000000001", 
+    facilities: ["Activity Hub", "Safe Play Area", "Digital Learning", "Qualified Staff", "Transport"],
+    image: "bg-orange-200",
+    theme: "from-orange-400 via-amber-400 to-yellow-400",
+    status: "Admissions Open"
+  },
+
+  "mallanwala": {
+    name: "Little Dreamers At Cambridge Mallanwala",
+    city: "Ferozepur",
+    state: "Punjab",
+    address: "Ward No. 4, VPO Mallan Wala Khas, Ferozepur, Punjab",
+    phone: "+91 99996 06090",
+    email: "mallanwala@littledreamersatcambridge.com",
+    hours: "09:00 AM - 02:00 PM",
+    director: "To Be Announced",
+    description: "Our Mallanwala center is dedicated to holistic development, offering modern facilities and a child-centric curriculum in Ferozepur.",
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3412.3562!2d74.9452!3d31.1235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3919bb123456789%3A0xabcdef123456789!2sMallanwala%20Khas%2C%20Ferozepur!5e0!3m2!1sen!2sin!4v1700000000002"
+,
+    facilities: ["Montessori Lab", "Outdoor Play", "CCTV", "Art & Craft Studio", "Transport"],
+    image: "bg-rose-200",
+    theme: "from-rose-400 via-pink-400 to-fuchsia-400",
+    status: "Admissions Open"
+  },
+
+  "dugri-phase-2-ludhiana": {
+    name: "Little Dreamers At Cambridge Dugri",
+    city: "Ludhiana",
+    state: "Punjab",
+    address: "H. No. 2005, HIG Flats Road, Dugri Phase 2, Ludhiana (Behind Sat Paul Mittal School), Punjab - 141003",
+    phone: "+91 99996 06090",
+    email: "dugri@littledreamersatcambridge.com",
+    hours: "09:00 AM - 02:00 PM",
+    director: "To Be Announced",
+    description: "Situated in the heart of Dugri, Ludhiana, this center features state-of-the-art infrastructure and specialized zones for creative learning.",
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3424.4371!2d75.8342!3d30.8665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a82643714b9b7%3A0x7d97e20f038f4a13!2sDugri%20Phase%202%2C%20Ludhiana!5e0!3m2!1sen!2sin!4v1700000000003",
+
+    facilities: ["STEAM Lab", "Indoor Gym", "Smart Classrooms", "Library", "Daycare"],
+    image: "bg-indigo-200",
+    theme: "from-indigo-400 via-violet-400 to-purple-400",
+    status: "Admissions Open"
+  },
+
+  "bagnan-west-bengal": {
+    name: "Little Dreamers At Cambridge Bagnan",
+    city: "Bagnan",
+    state: "West Bengal",
+    address: "Village + PO - Agunshi, PS - Bagnan, Dist- Howrah, WB - 711303 (Ground Floor - Paschim Banga Gramin Bank)",
+    phone: "+91 99996 06090",
+    email: "bagnan.agunshi@littledreamersatcambridge.com",
+    hours: "09:00 AM - 02:00 PM",
+    director: "To Be Announced",
+    description: "Our flagship Bagnan center at Agunshi provides a nurturing environment with a focus on interactive play and academic foundations.",
+   mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.2341!2d87.9542!3d22.4665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a029705a3967923%3A0xa97669359e19e07e!2sAgunshi%2C%20Bagnan%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1700000000004"
+,
+    facilities: ["Garden Play Area", "Science Corner", "Secure Campus", "Music Room", "Transport"],
+    image: "bg-emerald-200",
+    theme: "from-emerald-400 via-green-400 to-lime-400",
+    status: "Admissions Open"
   },
   "tagore-garden": {
     name: "Little Dreamers At Cambridge Tagore Garden",
