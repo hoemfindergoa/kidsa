@@ -41,22 +41,6 @@ const offices = [
     border: "border-orange-100",
     mapUrl: "https://www.google.com/maps/search/?api=1&query=D+No.+14-11-219,+Ashok+Nagar,+Kanuru,+Vijayawada,+Andhra+Pradesh+-+520007"
   },
-  {
-    state: "Jammu",
-    address: "Shastri Nagar, Jammu - 180004",
-    color: "bg-sky-50",
-    accent: "text-sky-600",
-    border: "border-sky-100",
-    mapUrl: "https://www.google.com/maps/search/?api=1&query=Shastri+Nagar,+Jammu+-+180004"
-  },
-  {
-    state: "Punjab",
-    address: "Uchi Mangli, Chandigarh Road, Opp. Osho Forge, Ludhiana - 141123",
-    color: "bg-rose-50",
-    accent: "text-rose-600",
-    border: "border-rose-100",
-    mapUrl: "https://www.google.com/maps/search/?api=1&query=Uchi+Mangli,+Chandigarh+Road,+Ludhiana+-+141123"
-  }
 ];
 
 const OurOffices = () => {

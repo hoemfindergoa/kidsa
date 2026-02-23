@@ -73,14 +73,14 @@ type LocationDataOPened = {
 // 1. Admission Open (Currently Empty)
 const admissionOpenDB: LocationDataOPened = {
   "India": {
-    "Andhra Pradesh": {
-      "Vijayawada": [
+    "Telangana": {
+      "Hanamkonda": [
         {
-          id: "ap-kanuru-vijayawada",
-          name: "Little Dreamers at Cambridge Kanuru",
-          address: "D No. 14-11-219, Ashok Nagar, Kanuru, Vijayawada, Andhra Pradesh",
+          id: "ap-kanuru-Hanamkonda",
+          name: "Little Dreamers at Cambridge Hanamkonda",
+          address: "D No. 14-11-219, Ashok Nagar, Kanuru, Hanamkonda, Andhra Pradesh",
           hours: "Admissions Open",
-          slug: "kanuru-vijayawada",
+          slug: "kanuru-Hanamkonda",
           phone: "+91 9999 6060 90",
           mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.4673392471!2d80.6865!3d16.4882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35fba2683070ff%3A0x671f2515096a60e9!2sAshok%20Nagar%2C%20Kanuru%2C%20Vijayawada!5e0!3m2!1sen!2sin!4v1700000000000"
         }
@@ -139,18 +139,6 @@ const admissionOpenDB: LocationDataOPened = {
 // 2. Opening Shortly (Data from Image)
 const openingShortlyDB: LocationData = {
   "India": {
-    "Andhra Pradesh": {
-      "Vijayawada": [
-        {
-          id: "ap-vijayawada",
-          name: "Little Dreamers at Cambridge Vijayawada",
-          address: "Vijayawada, Andhra Pradesh",
-          hours: "Opening Soon",
-          slug: "vijayawada",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.678456834!2d77.106584!3d28.647567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d036e5f5f5b0%3A0x4a4d468f3e5f5b0!2sTagore%20Garden%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin2"
-        }
-      ]
-    },
     "Delhi": {
       "Patel Nagar": [
         {
@@ -244,8 +232,9 @@ const openingShortlyDB: LocationData = {
         }
       ]
     },
-    "Bhadrak": {
-      "Odisha": [
+    
+    "Odisha": {
+      "Bhadrak": [
         {
           id: "wb-Bhadrak",
           name: "Little Dreamers at Cambridge Bhadrak",

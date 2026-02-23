@@ -70,16 +70,16 @@ const centersDB: Record<string, CenterDetails> = {
     status: "Opening Soon"
   },
 
-  "kanuru-vijayawada": {
+  "kanuru-Hanamkonda": {
     name: "Little Dreamers At Cambridge Kanuru",
-    city: "Vijayawada",
-    state: "Andhra Pradesh",
-    address: "D No. 14-11-219, Ashok Nagar, Kanuru, Vijayawada, Andhra Pradesh",
+    city: "Hanamkonda",
+    state: "Telangana",
+    address: "D No. 14-11-219, Ashok Nagar, Kanuru, Hanamkonda, Telangana 506004",
     phone: "+91 99996 06090",
-    email: "kanuru@littledreamersatcambridge.com",
+    email: "Hanamkonda@littledreamersatcambridge.com",
     hours: "09:00 AM - 02:00 PM",
     director: "To Be Announced",
-    description: "Our Kanuru campus in Vijayawada offers a stimulating environment designed to foster curiosity and excellence in early childhood education.",
+    description: "Our Kanuru campus in Hanamkonda offers a stimulating environment designed to foster curiosity and excellence in early childhood education.",
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.4673392471!2d80.6865!3d16.4882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35fba2683070ff%3A0x671f2515096a60e9!2sAshok%20Nagar%2C%20Kanuru%2C%20Vijayawada!5e0!3m2!1sen!2sin!4v1700000000000",
 
     facilities: ["Smart Classrooms", "Play Area", "CCTV Surveillance", "Air Conditioned", "Transport"],
