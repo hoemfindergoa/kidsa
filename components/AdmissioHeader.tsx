@@ -112,7 +112,7 @@ const Admissionheader = () => {
                 transition={{ delay: 0.4 }}
                 className="text-lg lg:text-2xl text-violet-100 font-semibold max-w-xl mx-auto md:mx-0 leading-relaxed mt-6"
             >
-               Admissions are now open for the <span className="text-white font-bold">2025-2026</span> Academic Session.
+               Admissions are now open for the <span className="text-white font-bold">2026-2027</span> Academic Session.
             </motion.p>
         </div>
 
