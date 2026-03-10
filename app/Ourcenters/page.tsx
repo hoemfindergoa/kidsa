@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { createClient } from "@supabase/supabase-js";
 import { 
   Home, 
   ChevronRight, 
@@ -9,15 +10,21 @@ import {
   Phone, 
   Clock, 
   Navigation,
-  Search,
   ArrowRight,
   School,
   Globe,
   Sparkles,
-  Timer
+  Timer,
+  Loader2
 } from "lucide-react";
 import { Titan_One, Nunito } from 'next/font/google';
 import Link from "next/link";
+
+// --- SUPABASE CLIENT ---
+// Note: It's usually best practice to move this to a separate utility file (e.g., lib/supabase.ts)
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // --- FONTS ---
 const titleFont = Titan_One({ 
@@ -40,16 +47,11 @@ type Center = {
   hours: string;
   mapEmbed: string; 
   slug: string;
-};
-
-type Centeropened = {
-  id: string;
-  name: string;
-  address: string;
-  hours: string;
-  mapEmbed: string; 
-  phone: string;
-  slug: string;
+  phone?: string; // Made optional so it works for both types
+  country: string;
+  state: string;
+  city: string;
+  status: 'open' | 'shortly';
 };
 
 type LocationData = {
@@ -58,194 +60,6 @@ type LocationData = {
       [city: string]: Center[];
     };
   };
-};
-
-type LocationDataOPened = {
-  [country: string]: {
-    [state: string]: {
-      [city: string]: Centeropened[];
-    };
-  };
-};
-
-// --- DATASETS ---
-
-// 1. Admission Open (Currently Empty)
-const admissionOpenDB: LocationDataOPened = {
-  "India": {
-    "Telangana": {
-      "Hanamkonda": [
-        {
-          id: "ap-kanuru-Hanamkonda",
-          name: "Little Dreamers at Cambridge Hanamkonda",
-          address: "D No. 14-11-219, Ashok Nagar, Kanuru, Hanamkonda, Andhra Pradesh",
-          hours: "Admissions Open",
-          slug: "kanuru-Hanamkonda",
-          phone: "+91 9999 6060 90",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.4673392471!2d80.6865!3d16.4882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35fba2683070ff%3A0x671f2515096a60e9!2sAshok%20Nagar%2C%20Kanuru%2C%20Vijayawada!5e0!3m2!1sen!2sin!4v1700000000000"
-        }
-      ]
-    },
-    "Punjab": {
-      "Tarn Taran": [
-        {
-          id: "pb-tarn-taran-mohalla",
-          name: "Little Dreamers at Cambridge Mohalla Nanaksar",
-          address: "Rohi Kanda, Mohalla Nanaksar, Amritsar Road, Tarn Taran, Punjab - 143401",
-          hours: "Admissions Open",
-          slug: "mohalla-nanaksar-tarn-taran",
-          phone: "+91 9999 6060 90",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3408.0825310651!2d74.9185!3d31.4516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39190987f6517953%3A0x868c67c53d105a3e!2sMohalla%20Nanaksar%2C%20Tarn%20Taran!5e0!3m2!1sen!2sin!4v1700000000001"
-        }
-      ],
-      "Ferozepur": [
-        {
-          id: "pb-mallanwala",
-          name: "Little Dreamers at Cambridge Mallanwala",
-          address: "Ward No. 4, VPO Mallan Wala Khas, Ferozepur, Punjab",
-          hours: "Admissions Open",
-          slug: "mallanwala",
-          phone: "+91 9999 6060 90",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3412.3562!2d74.9452!3d31.1235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3919bb123456789%3A0xabcdef123456789!2sMallanwala%20Khas%2C%20Ferozepur!5e0!3m2!1sen!2sin!4v1700000000002"
-        }
-      ],
-      "Ludhiana": [
-        {
-          id: "pb-ludhiana-dugri",
-          name: "Little Dreamers at Cambridge Dugri",
-          address: "H. No. 2005, HIG Flats Road, Dugri Phase 2, Ludhiana, Punjab - 141003",
-          hours: "Admissions Open",
-          slug: "dugri-phase-2-ludhiana",
-          phone: "+91 9999 6060 90",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3424.4371!2d75.8342!3d30.8665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a82643714b9b7%3A0x7d97e20f038f4a13!2sDugri%20Phase%202%2C%20Ludhiana!5e0!3m2!1sen!2sin!4v1700000000003"
-        }
-      ]
-    },
-    "West Bengal": {
-      "Bagnan": [
-        {
-          id: "wb-bagnan-agunshi",
-          name: "Little Dreamers at Cambridge Bagnan",
-          address: "Village + PO - Agunshi, PS - Bagnan, District- Howrah, West Bengal - 711303",
-          hours: "Admissions Open",
-          slug: "bagnan-west-bengal",
-          phone: "+91 9999 6060 90",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.2341!2d87.9542!3d22.4665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a029705a3967923%3A0xa97669359e19e07e!2sAgunshi%2C%20Bagnan%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1700000000004"
-        }
-      ]
-    }
-  }
-};
-// 2. Opening Shortly (Data from Image)
-const openingShortlyDB: LocationData = {
-  "India": {
-    "Delhi": {
-      "Patel Nagar": [
-        {
-          id: "dl-patel-nagar",
-          name: "Little Dreamers at Cambridge Patel Nagar",
-          address: "Patel Nagar, Delhi",
-          hours: "Opening Soon",
-          slug: "patel-nagar",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14008.114688942263!2d77.16109965!3d28.64936355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d029c5f402c8b%3A0x4a4d468f3e5f5b0!2sPatel%20Nagar%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
-        }
-      ],
-      "Tagore Garden": [
-        {
-          id: "dl-tagore-garden",
-          name: "Little Dreamers at Cambridge Tagore Garden",
-          address: "Tagore Garden, Delhi",
-          
-          hours: "Opening Soon",
-          slug: "tagore-garden",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.678456834!2d77.106584!3d28.647567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d036e5f5f5b0%3A0x4a4d468f3e5f5b0!2sTagore%20Garden%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
-        }
-      ]
-    },
-    "Haryana": {
-      "Karnal": [
-        {
-          id: "hr-karnal",
-          name: "Little Dreamers at Cambridge Karnal",
-          address: "Karnal, Haryana",
-          hours: "Opening Soon",
-          slug: "karnal",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d76.987654!3d29.685743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e386e5f5f5b0%3A0x4a4d468f3e5f5b0!2sKarnal%2C%20Haryana!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
-        }
-      ],
-    },
-    "Jammu": {
-      "Kathua": [
-        {
-          id: "jm-kathua",
-          name: "Little Dreamers at Cambridge Kathua",
-          address: "Kathua, Jammu",
-          hours: "Opening Soon",
-          slug: "kathua",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d75.512345!3d32.376543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391c786e5f5f5b0%3A0x4a4d468f3e5f5b0!2sKathua%2C%20Jammu!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
-        }
-      ],
-      "Samba": [
-        {
-          id: "jm-samba",
-          name: "Little Dreamers at Cambridge Samba",
-          address: "Samba, Jammu",
-          hours: "Opening Soon",
-          slug: "samba",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d75.123456!3d32.567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391c686e5f5f5b0%3A0x4a4d468f3e5f5b0!2sSamba%2C%20Jammu!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
-        }
-      ]
-    },
-    "Karnataka": {
-      "Bangalore": [
-        {
-          id: "ka-bangalore",
-          name: "Little Dreamers at Cambridge Bangalore",
-          address: "Bangalore, Karnataka",
-          hours: "Opening Soon",
-          slug: "bangalore",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d77.594563!3d12.971598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae166e5f5f5b0%3A0x4a4d468f3e5f5b0!2sBangalore%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
-        }
-      ]
-    },
-    "Maharashtra": {
-      "Pune": [
-        {
-          id: "mh-pune",
-          name: "Little Dreamers at Cambridge Pune",
-          address: "Pune, Maharashtra",
-          hours: "Opening Soon",
-          slug: "pune",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d73.856743!3d18.520430!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c06e5f5f5b0%3A0x4a4d468f3e5f5b0!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
-        }
-      ],
-    },
-    "Tamil Nadu": {
-      "Chennai": [
-        {
-          id: "tn-chennai",
-          name: "Little Dreamers at Cambridge Chennai",
-          address: "Chennai, Tamil Nadu",
-          hours: "Opening Soon",
-          slug: "chennai",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5516.923456789!2d80.270718!3d13.082680!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52656e5f5f5b0%3A0x4a4d468f3e5f5b0!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin"
-        }
-      ]
-    },
-    
-    "Odisha": {
-      "Bhadrak": [
-        {
-          id: "wb-Bhadrak",
-          name: "Little Dreamers at Cambridge Bhadrak",
-          address: "Bhadrak, Odisha",
-          hours: "Opening Soon",
-          slug: "bhadrak",
-          mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.678456834!2d77.106584!3d28.647567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d036e5f5f5b0%3A0x4a4d468f3e5f5b0!2sTagore%20Garden%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1625642432654!5m2!1sen!2sin4"
-        }
-      ]
-    }
-  }
 };
 
 // --- REUSABLE WAVE COMPONENT ---
@@ -296,7 +110,6 @@ const CentersHeader = () => {
         </p>
       </div>
 
-      {/* WAVE: Connects to Section 1 (Teal-50) */}
       <WaveSeparator position="bottom" color="text-teal-50" />
     </header>
   );
@@ -304,9 +117,12 @@ const CentersHeader = () => {
 
 // --- MAIN PAGE COMPONENT ---
 const CentersPage: React.FC = () => {
-  
-  // TAB STATE: 'open' | 'shortly'
-  // Default to 'shortly' since 'open' is empty, or you can default to 'open' to show empty state.
+  // DB States
+  const [admissionOpenDB, setAdmissionOpenDB] = useState<LocationData>({});
+  const [openingShortlyDB, setOpeningShortlyDB] = useState<LocationData>({});
+  const [loading, setLoading] = useState(true);
+
+  // TAB STATE
   const [activeTab, setActiveTab] = useState<'open' | 'shortly'>('shortly');
 
   // Filter States
@@ -321,29 +137,65 @@ const CentersPage: React.FC = () => {
   // Helper to get the correct DB based on tab
   const activeDB = activeTab === 'open' ? admissionOpenDB : openingShortlyDB;
 
+  // --- FETCH DATA FROM SUPABASE ---
+  useEffect(() => {
+    const fetchCenters = async () => {
+      setLoading(true);
+      const { data, error } = await supabase.from('centers').select('*');
+      
+      if (error) {
+        console.error("Error fetching centers:", error);
+        setLoading(false);
+        return;
+      }
+
+      // Transform flat data into nested LocationData objects
+      const openDB: LocationData = {};
+      const shortlyDB: LocationData = {};
+
+      data.forEach((center: Center) => {
+        const targetDB = center.status === 'open' ? openDB : shortlyDB;
+
+        if (!targetDB[center.country]) targetDB[center.country] = {};
+        if (!targetDB[center.country]![center.state]) targetDB[center.country]![center.state] = {};
+        if (!targetDB[center.country]![center.state]![center.city]) targetDB[center.country]![center.state]![center.city] = [];
+
+        const cityArray = targetDB[center.country]![center.state]![center.city];
+        if (cityArray) {
+          cityArray.push(center);
+        }
+      });
+
+      setAdmissionOpenDB(openDB);
+      setOpeningShortlyDB(shortlyDB);
+      setLoading(false);
+    };
+
+    fetchCenters();
+  }, []);
+
   // --- HANDLERS ---
 
-  // 1. Reset Filters when Tab changes
+  // 1. Reset Filters when Tab or Data changes
   useEffect(() => {
-    // If we have data in this tab, select the first available
+    if (loading) return;
+    
     const countries = Object.keys(activeDB);
     if (countries.length > 0) {
-      setSelectedCountry(countries[0]!); // Default to first country (e.g. India)
+      setSelectedCountry(countries[0]!); 
     } else {
-      // Empty DB
       setSelectedCountry("");
       setSelectedState("");
       setSelectedCity("");
       setCenterList([]);
       setActiveCenter(null);
     }
-  }, [activeTab]);
+  }, [activeTab, activeDB, loading]);
 
   // 2. Initial Load & Country Change
   useEffect(() => {
     if (!selectedCountry) return;
 
-    // Default to first available state/city when country changes
     const states = Object.keys(activeDB[selectedCountry] || {});
     if (states.length > 0) {
       const firstState = states[0];
@@ -395,9 +247,6 @@ const CentersPage: React.FC = () => {
       
       <CentersHeader />
 
-      {/* =========================================
-          SECTION: FILTER & LIST (Teal Theme)
-      ========================================= */}
       <section className="relative w-full bg-teal-50 pt-8 pb-32 overflow-hidden">
         
         {/* Background Doodle */}
@@ -444,193 +293,208 @@ const CentersPage: React.FC = () => {
              </div>
            </div>
 
-           {/* --- 3-STEP DROPDOWN FILTER BAR (Only if Data Exists) --- */}
-           {Object.keys(activeDB).length > 0 ? (
-             <div className="max-w-5xl mx-auto mb-16 relative z-20">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white p-6 rounded-[2rem] shadow-xl border-4 border-teal-100">
-                    
-                    {/* 1. Country Dropdown */}
-                    <div className="relative">
-                        <label className="block text-teal-800 font-bold mb-2 ml-2 text-sm uppercase tracking-wide">Country</label>
-                        <div className="relative">
-                            <Globe className="absolute left-4 top-3.5 h-5 w-5 text-teal-500" />
-                            <select 
-                              value={selectedCountry}
-                              onChange={(e) => setSelectedCountry(e.target.value)}
-                              className="block w-full pl-12 pr-10 py-3 text-base border-2 border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200 appearance-none font-bold cursor-pointer transition-all"
-                            >
-                              {Object.keys(activeDB).map((country) => (
-                                  <option key={country} value={country}>{country}</option>
-                              ))}
-                            </select>
-                            <ChevronRight className="absolute right-4 top-3.5 h-5 w-5 text-teal-400 rotate-90 pointer-events-none" />
-                        </div>
-                    </div>
-
-                    {/* 2. State Dropdown */}
-                    <div className="relative">
-                        <label className="block text-teal-800 font-bold mb-2 ml-2 text-sm uppercase tracking-wide">State</label>
-                        <div className="relative">
-                            <MapPin className="absolute left-4 top-3.5 h-5 w-5 text-teal-500" />
-                            <select 
-                              value={selectedState}
-                              onChange={(e) => setSelectedState(e.target.value)}
-                              disabled={!selectedCountry}
-                              className="block w-full pl-12 pr-10 py-3 text-base border-2 border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200 appearance-none font-bold cursor-pointer transition-all disabled:opacity-50"
-                            >
-                              {selectedCountry && Object.keys(activeDB[selectedCountry] || {}).map((state) => (
-                                  <option key={state} value={state}>{state}</option>
-                              ))}
-                            </select>
-                            <ChevronRight className="absolute right-4 top-3.5 h-5 w-5 text-teal-400 rotate-90 pointer-events-none" />
-                        </div>
-                    </div>
-
-                    {/* 3. City Dropdown */}
-                    <div className="relative">
-                        <label className="block text-teal-800 font-bold mb-2 ml-2 text-sm uppercase tracking-wide">City</label>
-                        <div className="relative">
-                            <Navigation className="absolute left-4 top-3.5 h-5 w-5 text-teal-500" />
-                            <select 
-                              value={selectedCity}
-                              onChange={(e) => setSelectedCity(e.target.value)}
-                              disabled={!selectedState}
-                              className="block w-full pl-12 pr-10 py-3 text-base border-2 border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200 appearance-none font-bold cursor-pointer transition-all disabled:opacity-50"
-                            >
-                              {selectedCountry && selectedState && Object.keys(activeDB[selectedCountry]?.[selectedState] || {}).map((city) => (
-                                  <option key={city} value={city}>{city}</option>
-                              ))}
-                            </select>
-                            <ChevronRight className="absolute right-4 top-3.5 h-5 w-5 text-teal-400 rotate-90 pointer-events-none" />
-                        </div>
-                    </div>
-
-                </div>
+           {/* --- LOADING STATE --- */}
+           {loading ? (
+             <div className="flex flex-col items-center justify-center py-20">
+               <Loader2 className="w-12 h-12 text-teal-500 animate-spin mb-4" />
+               <h3 className="text-xl font-bold text-slate-600">Loading centers...</h3>
              </div>
-           ) : null}
-
-
-           {/* --- RESULTS SECTION --- */}
-           {centerList.length > 0 ? (
-               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start h-auto lg:h-[500px]">
-                  
-                  {/* LEFT: SCROLLABLE LIST */}
-                  <div className="flex flex-col gap-6 h-full lg:overflow-y-auto pr-0 lg:pr-4 scrollbar-hide pb-2">
-                     <AnimatePresence mode="wait">
-                        {centerList.map((center, index) => (
-                           <motion.div
-                             key={center.id}
-                             initial={{ opacity: 0, x: -20 }}
-                             animate={{ opacity: 1, x: 0 }}
-                             exit={{ opacity: 0, x: -20 }}
-                             transition={{ delay: index * 0.1 }}
-                             onClick={() => setActiveCenter(center)}
-                             className={`
-                               relative rounded-[2rem] p-8 cursor-pointer transition-all duration-300 border-4
-                               ${activeCenter?.id === center.id 
-                                 ? 'bg-white border-teal-400 shadow-2xl scale-[1.02]' 
-                                 : 'bg-white/60 border-transparent hover:bg-white hover:border-teal-200 hover:shadow-lg'
-                               }
-                             `}
-                           >
-                              <div className="flex items-start justify-between mb-4">
-                                 <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center shrink-0">
-                                    <School className="w-6 h-6 text-teal-600" />
-                                 </div>
-                                 {activeCenter?.id === center.id && (
-                                    <span className="bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                                        Selected
-                                    </span>
-                                 )}
-                              </div>
-
-                              <h3 className={`text-2xl font-black text-slate-800 mb-2 ${titleFont.className}`}>
-                                  {center.name}
-                              </h3>
-                              
-                              <div className="space-y-3 text-slate-600 font-medium">
-                                 <div className="flex items-start gap-2">
-                                    <MapPin className="w-5 h-5 text-teal-500 shrink-0 mt-0.5" />
-                                    <span>{center.address}</span>
-                                 </div>
-                                 <div className="flex items-center gap-2">
-                                    <Clock className="w-5 h-5 text-teal-500 shrink-0" />
-                                    <span>{center.hours}</span>
-                                 </div>
-                              </div>
-
-                              <div className="mt-6 pt-6 border-t-2 border-slate-100 flex items-center justify-between">
-                                 <span className="text-sm font-bold text-slate-400">Tap to see map 👉</span>
-                                 
-                                 <Link href={`/centers/${center.slug}`}>
-                                   <button className="bg-slate-800 hover:bg-black text-white px-6 py-2 rounded-full font-bold text-sm flex items-center gap-2 transition-colors">
-                                      Visit Page <ArrowRight className="w-4 h-4" />
-                                   </button>
-                                 </Link>
-                              </div>
-                           </motion.div>
-                        ))}
-                     </AnimatePresence>
-                  </div>
-
-
-                  {/* RIGHT: STICKY MAP */}
-                  {activeCenter && (
-                      <motion.div 
-                        className="w-full h-[400px] lg:h-full rounded-[3rem] overflow-hidden border-8 border-white shadow-2xl sticky top-10"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        key={activeCenter.id}
-                      >
-                         <iframe 
-                           src={activeCenter.mapEmbed}
-                           width="100%" 
-                           height="100%" 
-                           style={{ border: 0 }} 
-                           allowFullScreen={true} 
-                           loading="lazy" 
-                           referrerPolicy="no-referrer-when-downgrade"
-                           className="grayscale-[20%] hover:grayscale-0 transition-all duration-500"
-                         ></iframe>
-
-                         <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-teal-100">
-                            <h4 className="font-bold text-slate-800 text-lg flex items-center gap-2">
-                               <MapPin className="w-5 h-5 text-rose-500 fill-rose-500" />
-                               {activeCenter.name}
-                            </h4>
-                            <p className="text-slate-500 text-sm pl-7 truncate">{activeCenter.address}</p>
-                         </div>
-                      </motion.div>
-                  )}
-
-               </div>
            ) : (
-               /* EMPTY STATE */
-               <div className="text-center py-20 bg-white/50 rounded-[3rem] border-4 border-dashed border-teal-200">
-                   <div className="w-24 h-24 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                       <School className="w-10 h-10 text-teal-500" />
+             <>
+               {/* --- 3-STEP DROPDOWN FILTER BAR --- */}
+               {Object.keys(activeDB).length > 0 ? (
+                 <div className="max-w-5xl mx-auto mb-16 relative z-20">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white p-6 rounded-[2rem] shadow-xl border-4 border-teal-100">
+                        
+                        {/* 1. Country Dropdown */}
+                        <div className="relative">
+                            <label className="block text-teal-800 font-bold mb-2 ml-2 text-sm uppercase tracking-wide">Country</label>
+                            <div className="relative">
+                                <Globe className="absolute left-4 top-3.5 h-5 w-5 text-teal-500" />
+                                <select 
+                                  value={selectedCountry}
+                                  onChange={(e) => setSelectedCountry(e.target.value)}
+                                  className="block w-full pl-12 pr-10 py-3 text-base border-2 border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200 appearance-none font-bold cursor-pointer transition-all"
+                                >
+                                  {Object.keys(activeDB).map((country) => (
+                                      <option key={country} value={country}>{country}</option>
+                                  ))}
+                                </select>
+                                <ChevronRight className="absolute right-4 top-3.5 h-5 w-5 text-teal-400 rotate-90 pointer-events-none" />
+                            </div>
+                        </div>
+
+                        {/* 2. State Dropdown */}
+                        <div className="relative">
+                            <label className="block text-teal-800 font-bold mb-2 ml-2 text-sm uppercase tracking-wide">State</label>
+                            <div className="relative">
+                                <MapPin className="absolute left-4 top-3.5 h-5 w-5 text-teal-500" />
+                                <select 
+                                  value={selectedState}
+                                  onChange={(e) => setSelectedState(e.target.value)}
+                                  disabled={!selectedCountry}
+                                  className="block w-full pl-12 pr-10 py-3 text-base border-2 border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200 appearance-none font-bold cursor-pointer transition-all disabled:opacity-50"
+                                >
+                                  {selectedCountry && Object.keys(activeDB[selectedCountry] || {}).map((state) => (
+                                      <option key={state} value={state}>{state}</option>
+                                  ))}
+                                </select>
+                                <ChevronRight className="absolute right-4 top-3.5 h-5 w-5 text-teal-400 rotate-90 pointer-events-none" />
+                            </div>
+                        </div>
+
+                        {/* 3. City Dropdown */}
+                        <div className="relative">
+                            <label className="block text-teal-800 font-bold mb-2 ml-2 text-sm uppercase tracking-wide">City</label>
+                            <div className="relative">
+                                <Navigation className="absolute left-4 top-3.5 h-5 w-5 text-teal-500" />
+                                <select 
+                                  value={selectedCity}
+                                  onChange={(e) => setSelectedCity(e.target.value)}
+                                  disabled={!selectedState}
+                                  className="block w-full pl-12 pr-10 py-3 text-base border-2 border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200 appearance-none font-bold cursor-pointer transition-all disabled:opacity-50"
+                                >
+                                  {selectedCountry && selectedState && Object.keys(activeDB[selectedCountry]?.[selectedState] || {}).map((city) => (
+                                      <option key={city} value={city}>{city}</option>
+                                  ))}
+                                </select>
+                                <ChevronRight className="absolute right-4 top-3.5 h-5 w-5 text-teal-400 rotate-90 pointer-events-none" />
+                            </div>
+                        </div>
+
+                    </div>
+                 </div>
+               ) : null}
+
+
+               {/* --- RESULTS SECTION --- */}
+               {centerList.length > 0 ? (
+                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start h-auto lg:h-[500px]">
+                      
+                      {/* LEFT: SCROLLABLE LIST */}
+                      <div className="flex flex-col gap-6 h-full lg:overflow-y-auto pr-0 lg:pr-4 scrollbar-hide pb-2">
+                         <AnimatePresence mode="wait">
+                            {centerList.map((center, index) => (
+                               <motion.div
+                                 key={center.id}
+                                 initial={{ opacity: 0, x: -20 }}
+                                 animate={{ opacity: 1, x: 0 }}
+                                 exit={{ opacity: 0, x: -20 }}
+                                 transition={{ delay: index * 0.1 }}
+                                 onClick={() => setActiveCenter(center)}
+                                 className={`
+                                   relative rounded-[2rem] p-8 cursor-pointer transition-all duration-300 border-4
+                                   ${activeCenter?.id === center.id 
+                                     ? 'bg-white border-teal-400 shadow-2xl scale-[1.02]' 
+                                     : 'bg-white/60 border-transparent hover:bg-white hover:border-teal-200 hover:shadow-lg'
+                                   }
+                                 `}
+                               >
+                                  <div className="flex items-start justify-between mb-4">
+                                     <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center shrink-0">
+                                        <School className="w-6 h-6 text-teal-600" />
+                                     </div>
+                                     {activeCenter?.id === center.id && (
+                                        <span className="bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                           Selected
+                                        </span>
+                                     )}
+                                  </div>
+
+                                  <h3 className={`text-2xl font-black text-slate-800 mb-2 ${titleFont.className}`}>
+                                      {center.name}
+                                  </h3>
+                                  
+                                  <div className="space-y-3 text-slate-600 font-medium">
+                                     <div className="flex items-start gap-2">
+                                        <MapPin className="w-5 h-5 text-teal-500 shrink-0 mt-0.5" />
+                                        <span>{center.address}</span>
+                                     </div>
+                                     <div className="flex items-center gap-2">
+                                        <Clock className="w-5 h-5 text-teal-500 shrink-0" />
+                                        <span>{center.hours}</span>
+                                     </div>
+                                     {center.phone && (
+                                       <div className="flex items-center gap-2">
+                                          <Phone className="w-5 h-5 text-teal-500 shrink-0" />
+                                          <span>{center.phone}</span>
+                                       </div>
+                                     )}
+                                  </div>
+
+                                  <div className="mt-6 pt-6 border-t-2 border-slate-100 flex items-center justify-between">
+                                     <span className="text-sm font-bold text-slate-400">Tap to see map 👉</span>
+                                     
+                                     <Link href={`/centers/${center.slug}`}>
+                                       <button className="bg-slate-800 hover:bg-black text-white px-6 py-2 rounded-full font-bold text-sm flex items-center gap-2 transition-colors">
+                                          Visit Page <ArrowRight className="w-4 h-4" />
+                                       </button>
+                                     </Link>
+                                  </div>
+                               </motion.div>
+                            ))}
+                         </AnimatePresence>
+                      </div>
+
+                      {/* RIGHT: STICKY MAP */}
+                      {activeCenter && (
+                          <motion.div 
+                            className="w-full h-[400px] lg:h-full rounded-[3rem] overflow-hidden border-8 border-white shadow-2xl sticky top-10"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            key={activeCenter.id}
+                          >
+                             <iframe 
+                               src={activeCenter.mapEmbed}
+                               width="100%" 
+                               height="100%" 
+                               style={{ border: 0 }} 
+                               allowFullScreen={true} 
+                               loading="lazy" 
+                               referrerPolicy="no-referrer-when-downgrade"
+                               className="grayscale-[20%] hover:grayscale-0 transition-all duration-500"
+                             ></iframe>
+
+                             <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-teal-100">
+                                <h4 className="font-bold text-slate-800 text-lg flex items-center gap-2">
+                                   <MapPin className="w-5 h-5 text-rose-500 fill-rose-500" />
+                                   {activeCenter.name}
+                                </h4>
+                                <p className="text-slate-500 text-sm pl-7 truncate">{activeCenter.address}</p>
+                             </div>
+                          </motion.div>
+                      )}
+
                    </div>
-                   
-                   {activeTab === 'open' ? (
-                     <>
-                        <h3 className={`text-3xl font-black text-slate-700 mb-2 ${titleFont.className}`}>No Centers Available</h3>
-                        <p className="text-slate-500 text-lg max-w-md mx-auto">
-                          Currently, there are no centers accepting admissions. Please check back later or view our upcoming centers.
-                        </p>
-                        <button 
-                           onClick={() => setActiveTab('shortly')}
-                           className="mt-6 bg-rose-500 text-white px-8 py-3 rounded-xl font-bold hover:bg-rose-600 transition-colors shadow-lg"
-                        >
-                          View Upcoming Centers
-                        </button>
-                     </>
-                   ) : (
-                     <>
-                        <h3 className="text-xl font-bold text-slate-600">No upcoming centers found</h3>
-                        <p className="text-slate-500">Please select a location above to see where we are opening next.</p>
-                     </>
-                   )}
-               </div>
+               ) : (
+                   /* EMPTY STATE */
+                   <div className="text-center py-20 bg-white/50 rounded-[3rem] border-4 border-dashed border-teal-200">
+                       <div className="w-24 h-24 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                           <School className="w-10 h-10 text-teal-500" />
+                       </div>
+                       
+                       {activeTab === 'open' ? (
+                         <>
+                            <h3 className={`text-3xl font-black text-slate-700 mb-2 ${titleFont.className}`}>No Centers Available</h3>
+                            <p className="text-slate-500 text-lg max-w-md mx-auto">
+                              Currently, there are no centers accepting admissions in this area. Please check back later or view our upcoming centers.
+                            </p>
+                            <button 
+                               onClick={() => setActiveTab('shortly')}
+                               className="mt-6 bg-rose-500 text-white px-8 py-3 rounded-xl font-bold hover:bg-rose-600 transition-colors shadow-lg"
+                            >
+                              View Upcoming Centers
+                            </button>
+                         </>
+                       ) : (
+                         <>
+                            <h3 className="text-xl font-bold text-slate-600">No upcoming centers found</h3>
+                            <p className="text-slate-500">We don't have any centers opening shortly in this area yet.</p>
+                         </>
+                       )}
+                   </div>
+               )}
+             </>
            )}
 
         </div>
