@@ -8,6 +8,7 @@ import Homecta from '@/components/HomeCta';
 import Daycare from '@/components/Daycare';
 import Faqsection from '@/components/Faqsection';
 import OurOffices from '@/components/OurOffices';
+import GallerySection from '@/components/Gallery';
 
 export default function Page() {
   return (
@@ -18,8 +19,10 @@ export default function Page() {
         <Daycare/>
               <Programs/>
         <Homecta/>  
+         <GallerySection/>
         <OurOffices/>
       <BlogSection/>
+       
       <Faqsection/>
 
     </div>

@@ -144,13 +144,7 @@ const LittleDreamersBanner = () => {
               </motion.a>
                 </Link>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center justify-center bg-white text-[#3E3431] text-lg py-4 px-10 rounded-full shadow-md hover:shadow-lg border-2 border-white hover:border-[#FCECE6] transition-all duration-300 text-slate-700"
-              >
-                View Programs
-              </motion.button>
+          
             </div>
           </motion.div>
 

@@ -165,14 +165,7 @@ const DayCareHero = () => {
                 </motion.button>
               </Link>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                // CHANGED secondary button hover state
-                className="inline-flex items-center justify-center bg-white text-slate-700 text-lg py-4 px-10 rounded-full shadow-md hover:shadow-lg border-2 border-white hover:border-amber-200 hover:bg-amber-50 transition-all duration-300 w-full sm:w-auto"
-              >
-                View Schedule
-              </motion.button>
+           
             </div>
           </motion.div>
 
