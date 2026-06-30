@@ -65,7 +65,7 @@ export default function AdminUploadPage() {
     setStatus("uploading");
     setMessage(`Uploading ${files.length} images... Please wait.`);
 
-    const tableName = category === "students" ? "studentimages" : "partnersimages";
+    const tableName = category === "students" ? "studentimages" : "partnerimages";
     let successCount = 0;
     let failCount = 0;
 
