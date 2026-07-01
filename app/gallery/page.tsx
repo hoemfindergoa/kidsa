@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Loader2, Camera, Star } from "lucide-react";
+import { Loader2, Camera, Star, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Titan_One, Nunito } from 'next/font/google';
 import { createClient } from "@supabase/supabase-js";
 
@@ -111,6 +111,10 @@ export default function GalleryPage() {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
+  // --- LIGHTBOX STATES ---
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
   // Reset states when clicking a new tab
@@ -126,13 +130,11 @@ export default function GalleryPage() {
   const fetchImages = async (currentPage: number, currentTab: string) => {
     setLoading(true);
     
-    // Pagination logic (0-9, 10-19, etc.)
     const from = currentPage * 10;
     const to = from + 9;
 
-    // Handle Static Local Fallback first
     if (currentTab === "school") {
-      setTimeout(() => { // Simulated network delay for smooth UI
+      setTimeout(() => { 
         const newItems = schoolFrontItems.slice(from, to + 1);
         setImages((prev) => [...prev, ...newItems]);
         if (newItems.length < 10) setHasMore(false);
@@ -141,7 +143,6 @@ export default function GalleryPage() {
       return;
     }
 
-    // Determine correct Supabase table
     const tableName = currentTab === "students" ? "studentimages" : "partnerimages";
 
     try {
@@ -149,14 +150,11 @@ export default function GalleryPage() {
         .from(tableName)
         .select('image_url, format, alt_text')
         .range(from, to); 
-        // Note: Add `.order('created_at', { ascending: false })` if you want newest first!
 
       if (error) throw error;
 
       if (data) {
         setImages((prev) => [...prev, ...data]);
-        
-        // If we get fewer than 10 images back, we hit the end of the DB records
         if (data.length < 10) {
           setHasMore(false);
         }
@@ -168,17 +166,14 @@ export default function GalleryPage() {
     }
   };
 
-  // Trigger fetch when tab OR page changes
   useEffect(() => {
     fetchImages(page, activeTab);
   }, [page, activeTab]);
 
-  // Infinite Scroll Observer setup
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const first = entries[0];
-        // If the loader hits the screen and we aren't loading, grab next page
         if (first?.isIntersecting && hasMore && !loading) {
           setPage((prevPage) => prevPage + 1);
         }
@@ -187,22 +182,60 @@ export default function GalleryPage() {
     );
 
     const currentLoader = loaderRef.current;
-    if (currentLoader) {
-      observer.observe(currentLoader);
-    }
+    if (currentLoader) observer.observe(currentLoader);
 
     return () => {
-      if (currentLoader) {
-        observer.unobserve(currentLoader);
-      }
+      if (currentLoader) observer.unobserve(currentLoader);
     };
   }, [loading, hasMore]);
+
+  // --- LIGHTBOX NAVIGATION LOGIC ---
+  const goToNext = useCallback(() => {
+    if (selectedIndex === null) return;
+    setSelectedIndex((prev) => (prev !== null && prev < images.length - 1 ? prev + 1 : 0));
+  }, [selectedIndex, images.length]);
+
+  const goToPrev = useCallback(() => {
+    if (selectedIndex === null) return;
+    setSelectedIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : images.length - 1));
+  }, [selectedIndex, images.length]);
+
+  const closeLightbox = () => {
+    setSelectedIndex(null);
+    setIsHovered(false);
+  };
+
+  // Keyboard navigation listener
+  useEffect(() => {
+    if (selectedIndex === null) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") goToNext();
+      if (e.key === "ArrowLeft") goToPrev();
+      if (e.key === "Escape") closeLightbox();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedIndex, goToNext, goToPrev]);
+
+  // Autoplay slider logic (pauses when hovered)
+  useEffect(() => {
+    if (selectedIndex === null || isHovered) return;
+    
+    const timer = setInterval(() => {
+      goToNext();
+    }, 3000);
+
+    return () => clearInterval(timer);
+  }, [selectedIndex, isHovered, goToNext]);
+
 
   return (
     <div className={`w-full min-h-screen bg-slate-50 flex flex-col ${bodyFont.className}`}>
       
       {/* =========================================
-          HERO SECTION (Violet Theme)
+          HERO SECTION 
       ========================================= */}
       <section className="relative w-full bg-violet-400 pt-28 pb-32 overflow-hidden">
         {/* Floating Background Doodles */}
@@ -246,7 +279,6 @@ export default function GalleryPage() {
               </button>
             ))}
           </div>
-
         </div>
 
         <WaveSeparator position="bottom" color="text-slate-50" />
@@ -266,8 +298,9 @@ export default function GalleryPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4 }}
               viewport={{ once: true }}
+              onClick={() => setSelectedIndex(index)}
               className={`
-                group relative w-full h-[250px] md:h-[300px] bg-white rounded-3xl p-2 shadow-xl border-4 
+                group relative w-full h-[250px] md:h-[300px] bg-white rounded-3xl p-2 shadow-xl border-4 cursor-pointer
                 ${activeTab === 'students' ? 'border-sky-100 hover:border-sky-300' : 'border-violet-100 hover:border-violet-300'}
                 transition-all duration-300 hover:-translate-y-2 overflow-hidden
               `}
@@ -280,7 +313,11 @@ export default function GalleryPage() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                   <div className="opacity-0 group-hover:opacity-100 bg-white/30 backdrop-blur-sm p-3 rounded-full transition-opacity duration-300">
+                      <Camera className="w-6 h-6 text-white" />
+                   </div>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -311,6 +348,93 @@ export default function GalleryPage() {
         </div>
 
       </section>
+
+      {/* =========================================
+          LIGHTBOX / SLIDER MODAL (WITH COLOR & ANIMATION)
+      ========================================= */}
+      <AnimatePresence>
+        {selectedIndex !== null && images[selectedIndex] && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/95 backdrop-blur-xl overflow-hidden"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            {/* --- Animated Colorful Background Accents --- */}
+            
+            {/* Left Accent (Cool Violet/Cyan) */}
+            <motion.div 
+              animate={{ 
+                opacity: [0.4, 0.7, 0.4],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-0 left-0 w-[30%] h-full bg-gradient-to-r from-violet-600/40 via-cyan-500/10 to-transparent blur-[100px] pointer-events-none"
+            />
+
+            {/* Right Accent (Warm Pink/Amber) */}
+            <motion.div 
+              animate={{ 
+                opacity: [0.4, 0.7, 0.4],
+                scale: [1, 1.3, 1],
+              }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute top-0 right-0 w-[30%] h-full bg-gradient-to-l from-pink-600/40 via-amber-500/10 to-transparent blur-[100px] pointer-events-none"
+            />
+
+            {/* --- Close Button --- */}
+            <button 
+              onClick={closeLightbox} 
+              className="absolute top-6 right-6 p-3 text-white/70 hover:text-white bg-white/5 hover:bg-white/20 border border-white/10 backdrop-blur-md rounded-full transition-all duration-300 z-50 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:rotate-90"
+            >
+              <X size={28} />
+            </button>
+
+            {/* --- Prev Button --- */}
+            <button 
+              onClick={(e) => { e.stopPropagation(); goToPrev(); }}
+              className="absolute left-4 md:left-12 p-3 md:p-5 text-white hover:text-cyan-300 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 rounded-full transition-all duration-300 z-50 group shadow-[0_0_15px_rgba(6,182,212,0.2)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:-translate-x-2"
+            >
+              <ChevronLeft size={36} className="transition-transform group-hover:-translate-x-1" />
+            </button>
+
+            {/* --- Main Zoomed Image --- */}
+            <motion.div 
+              key={selectedIndex}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.3, type: "spring", stiffness: 200, damping: 20 }}
+              className="relative w-[85vw] h-[75vh] max-w-5xl rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10"
+            >
+              <Image
+                src={images[selectedIndex].image_url || images[selectedIndex].src}
+                alt={images[selectedIndex].alt_text || images[selectedIndex].alt || "Zoomed gallery image"}
+                fill
+                className="object-contain bg-black/40 backdrop-blur-sm p-4"
+                sizes="100vw"
+                priority
+              />
+              
+              {/* Image Counter Badge */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-6 py-2 rounded-full border border-white/10 text-white font-bold tracking-widest text-sm shadow-xl">
+                <span className="text-amber-300">{selectedIndex + 1}</span> / {images.length}
+              </div>
+            </motion.div>
+
+            {/* --- Next Button --- */}
+            <button 
+              onClick={(e) => { e.stopPropagation(); goToNext(); }}
+              className="absolute right-4 md:right-12 p-3 md:p-5 text-white hover:text-pink-300 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 rounded-full transition-all duration-300 z-50 group shadow-[0_0_15px_rgba(236,72,153,0.2)] hover:shadow-[0_0_30px_rgba(236,72,153,0.6)] hover:translate-x-2"
+            >
+              <ChevronRight size={36} className="transition-transform group-hover:translate-x-1" />
+            </button>
+
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
