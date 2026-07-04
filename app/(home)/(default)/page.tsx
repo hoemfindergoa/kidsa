@@ -9,6 +9,7 @@ import Daycare from '@/components/Daycare';
 import Faqsection from '@/components/Faqsection';
 import OurOffices from '@/components/OurOffices';
 import GallerySection from '@/components/Gallery';
+import Rewards from '@/components/Reward';
 
 export default function Page() {
   return (
@@ -22,9 +23,8 @@ export default function Page() {
          <GallerySection/>
         <OurOffices/>
       <BlogSection/>
-       
       <Faqsection/>
-
+      <Rewards/>
     </div>
   );
 }

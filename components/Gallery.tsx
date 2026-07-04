@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, Star, Heart } from "lucide-react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Star, Heart, Loader2, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Titan_One, Nunito } from 'next/font/google';
 import Image from "next/image";
 import { createClient } from "@supabase/supabase-js";
@@ -12,15 +12,6 @@ import Link from "next/link";
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-// --- GALLERY IMAGE IMPORTS ---
-import gallery1 from "@/public/gallery1.jpeg";
-import gallery2 from "@/public/gallery9.jpeg";
-import gallery3 from "@/public/gallery3.jpeg";
-import gallery4 from "@/public/gallery6.jpeg";
-import gallery5 from "@/public/gallery5.jpeg";
-import gallery6 from "@/public/gallery4.jpeg";
-import gallery7 from "@/public/gallery7.jpeg";
 
 // --- FONTS ---
 const titleFont = Titan_One({ 
@@ -89,164 +80,146 @@ const WaveSeparator = ({ position }: { position: "top" | "bottom" }) => {
   );
 };
 
-// --- STATIC DATA ---
-const schoolFrontItems = [
-  { src: gallery1, alt: "Kids playing" },
-  { src: gallery2, alt: "Art class" },
-  { src: gallery3, alt: "Outdoor fun" },
-  { src: gallery4, alt: "Reading time" },
-  { src: gallery5, alt: "Group activity" },
-  { src: gallery6, alt: "Music room" },
-  { src: gallery7, alt: "Playground" } 
-];
-
-// Fallback layout if no format is provided
-const getDynamicSpanClass = (index: number) => {
-  const spans = [
-    "md:col-span-2 md:row-span-2", // Large
-    "md:col-span-1 md:row-span-1", // Small
-    "md:col-span-1 md:row-span-1", // Small
-    "md:col-span-1 md:row-span-2", // Tall
-    "md:col-span-1 md:row-span-1", // Small
-    "md:col-span-2 md:row-span-1", // Wide
-    "md:col-span-1 md:row-span-1"  // Small
+// --- GRID SPAN LOGIC (UPDATED FOR SMALLER IMAGES) ---
+const getSpanFromFormat = (format: string | undefined, index: number) => {
+  // A standard image takes 1 column. 
+  // Horizontal takes 2 columns to remain wide. Vertical takes 2 rows to remain tall.
+  if (format === 'H') return "col-span-2 row-span-2";
+  if (format === 'V' || format === 'Y') return "col-span-1 row-span-2";
+  if (format === 'S') return "col-span-2 row-span-3";
+  
+  // Fallback array for missing formats
+  const fallbacks = [
+    "col-span-1 row-span-1", // S
+    "col-span-2 row-span-1", // H
+    "col-span-1 row-span-2", // V
+    "col-span-1 row-span-1", // S
   ];
-  return spans[index % spans.length];
+  return fallbacks[index % fallbacks.length];
 };
 
-// Layout based on Supabase Format Column
-const getSpanFromFormat = (format: string | undefined, index: number) => {
-  if (format === 'H') return "md:col-span-2 md:row-span-1"; // Wide/Horizontal
-  if (format === 'Y' || format === 'V') return "md:col-span-1 md:row-span-2"; // Tall/Vertical
-  return getDynamicSpanClass(index); // Default fallback
+// Array of vibrant border/shadow colors to rotate through
+const frameColors = [
+  "border-pink-400 shadow-[4px_4px_0px_#f472b6] hover:shadow-[8px_8px_0px_#f472b6]", // pink
+  "border-sky-400 shadow-[4px_4px_0px_#38bdf8] hover:shadow-[8px_8px_0px_#38bdf8]",   // sky
+  "border-amber-400 shadow-[4px_4px_0px_#fbbf24] hover:shadow-[8px_8px_0px_#fbbf24]", // amber
+  "border-emerald-400 shadow-[4px_4px_0px_#34d399] hover:shadow-[8px_8px_0px_#34d399]",// emerald
+  "border-violet-400 shadow-[4px_4px_0px_#a78bfa] hover:shadow-[8px_8px_0px_#a78bfa]", // violet
+  "border-rose-400 shadow-[4px_4px_0px_#fb7185] hover:shadow-[8px_8px_0px_#fb7185]",   // rose
+];
+
+const getModalDimensions = (format: string | undefined) => {
+  if (format === 'H') {
+    return "w-[95vw] md:w-[85vw] max-w-5xl h-[50vh] md:h-[70vh]"; // Wide modal
+  }
+  if (format === 'V' || format === 'Y') {
+    return "w-[85vw] md:w-[45vw] max-w-md lg:max-w-lg h-[80vh] md:h-[85vh]"; // Tall modal
+  }
+  return "w-[85vw] md:w-[65vw] max-w-3xl h-[60vh] md:h-[75vh]"; // Standard/Square modal
 };
 
 const SpreadingLoveSection = () => {
   const [activeTab, setActiveTab] = useState("school");
-  
-  // States for API data
-  const [partnerImages, setPartnerImages] = useState<any[]>([]);
-  const [studentImages, setStudentImages] = useState<any[]>([]);
-  
-  // Loading states
-  const [isLoadingPartners, setIsLoadingPartners] = useState(false);
-  const [isLoadingStudents, setIsLoadingStudents] = useState(false);
+  const [images, setImages] = useState<any[]>([]);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
-  // Fetch Supabase Data based on active tab
-  useEffect(() => {
-    // --- Fetch Partners ---
-    if (activeTab === "partners" && partnerImages.length === 0) {
-      const fetchPartnerData = async () => {
-        setIsLoadingPartners(true);
-        try {
-          const { data, error } = await supabase
-            .from('partnerimages')
-            .select('image_url, format, alt_text')
-            .limit(10);
-            
-          if (error) throw error;
-          // Set the data, and NEVER clear it out with a setTimeout!
-          setPartnerImages(data || []);
-        } catch (error) {
-          console.error("Error fetching partner images:", error);
-        } finally {
-          setIsLoadingPartners(false);
-        }
-      };
-      fetchPartnerData();
-    }
+  // --- LIGHTBOX STATES ---
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const loaderRef = useRef<HTMLDivElement | null>(null);
 
-    // --- Fetch Students ---
-    if (activeTab === "students" && studentImages.length === 0) {
-      const fetchStudentData = async () => {
-        setIsLoadingStudents(true);
-        try {
-          const { data, error } = await supabase
-            .from('studentimages')
-            .select('image_url, format, alt_text')
-            .limit(10);
-            
-          if (error) throw error;
-          setStudentImages(data || []);
-        } catch (error) {
-          console.error("Error fetching student images:", error);
-        } finally {
-          setIsLoadingStudents(false);
-        }
-      };
-      fetchStudentData();
-    }
-  }, [activeTab, partnerImages.length, studentImages.length]);
-
-  // Determine which images to show based on the active tab
-  const renderGalleryContent = () => {
-    let currentImages = [];
-    let loading = false;
-    let emptyMessage = "";
-
-    if (activeTab === "school") {
-      currentImages = schoolFrontItems;
-      emptyMessage = "No school images available.";
-    } else if (activeTab === "students") {
-      currentImages = studentImages;
-      loading = isLoadingStudents;
-      emptyMessage = "No student images available yet.";
-    } else if (activeTab === "partners") {
-      currentImages = partnerImages;
-      loading = isLoadingPartners;
-      emptyMessage = "No partner testimonials available yet.";
-    }
-
-    if (loading) {
-      return (
-        <div className="py-24 text-center">
-          <h3 className="text-xl font-bold text-[#3E3431]">Loading images...</h3>
-        </div>
-      );
-    }
-
-    // Enforce the strict 10-image limit for this section
-    const displayImages = currentImages.slice(0, 10);
-
-    if (displayImages.length === 0) {
-      return (
-        <div className="py-24 text-center">
-          <h3 className="text-xl font-bold text-[#3E3431]">{emptyMessage}</h3>
-        </div>
-      );
-    }
-
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-4 md:auto-rows-[320px] gap-4 md:gap-6 mt-10">
-        {displayImages.map((item, index) => (
-          <motion.div
-            key={`${activeTab}-${index}`}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: index * 0.1, duration: 0.4 }}
-            viewport={{ once: true }}
-            className={`
-              relative group overflow-hidden bg-white
-              border-4 border-white shadow-[8px_8px_0px_rgba(0,0,0,0.8)]
-              rounded-none
-              ${getSpanFromFormat(item.format, index)} 
-              min-h-[400px] md:min-h-0
-            `}
-          >
-            <Image 
-              src={item.src || item.image_url || item.url} 
-              alt={item.alt || item.alt_text || `Gallery Image ${index + 1}`}
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            {/* Overlay graphic effect */}
-            <div className="absolute inset-0 bg-amber-500/0 group-hover:bg-amber-500/20 transition-colors duration-300"></div>
-          </motion.div>
-        ))}
-      </div>
-    );
+  const handleTabChange = (newTab: string) => {
+    if (activeTab === newTab) return;
+    setActiveTab(newTab);
+    setImages([]);
+    setPage(0);
+    setHasMore(true);
   };
+
+  const fetchImages = async (currentPage: number, currentTab: string) => {
+    setLoading(true);
+    
+    const from = currentPage * 10;
+    const to = from + 9;
+
+    let tableName = "schoolimages";
+    if (currentTab === "students") tableName = "studentimages";
+    if (currentTab === "partners") tableName = "partnerimages";
+
+    try {
+      const { data, error } = await supabase
+        .from(tableName)
+        .select('image_url, format, alt_text')
+        .range(from, to); 
+
+      if (error) throw error;
+
+      if (data) {
+        setImages((prev) => [...prev, ...data]);
+        if (data.length < 10) {
+          setHasMore(false);
+        }
+      }
+    } catch (error) {
+      console.error(`Error fetching ${tableName}:`, error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchImages(page, activeTab);
+  }, [page, activeTab]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const first = entries[0];
+        if (first?.isIntersecting && hasMore && !loading) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const currentLoader = loaderRef.current;
+    if (currentLoader) observer.observe(currentLoader);
+
+    return () => {
+      if (currentLoader) observer.unobserve(currentLoader);
+    };
+  }, [loading, hasMore]);
+
+  const goToNext = useCallback(() => {
+    if (selectedIndex === null) return;
+    setSelectedIndex((prev) => (prev !== null && prev < images.length - 1 ? prev + 1 : 0));
+  }, [selectedIndex, images.length]);
+
+  const goToPrev = useCallback(() => {
+    if (selectedIndex === null) return;
+    setSelectedIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : images.length - 1));
+  }, [selectedIndex, images.length]);
+
+  const closeLightbox = () => {
+    setSelectedIndex(null);
+  };
+
+  useEffect(() => {
+    if (selectedIndex === null) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") goToNext();
+      if (e.key === "ArrowLeft") goToPrev();
+      if (e.key === "Escape") closeLightbox();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedIndex, goToNext, goToPrev]);
+
+  // Safely grab the current image for the lightbox to fix TS errors
+  const currentImage = selectedIndex !== null ? images[selectedIndex] : null;
 
   return (
     <section className={`relative w-full bg-sky-400 pt-28 pb-32 overflow-hidden ${bodyFont.className}`}>
@@ -263,7 +236,7 @@ const SpreadingLoveSection = () => {
          </motion.div>
       </div>
 
-      <div className="md:mx-44 mx-4 mb-12 px-6 relative z-10">
+      <div className="md:mx-20 lg:mx-32 xl:mx-44 mx-4 mb-12 px-2 md:px-6 relative z-10">
         <div className="mt-10 text-center">
           
             <h2 className={`${titleFont.className} text-5xl md:text-6xl leading-tight mb-12`}>
@@ -285,10 +258,10 @@ const SpreadingLoveSection = () => {
               ].map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => handleTabChange(tab.id)}
                   className={`
                     px-6 py-3 font-bold uppercase tracking-wider text-sm transition-all duration-200 
-                    border-2 rounded-none
+                    border-2 rounded-full
                     ${activeTab === tab.id 
                       ? 'bg-amber-300 border-black text-black shadow-[4px_4px_0px_rgba(0,0,0,1)] translate-y-[-2px]' 
                       : 'bg-white border-transparent text-slate-700 hover:border-black hover:shadow-[4px_4px_0px_rgba(0,0,0,0.2)]'
@@ -300,21 +273,132 @@ const SpreadingLoveSection = () => {
               ))}
             </div>
 
-            {/* --- GALLERY GRID CONTENT --- */}
-            {renderGalleryContent()}
-
-            {/* View More Button */}
-            <Link href="/gallery">
-            <div className="mt-16 flex justify-center">
-               <button className="flex items-center gap-2 bg-white px-8 py-4 font-extrabold uppercase tracking-wide text-[#3E3431] border-4 border-black shadow-[6px_6px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] transition-all">
-                  View Full Gallery <ArrowRight className="w-5 h-5" />
-               </button>
+            {/* --- GALLERY GRID CONTENT (6 columns on large screens) --- */}
+            <div className="grid grid-cols-2 sm:grid-cols-3  md:grid-cols-5 lg:grid-cols-6 auto-rows-[100px] sm:auto-rows-[120px] md:auto-rows-[140px] gap-3 md:gap-5 mt-10">
+              {images.map((item, index) => (
+                <motion.div
+                  key={`${activeTab}-${index}`}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: (index % 10) * 0.05, duration: 0.3 }}
+                  viewport={{ once: true }}
+                  onClick={() => setSelectedIndex(index)}
+                  className={`
+                    relative group bg-white cursor-pointer
+                    border-[3px] md:border-[4px] ${frameColors[index % frameColors.length]?.split(" ")[0]}
+                    rounded-3xl z-10 hover:z-50 hover:scale-105 
+                    ${frameColors[index % frameColors.length]?.substring((frameColors[index % frameColors.length]?.indexOf("shadow") ?? 0))}
+                    transition-all duration-300 overflow-hidden
+                    ${getSpanFromFormat(item.format, index)} 
+                  `}
+                >
+                  <Image 
+                    src={item.image_url || item.src || item.url} 
+                    alt={item.alt_text || item.alt || `Gallery Image ${index + 1}`}
+                    fill
+                    className="object-cover  transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 14vw"
+                  />
+                  <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300"></div>
+                </motion.div>
+              ))}
             </div>
-            </Link>
+
+            {/* --- INFINITE SCROLL LOADER TARGET --- */}
+            <div ref={loaderRef} className="w-full py-12 flex flex-col items-center justify-center min-h-[100px]">
+              {loading && (
+                <div className="flex flex-col items-center text-[#3E3431] font-bold gap-3">
+                  <Loader2 className="w-10 h-10 animate-spin text-[#3E3431]" />
+                  <span>Loading more {activeTab}...</span>
+                </div>
+              )}
+              
+              {!loading && !hasMore && images.length > 0 && (
+                <div className="bg-amber-100 text-amber-900 px-6 py-3 rounded-full font-bold flex items-center gap-2 border-2 border-amber-300 shadow-sm mt-8">
+                  <Star className="w-5 h-5" fill="currentColor" />
+                  You've seen all the {activeTab} images!
+                  <Star className="w-5 h-5" fill="currentColor" />
+                </div>
+              )}
+
+              {!loading && images.length === 0 && (
+                <div className="text-[#3E3431] font-bold text-lg mt-8 bg-white/50 py-3 px-6 rounded-full inline-block backdrop-blur-sm">
+                  No images found for this category yet.
+                </div>
+              )}
+            </div>
         </div>
       </div>
 
       <WaveSeparator position="bottom" />
+
+      {/* =========================================
+          DYNAMIC LIGHTBOX / SLIDER MODAL
+      ========================================= */}
+      <AnimatePresence>
+        {currentImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/30 backdrop-blur-sm overflow-hidden"
+            onClick={closeLightbox}
+          >
+            {/* --- Close Button --- */}
+            <button 
+              onClick={closeLightbox} 
+              className="absolute top-6 right-6 p-3 text-black hover:text-red-500 bg-white hover:bg-white border-2 border-black rounded-full transition-all duration-300 z-[110] shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+            >
+              <X size={28} />
+            </button>
+
+            {/* --- Prev Button --- */}
+            <button 
+              onClick={(e) => { e.stopPropagation(); goToPrev(); }}
+              className="absolute left-4 md:left-8 lg:left-12 p-3 md:p-4 text-black bg-white hover:bg-amber-300 border-2 border-black rounded-full transition-all duration-300 z-[110] shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+            >
+              <ChevronLeft size={36} />
+            </button>
+
+            {/* --- Main Zoomed Image --- */}
+            <motion.div 
+              key={selectedIndex}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.3, type: "spring", stiffness: 200, damping: 20 }}
+              onClick={(e) => e.stopPropagation()} 
+              className={`
+                relative bg-white p-2 rounded-[2rem] 
+                shadow-[12px_12px_0px_rgba(0,0,0,1)] border-4 border-black 
+                flex flex-col transition-all duration-300
+                ${getModalDimensions(currentImage?.format)}
+              `}
+            >
+              <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden">
+                <Image
+                  src={currentImage?.image_url || currentImage?.src || currentImage?.url}
+                  alt={currentImage?.alt_text || currentImage?.alt || "Zoomed gallery image"}
+                  fill
+                  className="object-cover md:object-contain bg-slate-100"
+                  sizes="100vw"
+                  priority
+                />
+              </div>
+            </motion.div>
+
+            {/* --- Next Button --- */}
+            <button 
+              onClick={(e) => { e.stopPropagation(); goToNext(); }}
+              className="absolute right-4 md:right-8 lg:right-12 p-3 md:p-4 text-black bg-white hover:bg-amber-300 border-2 border-black rounded-full transition-all duration-300 z-[110] shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+            >
+              <ChevronRight size={36} />
+            </button>
+
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </section>
   );
 };

@@ -65,7 +65,11 @@ export default function AdminUploadPage() {
     setStatus("uploading");
     setMessage(`Uploading ${files.length} images... Please wait.`);
 
-    const tableName = category === "students" ? "studentimages" : "partnerimages";
+    // Determine target table based on category
+    let tableName = "studentimages";
+    if (category === "partners") tableName = "partnerimages";
+    if (category === "school") tableName = "schoolimages";
+
     let successCount = 0;
     let failCount = 0;
 
@@ -172,8 +176,9 @@ export default function AdminUploadPage() {
                   disabled={status === "uploading"}
                   className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl py-3 px-4 text-slate-700 focus:outline-none focus:border-violet-500 transition-colors cursor-pointer"
                 >
+                  <option value="school">School Front (schoolimages table)</option>
                   <option value="students">Students (studentimages table)</option>
-                  <option value="partners">Testimonials (partnersimages table)</option>
+                  <option value="partners">Testimonials (partnerimages table)</option>
                 </select>
               </div>
 
