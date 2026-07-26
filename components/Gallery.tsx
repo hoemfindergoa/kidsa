@@ -252,7 +252,7 @@ const SpreadingLoveSection = () => {
             {/* --- TAB NAVIGATION --- */}
             <div className="flex flex-wrap justify-center gap-4 mb-12">
               {[
-                { id: 'school', label: 'School Front' },
+                { id: 'school', label: 'School Images' },
                 { id: 'students', label: 'Students' },
                 { id: 'partners', label: 'Testimonials' }
               ].map((tab) => (

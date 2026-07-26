@@ -41,6 +41,14 @@ const offices = [
     border: "border-orange-100",
     mapUrl: "https://www.google.com/maps/search/?api=1&query=D+No.+14-11-219,+Ashok+Nagar,+Kanuru,+Vijayawada,+Andhra+Pradesh+-+520007"
   },
+   {
+    state: "Madhya Pradesh",
+    address: "B Block - 601, Leeds Enclave, Airport Rorad, HL Link City, Indore, Madhya Pradesh - 452005",
+    color: "bg-blue-50",
+    accent: "text-blue-600",
+    border: "border-blue-100",
+    mapUrl: "https://www.google.com/maps/search/?api=1&query=B+Block+-+601,+Leeds+Enclave,+Airport+Rorad,+HL+Link+City,+Indore,+Madhya+Pradesh+-+452005"
+  },
 ];
 
 const OurOffices = () => {
@@ -78,7 +86,7 @@ const OurOffices = () => {
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {offices.map((office, index) => (
             <motion.div
               key={office.state}
@@ -108,7 +116,7 @@ const OurOffices = () => {
                 </div>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-slate-200/50">
+              {/* <div className="mt-8 pt-6 border-t border-slate-200/50">
                 <div className={`text-sm font-extrabold uppercase tracking-wider flex items-center gap-2 ${office.accent}`}>
                   Get Directions
                   <motion.div 
@@ -119,7 +127,7 @@ const OurOffices = () => {
                     →
                   </motion.div>
                 </div>
-              </div>
+              </div> */}
             </motion.div>
           ))}
         </div>

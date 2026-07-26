@@ -92,6 +92,15 @@ const recognitionData = [
     date: "Learning & Care",
     tag: "Learning and Care",
     cardColor: "bg-amber-300",
+  },
+  {
+    id: 3,
+    title: "Excellence AND Leadership Award 2026",
+    description: "This award recognizes our school's commitment to excellence in education and leadership. It celebrates the dedication of our staff, the achievements of our students, and the support of our parents in fostering a thriving learning environment.",
+    image: "https://jwybnvsiiwfhqolmgtgi.supabase.co/storage/v1/object/public/Schoolimages/certificate3.png",
+    date: "Excellence AND Leadership",
+    tag: "Leadership",
+    cardColor: "bg-rose-300",
   }
 ];
 
