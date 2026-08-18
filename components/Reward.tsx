@@ -101,6 +101,15 @@ const recognitionData = [
     date: "Excellence AND Leadership",
     tag: "Leadership",
     cardColor: "bg-rose-300",
+  },
+   {
+    id: 4,
+    title: "TRUSTED PRESCHOOL BRAND",
+    description: "The trusted preschool brand, recognized for excellence in early childhood education.",
+    image: "https://jwybnvsiiwfhqolmgtgi.supabase.co/storage/v1/object/public/Schoolimages/certificate4.png",
+    date: "Trusted Preschool",
+    tag: "Trusted Preschool",
+    cardColor: "bg-purple-300",
   }
 ];
 
