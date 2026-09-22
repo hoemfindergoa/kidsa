@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner"
 import Navbar from './navbar/navbar';
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import logo from '../public/logo.png';
+import { GoogleTagManager } from '@next/third-parties/google';
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : 'http://localhost:3000'
@@ -98,31 +99,42 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en"  suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
-     {/* <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script> */}
-     <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='' />
-<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet"/>
+        {/* <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script> */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='' />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <Navbar/>
+        <GoogleTagManager gtmId="AW-17825669915" />
+        <Navbar />
 
         <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <main className=''>
-              <Analytics/>
-              <SpeedInsights/>
-            </main>
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main className=''>
+            <Analytics />
+            <SpeedInsights />
+          </main>
+          {/* Meta Pixel Fallback */}
+          {/* <noscript>
+            <img
+              height="1"
+              width="1"
+              style={{ display: "none" }}
+              src="https://www.facebook.com/tr?id=1087526939518742&ev=PageView&noscript=1"
+              alt=""
+            />
+          </noscript> */}
           {children}
-          </ThemeProvider>
-          <Toaster />
-          <Footer />
-          {/* <Sessioprovider/> */}
+        </ThemeProvider>
+        <Toaster />
+        <Footer />
+        {/* <Sessioprovider/> */}
 
       </body>
     </html>
