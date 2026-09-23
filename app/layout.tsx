@@ -6,7 +6,6 @@ import { Toaster } from "@/components/ui/sonner"
 import Navbar from './navbar/navbar';
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import logo from '../public/logo.png';
-import { GoogleTagManager } from '@next/third-parties/google';
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : 'http://localhost:3000'
@@ -101,13 +100,25 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17825669915"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'AW-17825669915');
+            `,
+          }}
+        />
         {/* <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script> */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='' />
         <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <GoogleTagManager gtmId="AW-17825669915" />
         <Navbar />
 
         <ThemeProvider
